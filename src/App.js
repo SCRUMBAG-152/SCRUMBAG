@@ -1,8 +1,10 @@
-import React, {
-  Component
-} from "react";
+import React, { Component } from "react";
 import Column from "./Component/Column"
 import "./App.css";
+import firebase from "firebase/app";
+import 'firebase/database';
+import { DB_CONFIG } from "./Config/Firebase/db_config";
+
 
 const DIRECTION_LEFT = -1;
 const DIRECTION_RIGHT = 1;
@@ -10,6 +12,8 @@ const DIRECTION_RIGHT = 1;
 class App extends Component {
   constructor(props) {
     super(props);
+    this.app = firebase.initializeApp(DB_CONFIG);
+    this.database = this.app.database().ref().child('cards')
     this.state = {
       columns: [{
           name: "Backlog",
@@ -64,8 +68,8 @@ class App extends Component {
   }
 
   render() {
-    return ( <
-      div className = "App" > {
+    return ( 
+      <div className = "App" > {
         this.state.columns.map((column, columnIndex) => ( <
           Column column = {
             column
@@ -87,8 +91,7 @@ class App extends Component {
           }
           />
         ))
-      } <
-      /div>
+      } </div>
     );
   }
 }
