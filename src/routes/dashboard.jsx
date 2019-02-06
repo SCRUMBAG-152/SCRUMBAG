@@ -17,6 +17,7 @@ import Image from "@material-ui/icons/Image";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import Timeline from "@material-ui/icons/Timeline";
 import DateRange from "@material-ui/icons/DateRange";
+import Assignment from "@material-ui/icons/Assignment"
 
 var pages = [
   {
@@ -76,7 +77,7 @@ var dashRoutes = [
       { path: "/projects/wizard", name: "Wizard", mini: "W", component: Wizard }
     ]
   },
-  { path: "/boards", name: "Boards", icon: Timeline, component: Boards },
+  { path: "/boards", name: "Boards", icon: Assignment, component: Boards },
   { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
   { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
