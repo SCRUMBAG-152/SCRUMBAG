@@ -12,7 +12,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-import avatar from "assets/img/faces/avatar.jpg";
+import avatar from "assets/img/default-avatar.png";
 
 import lockScreenPageStyle from "assets/jss/material-dashboard-pro-react/views/lockScreenPageStyle.jsx";
 
@@ -54,7 +54,7 @@ class LockScreenPage extends React.Component {
               </a>
             </CardAvatar>
             <CardBody profile>
-              <h4 className={classes.cardTitle}>Tania Andrew</h4>
+              <h4 className={classes.cardTitle}>Thien Nguyen</h4>
               <CustomInput
                 labelText="Enter Password"
                 id="company-disabled"

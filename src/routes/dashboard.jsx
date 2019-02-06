@@ -7,6 +7,7 @@ import Charts from "views/Charts/Charts.jsx";
 import Calendar from "views/Calendar/Calendar.jsx";
 import UserProfile from "views/Pages/UserProfile.jsx";
 import TimelinePage from "views/Pages/Timeline.jsx";
+import Boards from "../views/Boards/Boards.jsx"
 
 import pagesRoutes from "./pages.jsx";
 
@@ -75,6 +76,7 @@ var dashRoutes = [
       { path: "/projects/wizard", name: "Wizard", mini: "W", component: Wizard }
     ]
   },
+  { path: "/boards", name: "Boards", icon: Timeline, component: Boards },
   { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
   { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }

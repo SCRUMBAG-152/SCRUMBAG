@@ -13,7 +13,8 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 // import ContentCopy from "@material-ui/icons/ContentCopy";
 // import InfoOutline from "@material-ui/icons/InfoOutline";
-import Warning from "@material-ui/icons/Warning";
+// import Danger from "components/Typography/Danger.jsx";
+// import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
@@ -30,7 +31,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Table from "components/Table/Table.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
@@ -552,7 +552,7 @@ class Dashboard extends React.Component {
                   </Tooltip>
                 </div>
                 <h4 className={classes.cardProductTitle}>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
+                  <a href="#" onClick={e => e.preventDefault()}>
                     Scrumble
                   </a>
                 </h4>
@@ -562,7 +562,7 @@ class Dashboard extends React.Component {
               </CardBody>
               <CardFooter product>
                 <div className={classes.price}>
-                  <h4>Fresno Illest</h4>
+                  <h4>ScrumBag</h4>
                 </div>
                 <div className={`${classes.stats} ${classes.productStats}`}>
                   <Place /> Fresno, CA
