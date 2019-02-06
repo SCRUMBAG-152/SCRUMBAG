@@ -27,15 +27,39 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
+import fire from "config/Fire.jsx"
+
 
 class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: []
+      checked: [],
+      email: "",
+      password: ""
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
+
+  //handles new user signing in
+  signUp(e) {
+    e.preventDefault();
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+      console.log(u);
+    }).catch((error) => {   //if an error occurs, alert user of the error
+      window.alert(error);
+    });
+  }
+
+  //handle changes from email and password
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   handleToggle(value) {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
@@ -115,12 +139,16 @@ class RegisterPage extends React.Component {
                           placeholder: "First Name..."
                         }}
                       />
+                      {/*Handles input for Email */}
                       <CustomInput
+                        value={this.state.email}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
+                          name: "email",
+                          onChange: this.handleChange,
                           startAdornment: (
                             <InputAdornment
                               position="start"
@@ -132,12 +160,16 @@ class RegisterPage extends React.Component {
                           placeholder: "Email..."
                         }}
                       />
+                      {/*Handles input for Password */}
                       <CustomInput
+                        value={this.state.password}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
+                          name: "password",
+                          onChange: this.handleChange,
                           startAdornment: (
                             <InputAdornment
                               position="start"
@@ -178,7 +210,7 @@ class RegisterPage extends React.Component {
                         }
                       />
                       <div className={classes.center}>
-                        <Button round color="primary">
+                        <Button onClick={this.signUp} round color="primary">
                           Get started
                         </Button>
                       </div>

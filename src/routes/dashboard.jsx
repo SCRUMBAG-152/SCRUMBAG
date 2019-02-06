@@ -19,6 +19,9 @@ import Timeline from "@material-ui/icons/Timeline";
 import DateRange from "@material-ui/icons/DateRange";
 import Assignment from "@material-ui/icons/Assignment"
 
+import fire from "config/Fire"
+
+
 var pages = [
   {
     path: "/timeline-page",
