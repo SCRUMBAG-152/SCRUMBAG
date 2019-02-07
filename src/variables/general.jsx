@@ -12,6 +12,11 @@ import CustomDropdown from 'components/CustomDropdown/CustomDropdown.jsx'
 import fire from '../config/Fire'
 
 // ##############################
+// All data will be passed from this file to the file that will display it.
+// the database calls will be placed here and then used in other places.
+// ##############################
+
+// ##############################
 // // // stories for RTLSupport view
 // #############################
 
