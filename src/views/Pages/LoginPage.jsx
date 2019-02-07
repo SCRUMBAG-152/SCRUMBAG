@@ -40,7 +40,7 @@ class LoginPage extends React.Component {
   login(e) {
     e.preventDefault();
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-      console.log("logged in");
+      console.log("logged in"); 
     }).catch((error) => {   //if an error occurs, alert user of the error
       window.alert(error);
     });
@@ -113,6 +113,8 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
+
                   <CustomInput
                     value={this.state.email}
                     labelText="Email..."
@@ -129,6 +131,24 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
+                  <CustomInput
+                    value={this.state.email}
+                    labelText="Company Code"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      onChange: this.handleChange,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Email className={classes.inputAdornmentIcon} />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+
+
                   <CustomInput
                     value={this.state.password}
                     labelText="Password"
@@ -147,6 +167,7 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
                   <Button onClick={this.login} color="rose" simple size="lg" block>

@@ -122,6 +122,7 @@ class RegisterPage extends React.Component {
                       <h4 className={classes.socialTitle}>or be classical</h4>
                     </div>
                     <form className={classes.form}>
+                  
                       <CustomInput
                         formControlProps={{
                           fullWidth: true,
@@ -139,6 +140,25 @@ class RegisterPage extends React.Component {
                           placeholder: "First Name..."
                         }}
                       />
+                    
+                      <CustomInput
+                        formControlProps={{
+                          fullWidth: true,
+                          className: classes.customFormControlClasses
+                        }}
+                        inputProps={{
+                          startAdornment: (
+                            <InputAdornment
+                              position="start"
+                              className={classes.inputAdornment}
+                            >
+                              <Email className={classes.inputAdornmentIcon} />
+                            </InputAdornment>
+                          ),
+                          placeholder: "Company Code..."
+                        }}
+                      />
+                     
                       {/*Handles input for Email */}
                       <CustomInput
                         value={this.state.email}
@@ -160,6 +180,8 @@ class RegisterPage extends React.Component {
                           placeholder: "Email..."
                         }}
                       />
+
+
                       {/*Handles input for Password */}
                       <CustomInput
                         value={this.state.password}
