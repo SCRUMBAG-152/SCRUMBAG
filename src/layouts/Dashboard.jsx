@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import PerfectScrollbar from 'perfect-scrollbar' // creates a beautiful scrollbar
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
+import fire from 'config/Fire.jsx' // firebase
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
