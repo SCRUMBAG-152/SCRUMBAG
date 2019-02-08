@@ -28,6 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
 import fire from "config/Fire.jsx"
+import { db } from "config/Fire.jsx"
 
 
 class RegisterPage extends React.Component {
@@ -41,13 +42,34 @@ class RegisterPage extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signUp = this.signUp.bind(this);
+    this.getEmp = this.getEmp.bind(this);
+    this.updateEmp = this.updateEmp.bind(this);
+  }
+
+  //get employees in project
+  getEmp() {
+    db.doc('Companies/Company 1/Projects/Project 1/Employees/InProject').get().then((snapshot) => {
+      this.updateEmp(snapshot.data().uid);  //passes in array of current employees in project
+    }).catch((error) => {   //if an error occurs, alert user of the error
+      window.alert(error);
+    });
+  }
+
+  //update current employees in project
+  updateEmp(employees) {
+    employees.push(fire.auth().currentUser.uid);  //push new employees uid to old list
+    db.doc('Companies/Company 1/Projects/Project 1/Employees/InProject').update({
+      uid: employees,   //updates field uid to include new employee
+    }).catch((error) => {   //if an error occurs, alert user of the error
+      window.alert(error);
+    });
   }
 
   //handles new user signing in
   signUp(e) {
     e.preventDefault();
     fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-      console.log(u);
+      this.getEmp();  //get the current employees in project then update
     }).catch((error) => {   //if an error occurs, alert user of the error
       window.alert(error);
     });
@@ -122,7 +144,7 @@ class RegisterPage extends React.Component {
                       <h4 className={classes.socialTitle}>or be classical</h4>
                     </div>
                     <form className={classes.form}>
-                  
+
                       <CustomInput
                         formControlProps={{
                           fullWidth: true,
@@ -140,7 +162,7 @@ class RegisterPage extends React.Component {
                           placeholder: "First Name..."
                         }}
                       />
-                    
+
                       <CustomInput
                         formControlProps={{
                           fullWidth: true,
@@ -158,7 +180,7 @@ class RegisterPage extends React.Component {
                           placeholder: "Company Code..."
                         }}
                       />
-                     
+
                       {/*Handles input for Email */}
                       <CustomInput
                         value={this.state.email}

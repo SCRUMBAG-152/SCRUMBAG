@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import firestore from 'firebase/firestore'
 
 const config = {
   apiKey: 'AIzaSyDbyrEsiJo1bgU18nIByfTgclLgkliWldw', // unique security key, the main server has the same one to decode/encode data.
@@ -10,3 +11,11 @@ const config = {
 }
 const fire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
 export default fire // allow other files in the project to be able to access the information.
+export const db = firebase.firestore(); //allow other files to reference the database
+export const persistence = fire.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    // User is signed in.
+  } else {
+    // No user is signed in.
+  }
+});

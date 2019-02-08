@@ -40,7 +40,7 @@ class LoginPage extends React.Component {
   login(e) {
     e.preventDefault();
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-      console.log("logged in"); 
+      console.log("logged in");
     }).catch((error) => {   //if an error occurs, alert user of the error
       window.alert(error);
     });
