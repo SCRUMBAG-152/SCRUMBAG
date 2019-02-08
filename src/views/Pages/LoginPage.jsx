@@ -22,19 +22,41 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
+import fire from "config/Fire.jsx"
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+      cardAnimaton: "cardHidden",
+      email: "",
+      password: "",
     };
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  login(e) {
+    e.preventDefault();
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+      console.log("logged in"); 
+    }).catch((error) => {   //if an error occurs, alert user of the error
+      window.alert(error);
+    });
+  }
+
+  //handle changes from email and password
+  handleChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  }
+
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     this.timeOutFunction = setTimeout(
-      function() {
+      function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       700
@@ -91,13 +113,17 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
+
                   <CustomInput
+                    value={this.state.email}
                     labelText="Email..."
                     id="email"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
+                      onChange: this.handleChange,
                       endAdornment: (
                         <InputAdornment position="end">
                           <Email className={classes.inputAdornmentIcon} />
@@ -105,13 +131,33 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
                   <CustomInput
+                    value={this.state.email}
+                    labelText="Company Code"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      onChange: this.handleChange,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Email className={classes.inputAdornmentIcon} />
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+
+
+                  <CustomInput
+                    value={this.state.password}
                     labelText="Password"
                     id="password"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
+                      onChange: this.handleChange,
                       endAdornment: (
                         <InputAdornment position="end">
                           <Icon className={classes.inputAdornmentIcon}>
@@ -121,9 +167,10 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
+
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
-                  <Button color="rose" simple size="lg" block>
+                  <Button onClick={this.login} color="rose" simple size="lg" block>
                     Let's Go
                   </Button>
                 </CardFooter>
