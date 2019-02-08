@@ -1,3 +1,4 @@
+import app from 'firebase/app';
 import firebase from 'firebase'
 
 const config = {
@@ -8,5 +9,7 @@ const config = {
   storageBucket: 'scrumbag-98898.appspot.com', // no clue
   messagingSenderId: '395258338688' // no clue
 }
-const fire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
+firebase.initializeApp(config) // create a variable for short hand ReferenceError.
+const fire = firebase.firestore()
+fire.settings({ timestampsInSnapshots: true });
 export default fire // allow other files in the project to be able to access the information.

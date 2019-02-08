@@ -77,7 +77,7 @@ var mapData = {
 
 class Dashboard extends React.Component {
   state = {
-    value: 0
+    value: 0,
   }
 
   handleChange = (event, value) => {
@@ -88,8 +88,20 @@ class Dashboard extends React.Component {
     this.setState({ value: index })
   }
 
+  async componentDidMount(){
+    const data = await fire.collection("user").get()
+    const results = data.docs.map(doc => doc.data())
+    this.setState({
+      users:results
+    })
+    //.then((doc) => console.log(doc.data()))
+    // data.docs.map(doc => console.log(doc))
+    
+  }
+
   render () {
     const { classes } = this.props
+    const { users } = this.state
     return (
       <div>
         <GridContainer>
@@ -102,11 +114,14 @@ class Dashboard extends React.Component {
                 <p>Things waiting to be started</p>
               </CardHeader>
               <CardBody>
-                <Tasks
+                {users ? users.map(user => ( // ternary operator if users exist map if not load
+                    <p key={user.name}>{user.name}</p> 
+                )) : <p>loading</p>}
+                {/* <Tasks
                   checkedIndexes={[0]}
                   tasksIndexes={[0, 1, 2]}
                   tasks={bugs}
-                />
+                /> */}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
