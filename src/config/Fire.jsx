@@ -9,10 +9,14 @@ const config = {
   storageBucket: 'scrumbag-98898.appspot.com', // no clue
   messagingSenderId: '395258338688' // no clue
 }
-const fire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
+const initFire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
+
+const fire = firebase.firestore()
+
+
 export default fire // allow other files in the project to be able to access the information.
 export const db = firebase.firestore(); //allow other files to reference the database
-export const persistence = fire.auth().onAuthStateChanged(function (user) {
+export const persistence = initFire.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
   } else {

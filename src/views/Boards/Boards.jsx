@@ -89,11 +89,28 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount(){
-    const data = await fire.collection("user").get()
-    const results = data.docs.map(doc => doc.data())
-    this.setState({
-      users:results
-    })
+    
+    // const data = await fire.collection("rooms").get()
+    // const results = data.docs.map(doc => doc.data())
+    //const query = await fire.collection("companies").get()
+    const companyRef = await fire.collection("companies").get()
+    const departmentRef = await fire.collection("companies")
+    .orderBy("Projects", "asc").get()
+    //const data = query.map(test => test.data())
+    console.log(departmentRef)
+    // const data = query.get().then(snapshot => {
+    //     return Promise.all(snapshot.docs.map(doc => console.log(doc.data())))
+    //     // snapshot.doc.map(snap => {
+    //     //   return snap.data()
+    //     // })
+      
+    // })
+
+    // console.log(data)
+   /*  this.setState({
+      Tasks:results
+    }, () => console.log(this.state.Tasks)) */
+
     //.then((doc) => console.log(doc.data()))
     // data.docs.map(doc => console.log(doc))
     
@@ -114,9 +131,9 @@ class Dashboard extends React.Component {
                 <p>Things waiting to be started</p>
               </CardHeader>
               <CardBody>
-                {users ? users.map(user => ( // ternary operator if users exist map if not load
+                {/* users ? users.map(user => ( // ternary operator if users exist map if not load
                     <p key={user.name}>{user.name}</p> 
-                )) : <p>loading</p>}
+                )) : <p>loading</p> */}
                 {/* <Tasks
                   checkedIndexes={[0]}
                   tasksIndexes={[0, 1, 2]}
