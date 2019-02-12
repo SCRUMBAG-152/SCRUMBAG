@@ -2,6 +2,7 @@ import Dashboard from "views/Dashboard/Dashboard.jsx";
 import RegularForms from "views/Projects/RegularForms.jsx";
 import ExtendedForms from "views/Projects/ExtendedForms.jsx";
 import ValidationForms from "views/Projects/ValidationForms.jsx";
+import ExistingProjects from "views/Projects/ExistingProjects.jsx";
 import Wizard from "views/Projects/Wizard.jsx";
 import Charts from "views/Charts/Charts.jsx";
 import Calendar from "views/Calendar/Calendar.jsx";
@@ -58,6 +59,12 @@ var dashRoutes = [
     icon: "content_paste",
     views: [
       {
+        path: "/projects/existing-projects",
+        name: "Exsting Projects",
+        mini: "EP",
+        component: ExistingProjects
+      },
+      {
         path: "/projects/regular-forms",
         name: "Regular Forms",
         mini: "RF",
@@ -75,6 +82,7 @@ var dashRoutes = [
         mini: "VF",
         component: ValidationForms
       },
+      
       { path: "/projects/wizard", name: "Wizard", mini: "W", component: Wizard }
     ]
   },
