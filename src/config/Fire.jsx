@@ -1,4 +1,3 @@
-import app from 'firebase/app';
 import firebase from 'firebase'
 import firestore from 'firebase/firestore'
 
@@ -12,12 +11,8 @@ const config = {
 }
 const initFire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
 
-
-
-
-firebase.initializeApp(config) // create a variable for short hand ReferenceError.
 const fire = firebase.firestore()
-fire.settings({ timestampsInSnapshots: true });
+
 
 export default fire // allow other files in the project to be able to access the information.
 export const db = firebase.firestore(); //allow other files to reference the database
