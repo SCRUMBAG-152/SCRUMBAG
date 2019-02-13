@@ -79,12 +79,10 @@ var mapData = {
 class Dashboard extends React.Component {
   state = {
     value: 0,
-
     toDos: [],
     doing: [],
     done: [],
     backLog: []
-
   }
 
   handleChange = (event, value) => {
@@ -94,7 +92,6 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index })
   }
-
 
   async componentDidMount () {
     // const data = await fire.collection("rooms").get()
@@ -168,22 +165,6 @@ class Dashboard extends React.Component {
     const { users, doing, toDos, backLog } = this.state
 
     console.log(toDos)
-
-  async componentDidMount(){
-    const data = await fire.collection("user").get()
-    const results = data.docs.map(doc => doc.data())
-    this.setState({
-      users:results
-    })
-    //.then((doc) => console.log(doc.data()))
-    // data.docs.map(doc => console.log(doc))
-    
-  }
-
-  render () {
-    const { classes } = this.props
-    const { users } = this.state
-
     return (
       <div>
         <GridContainer>
@@ -196,18 +177,7 @@ class Dashboard extends React.Component {
                 <p>Things waiting to be started</p>
               </CardHeader>
               <CardBody>
-
                 {backLog && backLog.map(log => <p>{log.taskName}</p>)}
-
-                {users ? users.map(user => ( // ternary operator if users exist map if not load
-                    <p key={user.name}>{user.name}</p> 
-                )) : <p>loading</p>}
-                {/* <Tasks
-                  checkedIndexes={[0]}
-                  tasksIndexes={[0, 1, 2]}
-                  tasks={bugs}
-                /> */}
-
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
