@@ -37,6 +37,7 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardIcon from 'components/Card/CardIcon.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
+import ToDo from '../../components/ToDo/ToDo.jsx'
 
 import {
   dailySalesChart,
@@ -78,6 +79,12 @@ var mapData = {
 class Dashboard extends React.Component {
   state = {
     value: 0,
+
+    toDos: [],
+    doing: [],
+    done: [],
+    backLog: []
+
   }
 
   handleChange = (event, value) => {
@@ -87,6 +94,80 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index })
   }
+
+
+  async componentDidMount () {
+    // const data = await fire.collection("rooms").get()
+    // const results = data.docs.map(doc => doc.data())
+    // const query = await fire.collection("companies").get()
+    let docs = []
+    // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
+    const companyRef = await fire
+      .collection('Companies')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
+
+    this.setState({
+      companyRef
+    })
+
+    const taskRef = await fire
+      .collection('Tasks')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
+    this.setState({
+      doing: taskRef,
+      toDos: taskRef
+    })
+    // get company project ID's
+    //
+
+    // company[id] matches departments.companyID
+    // projects.id matches columns.projectID
+    // projects.companyID matches Companies.id
+    // tasks.columnID matches columns.id
+
+    // const departmentRef = await fire.collection("companies")
+    // .orderBy("Projects", "asc").get()
+    // const data = query.map(test => test.data())
+    // console.log(companyRef)
+    // const data = query.get().then(snapshot => {
+    //     return Promise.all(snapshot.docs.map(doc => console.log(doc.data())))
+    //     // snapshot.doc.map(snap => {
+    //     //   return snap.data()
+    //     // })
+
+    // })
+
+    // console.log(data)
+    /*  this.setState({
+      Tasks:results
+    }, () => console.log(this.state.Tasks)) */
+
+    // .then((doc) => console.log(doc.data()))
+    // data.docs.map(doc => console.log(doc))
+  }
+  toDoToBackLog = todo => {
+    const { toDos } = this.state
+    const task = toDos.find(to => to.taskName === todo.taskName)
+
+    this.setState(
+      prevState => ({
+        backLog: [...prevState.backLog, task]
+      }),
+      () => this.remove(task)
+    )
+  }
+  remove = task => {
+    this.setState({
+      toDos: this.state.toDos.filter(todo => todo.taskName != task.taskName)
+    })
+  }
+  render () {
+    const { classes } = this.props
+    const { users, doing, toDos, backLog } = this.state
+
+    console.log(toDos)
 
   async componentDidMount(){
     const data = await fire.collection("user").get()
@@ -102,6 +183,7 @@ class Dashboard extends React.Component {
   render () {
     const { classes } = this.props
     const { users } = this.state
+
     return (
       <div>
         <GridContainer>
@@ -114,6 +196,9 @@ class Dashboard extends React.Component {
                 <p>Things waiting to be started</p>
               </CardHeader>
               <CardBody>
+
+                {backLog && backLog.map(log => <p>{log.taskName}</p>)}
+
                 {users ? users.map(user => ( // ternary operator if users exist map if not load
                     <p key={user.name}>{user.name}</p> 
                 )) : <p>loading</p>}
@@ -122,6 +207,7 @@ class Dashboard extends React.Component {
                   tasksIndexes={[0, 1, 2]}
                   tasks={bugs}
                 /> */}
+
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -140,11 +226,11 @@ class Dashboard extends React.Component {
                 <p>Category subtitle</p>
               </CardHeader>
               <CardBody>
-                <Tasks
-                  checkedIndexes={[0, 3]}
-                  tasksIndexes={[0, 3]}
-                  tasks={bugs}
-                />
+                {toDos.map(todo => (
+                  <div key={todo.taskName}>
+                    <ToDo todo={todo} toDoToBackLog={this.toDoToBackLog} />
+                  </div>
+                ))}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -163,7 +249,22 @@ class Dashboard extends React.Component {
                 <p>Category subtitle</p>
               </CardHeader>
               <CardBody>
-                <Tasks checkedIndexes={[3]} tasksIndexes={[3]} tasks={bugs} />
+                {doing &&
+                  doing.map(task => (
+                    <div key={task.taskName}>
+                      <p>{task.taskName}</p>
+                      <Button
+                        size='sm'
+                        onClick={(e, task) => console.log(e, task)}>
+                        left
+                      </Button>
+                      <Button size='sm' onClick={() => console.log('right')}>
+                        right
+                      </Button>
+                    </div>
+                  ))}
+
+                {/* <Tasks checkedIndexes={[3]} tasksIndexes={[3]} tasks={bugs} /> */}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
