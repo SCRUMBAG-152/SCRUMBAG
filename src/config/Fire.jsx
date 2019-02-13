@@ -1,6 +1,5 @@
 import app from 'firebase/app';
 import firebase from 'firebase'
-import firestore from 'firebase/firestore'
 
 const config = {
   apiKey: 'AIzaSyDbyrEsiJo1bgU18nIByfTgclLgkliWldw', // unique security key, the main server has the same one to decode/encode data.
@@ -10,21 +9,7 @@ const config = {
   storageBucket: 'scrumbag-98898.appspot.com', // no clue
   messagingSenderId: '395258338688' // no clue
 }
-const initFire = firebase.initializeApp(config) // create a variable for short hand ReferenceError.
-
-
-
-
 firebase.initializeApp(config) // create a variable for short hand ReferenceError.
 const fire = firebase.firestore()
 fire.settings({ timestampsInSnapshots: true });
-
 export default fire // allow other files in the project to be able to access the information.
-export const db = firebase.firestore(); //allow other files to reference the database
-export const persistence = initFire.auth().onAuthStateChanged(function (user) {
-  if (user) {
-    // User is signed in.
-  } else {
-    // No user is signed in.
-  }
-});
