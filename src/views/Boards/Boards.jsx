@@ -103,38 +103,42 @@ class Dashboard extends React.Component {
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
 
-    this.setState({
-      companyRef
-    });
-
-    const taskRef = await fire
+    /* const taskRef = await fire
       .collection("Tasks")
+      .where("columnID", "==", columnBacklog)
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      .then(snapshot => snapshot.docs.map(doc => doc.data())); */
 
-    const columnRef = await fire
+    /*  const columnRef = await fire
+      .collection("Columns")
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.id));
+    //.where("columnName", "==", "Backlog"); */
+
+    const columnBacklog = await fire
       .collection("Columns")
       .where("columnName", "==", "Backlog")
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    // .then(snapshot => snapshot.docs.map(doc => doc.data().doc));
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
 
-    //.get();
-
-    /* const columnRef = await fire
-      .collection("Columns")
-      //.where("columnName", "==", "Backlog")
+    const taskBacklog = await fire
+      .collection("Tasks")
+      .where("columnID", "==", columnBacklog)
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));*/
-    console.log("Column Reference", columnRef);
+      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+    console.log("Task Backlog: ", taskBacklog);
 
     // const backlogRef = await taskRef.where("", "", "");
     this.setState({
-      doing: taskRef,
-      toDos: taskRef
+      // doing: taskRef,
+      //toDos: taskRef,
+      backLog: taskBacklog,
+      companyRef,
+      columnBacklog
     });
+
+    // Need To Do
     // get company project ID's
-    //
 
     // company[id] matches departments.companyID
     // projects.id matches columns.projectID
@@ -157,13 +161,10 @@ class Dashboard extends React.Component {
     /*  this.setState({
       Tasks:results
     }, () => console.log(this.state.Tasks)) */
-
-    // .then((doc) => console.log(doc.data()))
-    // data.docs.map(doc => console.log(doc))
   }
   toDoToBackLog = todo => {
     const { toDos } = this.state;
-    const task = toDos.find(to => to.taskName === todo.taskName);
+    const task = toDos.find(to => to.columnBacklog === todo.columnID);
 
     this.setState(
       prevState => ({
@@ -172,6 +173,7 @@ class Dashboard extends React.Component {
       () => this.remove(task)
     );
   };
+
   remove = task => {
     this.setState({
       toDos: this.state.toDos.filter(todo => todo.taskName != task.taskName)
@@ -194,7 +196,21 @@ class Dashboard extends React.Component {
                 <p>Things waiting to be started</p>
               </CardHeader>
               <CardBody>
-                {backLog && backLog.map(log => <p>{log.taskName}</p>)}
+                {backLog &&
+                  backLog.map(log => (
+                    <div key={log.taskName}>
+                      <p>{log.taskName}</p>
+                      <Button
+                        size="sm"
+                        onClick={(e, task) => console.log(e, task)}
+                      >
+                        left
+                      </Button>
+                      <Button size="sm" onClick={() => console.log("right")}>
+                        right
+                      </Button>
+                    </div>
+                  ))}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
