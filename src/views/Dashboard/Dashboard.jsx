@@ -92,12 +92,10 @@ class Dashboard extends React.Component {
                   <Icon>content_copy</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>Tasks Completed </p>
-                <h3 className={classes.cardTitle}>
-                  35/50
-                </h3>
+                <h3 className={classes.cardTitle}>35/50</h3>
               </CardHeader>
               <CardFooter stats>
-              <div className={classes.stats}>
+                <div className={classes.stats}>
                   <DateRange />
                   Last 24 Hours
                 </div>
@@ -378,9 +376,7 @@ class Dashboard extends React.Component {
                   </Tooltip>
                 </div>
                 <h4 className={classes.cardTitle}>Completed Tasks</h4>
-                <p className={classes.cardCategory}>
-                  Lastest Github branch
-                </p>
+                <p className={classes.cardCategory}>Lastest Github branch</p>
               </CardBody>
               <CardFooter chart>
                 <div className={classes.stats}>
@@ -439,7 +435,8 @@ class Dashboard extends React.Component {
                   </a>
                 </h4>
                 <p className={classes.cardProductDesciprion}>
-                  Action packed Massive Multiplayer Online game in battle royale style with a ton of fun dances!
+                  Action packed Massive Multiplayer Online game in battle royale
+                  style with a ton of fun dances!
                 </p>
               </CardBody>
               <CardFooter product>
@@ -498,7 +495,8 @@ class Dashboard extends React.Component {
                   </a>
                 </h4>
                 <p className={classes.cardProductDesciprion}>
-                  Artificial Inteligence project featuring the newest technologies by IBM, and Thien Nguyen the genius.
+                  Artificial Inteligence project featuring the newest
+                  technologies by IBM, and Thien Nguyen the genius.
                 </p>
               </CardBody>
               <CardFooter product>
@@ -552,12 +550,13 @@ class Dashboard extends React.Component {
                   </Tooltip>
                 </div>
                 <h4 className={classes.cardProductTitle}>
-                  <a href="#" onClick={e => e.preventDefault()}>
+                  <a href="#doesnt work" onClick={e => e.preventDefault()}>
                     Scrumble
                   </a>
                 </h4>
                 <p className={classes.cardProductDesciprion}>
-                  Task management tool in scrum style, previously known as ScrumBag but was sued so they changed to Scrumble.
+                  Task management tool in scrum style, previously known as
+                  ScrumBag but was sued so they changed to Scrumble.
                 </p>
               </CardBody>
               <CardFooter product>

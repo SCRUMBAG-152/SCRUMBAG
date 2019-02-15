@@ -1,15 +1,14 @@
-import React from 'react'
+import React from "react";
 
 // @material-ui/icons
-import CardTravel from '@material-ui/icons/CardTravel'
-import Extension from '@material-ui/icons/Extension'
-import Fingerprint from '@material-ui/icons/Fingerprint'
-import FlightLand from '@material-ui/icons/FlightLand'
-import Build from '@material-ui/icons/Build'
+import CardTravel from "@material-ui/icons/CardTravel";
+import Extension from "@material-ui/icons/Extension";
+import Fingerprint from "@material-ui/icons/Fingerprint";
+import FlightLand from "@material-ui/icons/FlightLand";
+import Build from "@material-ui/icons/Build";
 
 // core components
-import CustomDropdown from 'components/CustomDropdown/CustomDropdown.jsx'
-import fire from '../config/Fire'
+import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 
 // ##############################
 // All data will be passed from this file to the file that will display it.
@@ -24,10 +23,10 @@ const rtlStories = [
   {
     // First story
     inverted: true,
-    badgeColor: 'danger',
+    badgeColor: "danger",
     badgeIcon: CardTravel,
-    title: 'جهة أي',
-    titleColor: 'danger',
+    title: "جهة أي",
+    titleColor: "danger",
     body: (
       <p>
         قام كل ماذا العصبة اوروبا. أي جورج العالمي أخر, كان تم أطراف القوى
@@ -36,15 +35,15 @@ const rtlStories = [
         حين ونتج أخرى قد. بالعمل بالمطالبة فقد قد. عن جنوب ومضى الشتاء.
       </p>
     ),
-    footerTitle: 'مدن أن هُزم سكان, مكن.'
+    footerTitle: "مدن أن هُزم سكان, مكن."
   },
   {
     // Second story
     inverted: true,
-    badgeColor: 'success',
+    badgeColor: "success",
     badgeIcon: Extension,
-    title: 'جُل حكومة',
-    titleColor: 'success',
+    title: "جُل حكومة",
+    titleColor: "success",
     body: (
       <p>
         عل فكانت الثقيلة بلا. شيء بخطوط بالرّغم التبرعات عن, يطول بأيدي لم كلّ.
@@ -57,10 +56,10 @@ const rtlStories = [
   {
     // Third story
     inverted: true,
-    badgeColor: 'info',
+    badgeColor: "info",
     badgeIcon: Fingerprint,
-    title: 'هذا غينيا',
-    titleColor: 'info',
+    title: "هذا غينيا",
+    titleColor: "info",
     body: (
       <p>
         جهة المارق والديون التقليدية في, هو وترك المجتمع بريطانيا ذلك, لمّ ما
@@ -78,20 +77,20 @@ const rtlStories = [
         buttonIcon={Build}
         buttonProps={{
           round: true,
-          style: { marginBottom: '0' },
-          color: 'info'
+          style: { marginBottom: "0" },
+          color: "info"
         }}
         dropdownList={[
-          'ان',
-          'إجلاء لفرنسا',
-          'أواخر الأرض بل',
+          "ان",
+          "إجلاء لفرنسا",
+          "أواخر الأرض بل",
           { divider: true },
-          'عل اليها'
+          "عل اليها"
         ]}
       />
     )
   }
-]
+];
 
 // ##############################
 // // // stories for Widgets view
@@ -101,10 +100,10 @@ const widgetStories = [
   {
     // First story
     inverted: true,
-    badgeColor: 'danger',
+    badgeColor: "danger",
     badgeIcon: CardTravel,
-    title: 'Some Title',
-    titleColor: 'danger',
+    title: "Some Title",
+    titleColor: "danger",
     body: (
       <p>
         Wifey made the best Father's Day meal ever. So thankful so happy so
@@ -114,15 +113,15 @@ const widgetStories = [
         downtown.
       </p>
     ),
-    footerTitle: '11 hours ago via Twitter'
+    footerTitle: "11 hours ago via Twitter"
   },
   {
     // Second story
     inverted: true,
-    badgeColor: 'success',
+    badgeColor: "success",
     badgeIcon: Extension,
-    title: 'Another One',
-    titleColor: 'success',
+    title: "Another One",
+    titleColor: "success",
     body: (
       <p>
         Thank God for the support of my wife and real friends. I also wanted to
@@ -135,10 +134,10 @@ const widgetStories = [
   {
     // Third story
     inverted: true,
-    badgeColor: 'info',
+    badgeColor: "info",
     badgeIcon: Fingerprint,
-    title: 'Another Title',
-    titleColor: 'info',
+    title: "Another Title",
+    titleColor: "info",
     body: (
       <div>
         <p>
@@ -158,20 +157,20 @@ const widgetStories = [
         buttonIcon={Build}
         buttonProps={{
           round: true,
-          style: { marginBottom: '0' },
-          color: 'info'
+          style: { marginBottom: "0" },
+          color: "info"
         }}
         dropdownList={[
-          'Action',
-          'Another action',
-          'Something else here',
+          "Action",
+          "Another action",
+          "Something else here",
           { divider: true },
-          'Separated link'
+          "Separated link"
         ]}
       />
     )
   }
-]
+];
 
 // ##############################
 // // // stories for Timeline view
@@ -181,10 +180,10 @@ const stories = [
   {
     // First story
     inverted: true,
-    badgeColor: 'danger',
+    badgeColor: "danger",
     badgeIcon: CardTravel,
-    title: 'Some Title',
-    titleColor: 'danger',
+    title: "Some Title",
+    titleColor: "danger",
     body: (
       <p>
         Wifey made the best Father's Day meal ever. So thankful so happy so
@@ -194,14 +193,14 @@ const stories = [
         downtown.
       </p>
     ),
-    footerTitle: '11 hours ago via Twitter'
+    footerTitle: "11 hours ago via Twitter"
   },
   {
     // Second story
-    badgeColor: 'success',
+    badgeColor: "success",
     badgeIcon: Extension,
-    title: 'Another One',
-    titleColor: 'success',
+    title: "Another One",
+    titleColor: "success",
     body: (
       <p>
         Thank God for the support of my wife and real friends. I also wanted to
@@ -214,10 +213,10 @@ const stories = [
   {
     // Third story
     inverted: true,
-    badgeColor: 'info',
+    badgeColor: "info",
     badgeIcon: Fingerprint,
-    title: 'Another Title',
-    titleColor: 'info',
+    title: "Another Title",
+    titleColor: "info",
     body: (
       <div>
         <p>
@@ -237,25 +236,25 @@ const stories = [
         buttonIcon={Build}
         buttonProps={{
           round: true,
-          style: { marginBottom: '0' },
-          color: 'info'
+          style: { marginBottom: "0" },
+          color: "info"
         }}
         dropdownList={[
-          'Action',
-          'Another action',
-          'Something else here',
+          "Action",
+          "Another action",
+          "Something else here",
           { divider: true },
-          'Separated link'
+          "Separated link"
         ]}
       />
     )
   },
   {
     // Fourth story
-    badgeColor: 'warning',
+    badgeColor: "warning",
     badgeIcon: FlightLand,
-    title: 'Another One',
-    titleColor: 'warning',
+    title: "Another One",
+    titleColor: "warning",
     body: (
       <p>
         Tune into Big Boy's 92.3 I'm about to play the first single from Cruel
@@ -265,66 +264,66 @@ const stories = [
       </p>
     )
   }
-]
+];
 
 // ##############################
 // // // data for populating the calendar in Calendar view
 // #############################
 
-var today = new Date()
-var y = today.getFullYear()
-var m = today.getMonth()
-var d = today.getDate()
+var today = new Date();
+var y = today.getFullYear();
+var m = today.getMonth();
+var d = today.getDate();
 
 const events = [
   {
-    title: 'All Day Event',
+    title: "All Day Event",
     allDay: true,
     start: new Date(y, m, 1),
     end: new Date(y, m, 1),
-    color: 'default'
+    color: "default"
   },
   {
-    title: 'Meeting',
+    title: "Meeting",
     start: new Date(y, m, d - 1, 10, 30),
     end: new Date(y, m, d - 1, 11, 30),
     allDay: false,
-    color: 'green'
+    color: "green"
   },
   {
-    title: 'Lunch',
+    title: "Lunch",
     start: new Date(y, m, d + 7, 12, 0),
     end: new Date(y, m, d + 7, 14, 0),
     allDay: false,
-    color: 'red'
+    color: "red"
   },
   {
-    title: 'Nud-pro Launch',
+    title: "Nud-pro Launch",
     start: new Date(y, m, d - 2),
     end: new Date(y, m, d - 2),
     allDay: true,
-    color: 'azure'
+    color: "azure"
   },
   {
-    title: 'Birthday Party',
+    title: "Birthday Party",
     start: new Date(y, m, d + 1, 19, 0),
     end: new Date(y, m, d + 1, 22, 30),
     allDay: false,
-    color: 'azure'
+    color: "azure"
   },
   {
-    title: 'Click for Creative Tim',
+    title: "Click for Creative Tim",
     start: new Date(y, m, 21),
     end: new Date(y, m, 22),
-    color: 'orange'
+    color: "orange"
   },
   {
-    title: 'Click for Google',
+    title: "Click for Google",
     start: new Date(y, m, 21),
     end: new Date(y, m, 22),
-    color: 'rose'
+    color: "rose"
   }
-]
+];
 
 // ##############################
 // // // Tasks for TasksCard - see Widget view
@@ -332,92 +331,92 @@ const events = [
 
 var bugs = [
   'Sign contract for "What are conference organizers afraid of?"',
-  'Lines From Great Russian Literature? Or E-mails From My Boss?',
-  'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
-  'Create 4 Invisible User Experiences you Never Knew About'
-]
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
+  "Create 4 Invisible User Experiences you Never Knew About"
+];
 var website = [
-  'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
   'Sign contract for "What are conference organizers afraid of?"'
-]
+];
 var server = [
-  'Lines From Great Russian Literature? Or E-mails From My Boss?',
-  'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+  "Lines From Great Russian Literature? Or E-mails From My Boss?",
+  "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
   'Sign contract for "What are conference organizers afraid of?"'
-]
+];
 
 // ##############################
 // // // Tasks for TasksCard - see RTLSupport view
 // #############################
 
 var rtlBugs = [
-  'فقد لمحاكم الاندونيسية, بلاده بالتوقيع تم يبق. جعل السبب وفرنسا الصينية أي.',
-  'بحث. كل مما ٢٠٠٤ شاسعة العسكري جعل السبب وفرنسا الصينية أي.',
-  'تسبب أفريقيا ضرب عن, عن إنطلاق جعل السبب وفرنسا الصينية أي.',
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.'
-]
+  "فقد لمحاكم الاندونيسية, بلاده بالتوقيع تم يبق. جعل السبب وفرنسا الصينية أي.",
+  "بحث. كل مما ٢٠٠٤ شاسعة العسكري جعل السبب وفرنسا الصينية أي.",
+  "تسبب أفريقيا ضرب عن, عن إنطلاق جعل السبب وفرنسا الصينية أي.",
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي."
+];
 var rtlWebsite = [
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.',
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.'
-]
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.",
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي."
+];
 var rtlServer = [
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.',
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.',
-  'قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.'
-]
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.",
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي.",
+  "قدما مليون بين عن, مرجع منتصف الأمريكية جعل السبب وفرنسا الصينية أي."
+];
 
 // ##############################
 // // // data for datatables.net in DataTables view
 // #############################
 
 const dataTable = {
-  headerRow: ['Name', 'Position', 'Office', 'Age', 'Actions'],
-  footerRow: ['Name', 'Position', 'Office', 'Age', 'Actions'],
+  headerRow: ["Name", "Position", "Office", "Age", "Actions"],
+  footerRow: ["Name", "Position", "Office", "Age", "Actions"],
   dataRows: [
-    ['Tiger Nixon', 'System Architect', 'Edinburgh', '61'],
-    ['Garrett Winters', 'Accountant', 'Tokyo', '63'],
-    ['Ashton Cox', 'Junior Technical Author', 'San Francisco', '66'],
-    ['Cedric Kelly', 'Senior Javascript Developer', 'Edinburgh', '22'],
-    ['Airi Satou', 'Accountant', 'Tokyo', '33'],
-    ['Brielle Williamson', 'Integration Specialist', 'New York', '61'],
-    ['Herrod Chandler', 'Sales Assistant', 'San Francisco', '59'],
-    ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '55'],
-    ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '39'],
-    ['Sonya Frost', 'Software Engineer', 'Edinburgh', '23'],
-    ['Jena Gaines', 'Office Manager', 'London', '30'],
-    ['Quinn Flynn', 'Support Lead', 'Edinburgh', '22'],
-    ['Charde Marshall', 'Regional Director', 'San Francisco', '36'],
-    ['Haley Kennedy', 'Senior Marketing Designer', 'London', '43'],
-    ['Tatyana Fitzpatrick', 'Regional Director', 'London', '19'],
-    ['Michael Silva', 'Marketing Designer', 'London', '66'],
-    ['Paul Byrd', 'Chief Financial Officer (CFO)', 'New York', '64'],
-    ['Gloria Little', 'Systems Administrator', 'New York', '59'],
-    ['Bradley Greer', 'Software Engineer', 'London', '41'],
-    ['Dai Rios', 'Personnel Lead', 'Edinburgh', '35'],
-    ['Jenette Caldwell', 'Development Lead', 'New York', '30'],
-    ['Yuri Berry', 'Chief Marketing Officer (CMO)', 'New York', '40'],
-    ['Caesar Vance', 'Pre-Sales Support', 'New York', '21'],
-    ['Doris Wilder', 'Sales Assistant', 'Sidney', '23'],
-    ['Angelica Ramos', 'Chief Executive Officer (CEO)', 'London', '47'],
-    ['Gavin Joyce', 'Developer', 'Edinburgh', '42'],
-    ['Jennifer Chang', 'Regional Director', 'Singapore', '28'],
-    ['Brenden Wagner', 'Software Engineer', 'San Francisco', '28'],
-    ['Fiona Green', 'Chief Operating Officer (COO)', 'San Francisco', '48'],
-    ['Shou Itou', 'Regional Marketing', 'Tokyo', '20'],
-    ['Michelle House', 'Integration Specialist', 'Sidney', '37'],
-    ['Suki Burks', 'Developer', 'London', '53'],
-    ['Prescott Bartlett', 'Technical Author', 'London', '27'],
-    ['Gavin Cortez', 'Team Leader', 'San Francisco', '22'],
-    ['Martena Mccray', 'Post-Sales support', 'Edinburgh', '46'],
-    ['Unity Butler', 'Marketing Designer', 'San Francisco', '47'],
-    ['Howard Hatfield', 'Office Manager', 'San Francisco', '51'],
-    ['Hope Fuentes', 'Secretary', 'San Francisco', '41'],
-    ['Vivian Harrell', 'Financial Controller', 'San Francisco', '62'],
-    ['Timothy Mooney', 'Office Manager', 'London', '37'],
-    ['Jackson Bradshaw', 'Director', 'New York', '65'],
-    ['Olivia Liang', 'Support Engineer', 'Singapore', '64']
+    ["Tiger Nixon", "System Architect", "Edinburgh", "61"],
+    ["Garrett Winters", "Accountant", "Tokyo", "63"],
+    ["Ashton Cox", "Junior Technical Author", "San Francisco", "66"],
+    ["Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "22"],
+    ["Airi Satou", "Accountant", "Tokyo", "33"],
+    ["Brielle Williamson", "Integration Specialist", "New York", "61"],
+    ["Herrod Chandler", "Sales Assistant", "San Francisco", "59"],
+    ["Rhona Davidson", "Integration Specialist", "Tokyo", "55"],
+    ["Colleen Hurst", "Javascript Developer", "San Francisco", "39"],
+    ["Sonya Frost", "Software Engineer", "Edinburgh", "23"],
+    ["Jena Gaines", "Office Manager", "London", "30"],
+    ["Quinn Flynn", "Support Lead", "Edinburgh", "22"],
+    ["Charde Marshall", "Regional Director", "San Francisco", "36"],
+    ["Haley Kennedy", "Senior Marketing Designer", "London", "43"],
+    ["Tatyana Fitzpatrick", "Regional Director", "London", "19"],
+    ["Michael Silva", "Marketing Designer", "London", "66"],
+    ["Paul Byrd", "Chief Financial Officer (CFO)", "New York", "64"],
+    ["Gloria Little", "Systems Administrator", "New York", "59"],
+    ["Bradley Greer", "Software Engineer", "London", "41"],
+    ["Dai Rios", "Personnel Lead", "Edinburgh", "35"],
+    ["Jenette Caldwell", "Development Lead", "New York", "30"],
+    ["Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "40"],
+    ["Caesar Vance", "Pre-Sales Support", "New York", "21"],
+    ["Doris Wilder", "Sales Assistant", "Sidney", "23"],
+    ["Angelica Ramos", "Chief Executive Officer (CEO)", "London", "47"],
+    ["Gavin Joyce", "Developer", "Edinburgh", "42"],
+    ["Jennifer Chang", "Regional Director", "Singapore", "28"],
+    ["Brenden Wagner", "Software Engineer", "San Francisco", "28"],
+    ["Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "48"],
+    ["Shou Itou", "Regional Marketing", "Tokyo", "20"],
+    ["Michelle House", "Integration Specialist", "Sidney", "37"],
+    ["Suki Burks", "Developer", "London", "53"],
+    ["Prescott Bartlett", "Technical Author", "London", "27"],
+    ["Gavin Cortez", "Team Leader", "San Francisco", "22"],
+    ["Martena Mccray", "Post-Sales support", "Edinburgh", "46"],
+    ["Unity Butler", "Marketing Designer", "San Francisco", "47"],
+    ["Howard Hatfield", "Office Manager", "San Francisco", "51"],
+    ["Hope Fuentes", "Secretary", "San Francisco", "41"],
+    ["Vivian Harrell", "Financial Controller", "San Francisco", "62"],
+    ["Timothy Mooney", "Office Manager", "London", "37"],
+    ["Jackson Bradshaw", "Director", "New York", "65"],
+    ["Olivia Liang", "Support Engineer", "Singapore", "64"]
   ]
-}
+};
 
 export {
   // data for React Big Calendar in Calendar view
@@ -438,4 +437,4 @@ export {
   rtlServer,
   // data for datatables.net in DataTables view
   dataTable
-}
+};
