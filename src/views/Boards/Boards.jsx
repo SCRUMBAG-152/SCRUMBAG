@@ -171,9 +171,9 @@ class Dashboard extends React.Component {
                   backLog.map(log => (
                     <div key={log.taskName}>
                       <p>{log.taskName}</p>
-                      <Button size='sm' onClick={e => console.log(e, log)}>
+                      {/* {<Button size='sm' onClick={e => console.log(e, log)}>
                         left
-                      </Button>
+                      </Button>} */}
                       <Button size='sm' onClick={() => console.log('right')}>
                         right
                       </Button>
@@ -259,9 +259,9 @@ class Dashboard extends React.Component {
                       <Button size='sm' onClick={e => console.log(e, log)}>
                         left
                       </Button>
-                      <Button size='sm' onClick={() => console.log('right')}>
+                      {/* <Button size='sm' onClick={() => console.log('right')}>
                         right
-                      </Button>
+                      </Button> */}
                     </div>
                   ))}
               </CardBody>
