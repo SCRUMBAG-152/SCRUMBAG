@@ -14,8 +14,8 @@ const initFire = firebase.initializeApp(config); // create a variable for short 
 const fire = firebase.firestore();
 
 export default fire; // allow other files in the project to be able to access the information.
-export const db = firebase.firestore(); //allow other files to reference the database
-export const persistence = initFire.auth().onAuthStateChanged(function(user) {
+export const auth = initFire.auth(); //allow other files to reference the database
+export const persistence = initFire.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
   } else {

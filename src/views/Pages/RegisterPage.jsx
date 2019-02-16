@@ -28,7 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
 import fire from "config/Fire.jsx"
-import { db } from "config/Fire.jsx"
+import { auth } from "config/Fire.jsx"
 
 
 class RegisterPage extends React.Component {
@@ -37,42 +37,64 @@ class RegisterPage extends React.Component {
     this.state = {
       checked: [],
       email: "",
-      password: ""
+      password: "",
+      code: "",
+      first: "",
+      last: ""
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signUp = this.signUp.bind(this);
-    this.getEmp = this.getEmp.bind(this);
-    this.updateEmp = this.updateEmp.bind(this);
+    this.initializeDoc = this.initializeDoc.bind(this);
+    this.getCompanyID = this.getCompanyID.bind(this);
   }
 
-  //get employees in project
-  getEmp() {
-    db.doc('Companies/Company 1/Projects/Project 1/Employees/InProject').get().then((snapshot) => {
-      this.updateEmp(snapshot.data().uid);  //passes in array of current employees in project
-    }).catch((error) => {   //if an error occurs, alert user of the error
-      window.alert(error);
-    });
+  //return the company id with correct code
+  async getCompanyID() {
+    var id;
+    await fire.collection('Companies')
+      .where("code", "==", this.state.code).get().then((snap) => {  //grab the document with the right id
+        snap.forEach((doc) => { //doc will be the company document with the correct code
+          id = doc.id;
+        });
+      }).catch(function (error) {   //error retrieving the document
+        window.alert(error);
+      });
+    return id;    //return company id
   }
 
-  //update current employees in project
-  updateEmp(employees) {
-    employees.push(fire.auth().currentUser.uid);  //push new employees uid to old list
-    db.doc('Companies/Company 1/Projects/Project 1/Employees/InProject').update({
-      uid: employees,   //updates field uid to include new employee
+  //initialize Document in user collection
+  initializeDoc(company) {
+    const newUse = fire.collection('Users').doc(`${auth.currentUser.uid}`);
+    newUse.get().then(async (snapshot) => {
+      newUse.set({      // create the document if it's a new user
+        companyID: await this.getCompanyID(),
+        departmentID: [],
+        email: this.state.email,
+        firstName: this.state.first,
+        lastName: this.state.last,
+        projectID: [],
+        role: "user",
+      });
     }).catch((error) => {   //if an error occurs, alert user of the error
       window.alert(error);
     });
   }
 
   //handles new user signing in
-  signUp(e) {
+  async signUp(e) {
     e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-      this.getEmp();  //get the current employees in project then update
-    }).catch((error) => {   //if an error occurs, alert user of the error
-      window.alert(error);
-    });
+    //verify that fields are filled out correctly
+    if (this.state.first !== "" && this.state.last !== "" && await this.getCompanyID() !== undefined) {
+      auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+        this.initializeDoc();         //initialize a new doc in the Users collection in firestore
+      }).catch((error) => {           //if an error occurs, alert user of the error
+        window.alert(error);
+      });
+    }
+    else {  //fields aren't filled out correctly
+      window.alert("Make sure all fields are field out correctly.");
+    }
   }
 
   //handle changes from email and password
@@ -145,36 +167,72 @@ class RegisterPage extends React.Component {
                     </div>
                     <form className={classes.form}>
 
+                      {/*Handles input for First Name */}
                       <CustomInput
+                        value={this.state.first}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          name: "first",
+                          onChange: this.handleChange,
+                          endAdornment: (
                             <InputAdornment
-                              position="start"
+                              position="end"
                               className={classes.inputAdornment}
                             >
-                              <Face className={classes.inputAdornmentIcon} />
+                              <Icon className={classes.inputAdornmentIcon}>
+                                person
+                              </Icon>
                             </InputAdornment>
                           ),
                           placeholder: "First Name..."
                         }}
                       />
 
+                      {/*Handles input for Last Name */}
                       <CustomInput
+                        value={this.state.last}
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses
                         }}
                         inputProps={{
-                          startAdornment: (
+                          name: "last",
+                          onChange: this.handleChange,
+                          endAdornment: (
                             <InputAdornment
-                              position="start"
+                              position="end"
                               className={classes.inputAdornment}
                             >
-                              <Email className={classes.inputAdornmentIcon} />
+                              <Icon className={classes.inputAdornmentIcon}>
+                                person
+                              </Icon>
+                            </InputAdornment>
+                          ),
+                          placeholder: "Last Name..."
+                        }}
+                      />
+
+                      {/*Handles input for Company Code */}
+                      <CustomInput
+                        value={this.state.code}
+                        formControlProps={{
+                          fullWidth: true,
+                          className: classes.customFormControlClasses
+                        }}
+                        inputProps={{
+                          name: "code",
+                          onChange: this.handleChange,
+                          endAdornment: (
+                            <InputAdornment
+                              position="end"
+                              className={classes.inputAdornment}
+                            >
+                              <Icon className={classes.inputAdornmentIcon}>
+                                group_add
+                              </Icon>
                             </InputAdornment>
                           ),
                           placeholder: "Company Code..."
@@ -191,9 +249,9 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           name: "email",
                           onChange: this.handleChange,
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
-                              position="start"
+                              position="end"
                               className={classes.inputAdornment}
                             >
                               <Email className={classes.inputAdornmentIcon} />
@@ -214,9 +272,9 @@ class RegisterPage extends React.Component {
                         inputProps={{
                           name: "password",
                           onChange: this.handleChange,
-                          startAdornment: (
+                          endAdornment: (
                             <InputAdornment
-                              position="start"
+                              position="end"
                               className={classes.inputAdornment}
                             >
                               <Icon className={classes.inputAdornmentIcon}>
