@@ -15,11 +15,13 @@ import pagesStyle from 'assets/jss/material-dashboard-pro-react/layouts/pagesSty
 
 import bgImage from 'assets/img/register.jpg'
 
+import { persistence } from 'config/Fire.jsx'
+
 class Pages extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     document.body.style.overflow = 'unset'
   }
-  render () {
+  render() {
     const { classes, ...rest } = this.props
     return (
       <div>

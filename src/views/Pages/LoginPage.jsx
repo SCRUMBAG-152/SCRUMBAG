@@ -22,7 +22,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
-import fire from "config/Fire.jsx"
+import { auth } from "config/Fire.jsx"
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -39,8 +39,8 @@ class LoginPage extends React.Component {
 
   login(e) {
     e.preventDefault();
-    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-      console.log("logged in");
+    auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
+      window.location.replace("http://localhost:3000/dashboard");
     }).catch((error) => {   //if an error occurs, alert user of the error
       window.alert(error);
     });
@@ -100,22 +100,6 @@ class LoginPage extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <CustomInput
-                    labelText="First Name.."
-                    id="firstname"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Face className={classes.inputAdornmentIcon} />
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-
-
-                  <CustomInput
                     value={this.state.email}
                     labelText="Email..."
                     id="email"
@@ -131,23 +115,6 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
-
-                  <CustomInput
-                    value={this.state.email}
-                    labelText="Company Code"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      onChange: this.handleChange,
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Email className={classes.inputAdornmentIcon} />
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-
 
                   <CustomInput
                     value={this.state.password}

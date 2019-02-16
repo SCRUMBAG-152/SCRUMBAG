@@ -23,6 +23,10 @@ import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sid
 
 import avatar from "assets/img/default-avatar.png";
 
+import { persistence } from 'config/Fire.jsx';
+import { auth } from 'config/Fire.jsx';
+import fire from 'config/Fire.jsx';
+
 var ps;
 
 // We've created this component so we can have a ref to the wrapper of the links that appears in our sidebar.
@@ -65,10 +69,30 @@ class Sidebar extends React.Component {
       openTables: this.activeRoute("/tables"),
       openMaps: this.activeRoute("/maps"),
       openPages: this.activeRoute("-page"),
-      miniActive: true
+      miniActive: true,
+      name: ""
     };
     this.activeRoute.bind(this);
+    this.getCurrName = this.getCurrName.bind(this);
   }
+
+  getCurrName() {
+    var that = this;
+    auth.onAuthStateChanged(function (user) { //get current user
+      if (user) {
+        fire.collection('Users').doc(`${user.uid}`).get().then((snap) => {
+          that.setState({
+            name: snap.data().firstName + " " + snap.data().lastName  //set name state to current users name
+          });
+        });
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.getCurrName();
+  }
+
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? true : false;
@@ -145,7 +169,7 @@ class Sidebar extends React.Component {
               onClick={() => this.openCollapse("openAvatar")}
             >
               <ListItemText
-                primary={"Thien Nguyen"}
+                primary={this.state.name}
                 secondary={
                   <b
                     className={
@@ -278,8 +302,8 @@ class Sidebar extends React.Component {
                     {typeof prop.icon === "string" ? (
                       <Icon>{prop.icon}</Icon>
                     ) : (
-                      <prop.icon />
-                    )}
+                        <prop.icon />
+                      )}
                   </ListItemIcon>
                   <ListItemText
                     primary={prop.name}
@@ -363,8 +387,8 @@ class Sidebar extends React.Component {
                   {typeof prop.icon === "string" ? (
                     <Icon>{prop.icon}</Icon>
                   ) : (
-                    <prop.icon />
-                  )}
+                      <prop.icon />
+                    )}
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.name}
