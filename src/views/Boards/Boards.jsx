@@ -132,6 +132,29 @@ class Dashboard extends React.Component {
 
     // })
   }
+
+  addTask = async task => {
+    await fire.collection('Tasks').add({
+      columnID: '1O7NHVhZYmGgQzRGAPg3',
+      taskName: 'newTasks',
+      taskPoints: 5,
+      userID: []
+    })
+    this.componentDidMount()
+    console.log('Completed Adding a Task.')
+  }
+
+  deleteTask = async task => {
+    const delTask = await fire
+      .collection('Tasks')
+      .where('taskName', '==', 'newTasks')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
+
+    this.componentDidMount()
+    console.log('Deleted a Task.', delTask)
+  }
+
   toDoToBackLog = todo => {
     const { toDos } = this.state
     const task = toDos.find(to => to.columnBacklog === todo.columnID)
@@ -157,6 +180,9 @@ class Dashboard extends React.Component {
     console.log(toDos)
     return (
       <div>
+        <button onClick={() => this.addTask()}>Add Task</button>
+        <button onClick={() => this.deleteTask(this.task)}>Delete Task</button>
+
         <GridContainer>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
@@ -272,9 +298,6 @@ class Dashboard extends React.Component {
                 </div>
               </CardFooter>
             </Card>
-            <button onClick={() => console.log('Ive been clicked')}>
-              Click Me
-            </button>
           </GridItem>
         </GridContainer>
       </div>
