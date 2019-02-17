@@ -36,6 +36,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import AddTask from "../Boards/addTask.jsx";
 
 import {
   dailySalesChart,
@@ -85,6 +86,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <GridContainer>
+          <AddTask />
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
               <CardHeader color="warning" stats icon>
@@ -551,12 +553,11 @@ class Dashboard extends React.Component {
                 </div>
                 <h4 className={classes.cardProductTitle}>
                   <a href="#doesnt work" onClick={e => e.preventDefault()}>
-                    Scrumble
+                    Scrumbag
                   </a>
                 </h4>
                 <p className={classes.cardProductDesciprion}>
-                  Task management tool in scrum style, previously known as
-                  ScrumBag but was sued so they changed to Scrumble.
+                  Task management tool in scrum style.
                 </p>
               </CardBody>
               <CardFooter product>

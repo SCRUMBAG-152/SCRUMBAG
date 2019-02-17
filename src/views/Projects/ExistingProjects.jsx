@@ -223,8 +223,7 @@ class Dashboard extends React.Component {
                   </a>
                 </h4>
                 <p className={classes.cardProductDesciprion}>
-                  Task management tool in scrum style, previously known as
-                  ScrumBag but was sued so they changed to Scrumble.
+                  Task management tool in scrum style.
                 </p>
               </CardBody>
               <CardFooter product>

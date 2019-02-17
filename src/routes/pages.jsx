@@ -26,7 +26,7 @@ const pagesRoutes = [
     icon: Fingerprint,
     component: LoginPage
   },
-  {
+  /*{
     path: "/pages/pricing-page",
     name: "Pricing Page",
     short: "Pricing",
@@ -41,7 +41,7 @@ const pagesRoutes = [
     mini: "LSP",
     icon: LockOpen,
     component: LockScreenPage
-  },
+  },*/
   {
     redirect: true,
     path: "/pages",
