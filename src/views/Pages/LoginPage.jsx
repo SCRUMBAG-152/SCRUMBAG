@@ -53,7 +53,7 @@ class LoginPage extends React.Component {
   //handle changes from email and password
   handleChange(e) {
     this.setState({
-      [e.target.id]: e.target.value
+      value: e.target.value
     });
   }
 

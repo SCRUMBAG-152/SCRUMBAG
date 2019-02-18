@@ -95,218 +95,88 @@ render() {
     }
     let projList = this.state.projects;
     let optionItems = projList.map((project, index) => (
-      <div  style={{float: 'left', padding:'20px'}} key={index} value={project.projectName}>
-        <p>{project.projectName} </p>
-       <p>{project.companyName} </p>
-       <p>{project.projectDescription}</p>
-      </div>
+      <GridContainer>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card product className={classes.cardHover}>
+        
+              <CardBody>
+              <div className={classes.cardHoverUnder}>
+                <Tooltip
+                  id="tooltip-top"
+                  title="View"
+                  placement="bottom"
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <Button color="transparent" simple justIcon>
+                    <ArtTrack className={classes.underChartIcons} />
+                  </Button>
+                </Tooltip>
+                <Tooltip
+                  id="tooltip-top"
+                  title="Edit"
+                  placement="bottom"
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <Button color="success" simple justIcon>
+                    <Refresh className={classes.underChartIcons} />
+                  </Button>
+                </Tooltip>
+                <Tooltip
+                  id="tooltip-top"
+                  title="Remove"
+                  placement="bottom"
+                  classes={{ tooltip: classes.tooltip }}
+                >
+                  <Button color="danger" simple justIcon>
+                    <Edit className={classes.underChartIcons} />
+                  </Button>
+                </Tooltip>
+              </div>
+
+
+              <h4 className={classes.cardProductTitle}>
+
+              <p>{project.projectName} </p>
+              <p>{project.companyName} </p>
+              <p>{project.projectDescription}</p>
+              </h4>
+            
+
+                
+
+                  
+
+              
+              
+            </CardBody>
+          <CardFooter product>
+          <div className={classes.price}>
+            <h4>EpicGames</h4>
+          </div>
+          <div className={`${classes.stats} ${classes.productStats}`}>
+            <Place /> Funland, Mars
+          </div>
+        </CardFooter>
+      </Card>
+      </GridItem>
+      </GridContainer>
     ));
 
-    //var docRef = fire.collection('Projects').doc('HogJ2XkOGTbEadJwAtoM');
-
-    //docRef.get().then(function(doc){console.log("Document Data:", doc.data())})
-
+ 
 return (
   <div>
         <h3>Manage Projects</h3>
 
-        <p>{dbarray}</p>
-        <div></div>
-
-      <br />
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card product className={classes.cardHover}>
-              <CardBody>
-                <div className={classes.cardHoverUnder}>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="View"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="transparent" simple justIcon>
-                      <ArtTrack className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Edit"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="success" simple justIcon>
-                      <Refresh className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Remove"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="danger" simple justIcon>
-                      <Edit className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                </div>
-
-
-                <h4 className={classes.cardProductTitle}>
-
-
-
-                  {projects &&
-                    projects.map(log => (
-                      <div key={log.projectName}>
-
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          <p>{log.projectName}</p>
-                        </a>
-
-                      </div>
-                    ))}
-
-                    <div>
+ 
+                 
                       {optionItems}
-                    </div>
-
-                </h4>
-                <p className={classes.cardProductDesciprion}>
-                  Action packed Massive Multiplayer Online game in battle royale
-                  style with a ton of fun dances!
-                </p>
-              </CardBody>
-              <CardFooter product>
-                <div className={classes.price}>
-                  <h4>EpicGames</h4>
-                </div>
-                <div className={`${classes.stats} ${classes.productStats}`}>
-                  <Place /> Funland, Mars
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-
-
-          {/*  <GridItem xs={12} sm={12} md={4}>
-            <Card product className={classes.cardHover}>
-              
-              <CardBody>
-                <div className={classes.cardHoverUnder}>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="View"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="transparent" simple justIcon>
-                      <ArtTrack className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Edit"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="success" simple justIcon>
-                      <Refresh className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Remove"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="danger" simple justIcon>
-                      <Edit className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                </div>
-
-
-                <h4 className={classes.cardProductTitle}>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Watson
-                  </a>
-                </h4>
-                <p className={classes.cardProductDesciprion}>
-                  Artificial Inteligence project featuring the newest
-                  technologies by IBM, and Thien Nguyen the genius.
-                </p>
-              </CardBody>
-              <CardFooter product>
-                <div className={classes.price}>
-                  <h4>IBM</h4>
-                </div>
-                <div className={`${classes.stats} ${classes.productStats}`}>
-                  <Place /> Murica, US
-                </div>
-              </CardFooter>
-
-
-            </Card>
-          </GridItem>
-
-
-          <GridItem xs={12} sm={12} md={4}>
-            <Card product className={classes.cardHover}>
-              <CardBody>
-                <div className={classes.cardHoverUnder}>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="View"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="transparent" simple justIcon>
-                      <ArtTrack className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Edit"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="success" simple justIcon>
-                      <Refresh className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip
-                    id="tooltip-top"
-                    title="Remove"
-                    placement="bottom"
-                    classes={{ tooltip: classes.tooltip }}
-                  >
-                    <Button color="danger" simple justIcon>
-                      <Edit className={classes.underChartIcons} />
-                    </Button>
-                  </Tooltip>
-                </div>
-                <h4 className={classes.cardProductTitle}>
-                  <a href="#doest work" onClick={e => e.preventDefault()}>
-                    ScrumBag
-                  </a>
-                </h4>
-                <p className={classes.cardProductDesciprion}>
-                  Task management tool in scrum style.
-                </p>
-              </CardBody>
-              <CardFooter product>
-                <div className={classes.price}>
-                  <h4>ScrumBag</h4>
-                </div>
-                <div className={`${classes.stats} ${classes.productStats}`}>
-                  <Place /> Fresno, CA
-                </div>
-              </CardFooter>
-            </Card>
-                  </GridItem>*/}
-        </GridContainer>
+                  
   </div>
+         
+
+
+         
+       
     );
   }
 }

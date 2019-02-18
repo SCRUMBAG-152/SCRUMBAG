@@ -16,10 +16,10 @@ class AddTask extends React.Component {
     super(props);
     this.state = {
       taskName: "",
-      taskPoint: "",
+      taskPoints: "",
       columnID: { value: "" },
       columns: [],
-      isHidden: true
+      //isHidden: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,11 +32,11 @@ class AddTask extends React.Component {
   };*/
 
 
-  toggleHidden() {
+  /*toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     });
-  }
+  }*/
 
   handleChange(e) {
     this.setState({
@@ -53,12 +53,19 @@ class AddTask extends React.Component {
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
     console.log("project reference", projectRef);
 
+    const emptyTasks = await fire
+      .collection("Tasks")
+      .where("taskName", "==", "")
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      console.log("empty task reference", emptyTasks);
+
     /*const columnRef = await fire
           .collection('Columns')*/
 
     this.setState({
       taskName: "",
-      taskPoint: "",
+      taskPoints: "",
       //columnID: {value: ''},
       columns: projectRef
     });
@@ -66,12 +73,20 @@ class AddTask extends React.Component {
 
  
   
+  deleteEmpty() {
+    const emptyTasks = fire
+      .collection("Columns")
+      .where("taskName", "==", "")
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      console.log("empty task reference", emptyTasks);
+  }
 
   newTask = async task => {
     await fire.collection("Tasks").add({
       columnID: this.state.columnID,
       taskName: this.state.taskName,
-      taskPoints: this.state.taskPoint,
+      taskPoints: this.state.taskPoints,
       userID: []
     });
     this.componentDidMount();
@@ -82,10 +97,13 @@ class AddTask extends React.Component {
     //const { projectRef } = this.state;
     let columns = this.state.columns;
     let optionItems = columns.map((column, index) => (
-      <option key={index} value={column.columnName} inputProps={{onChange: this.handleChange}}>
+      <option key={index} value={column.columnName} onChange={this.handleChange}>
         {column.columnName}
       </option>
     ));
+
+    //onClick={() => this.newTask()} 
+
     return (
       <div id="AddTask">
         <GridContainer>
@@ -93,13 +111,13 @@ class AddTask extends React.Component {
             <Card>
               <CardHeader color="warning">ADD A TASK</CardHeader>
               <CardBody>
-                <form onClick={() => this.newTask()}>
+                <form> 
                   <label>
                     Task Name:
                     <input
                       type="text"
                       name="taskName"
-                      inputProps={{onChange: this.handleChange}}
+                      onChange={this.handleChange}
                       value={this.state.taskName}
                     />
                   </label>
@@ -108,8 +126,8 @@ class AddTask extends React.Component {
                     Task Points:
                     <input
                       type="number"
-                      name="taskPoint"
-                      inputProps={{onChange: this.handleChange}}
+                      name="taskPoints"
+                      onChange={this.handleChange}
                       value={this.state.taskPoints}
                     />
                   </label>
@@ -122,7 +140,11 @@ class AddTask extends React.Component {
                       {optionItems}
                     </select>
                   </label>
-                  <Button size="small" color="secondary">
+                  
+                </form>
+              </CardBody>
+              <CardFooter>
+              <Button size="small" color="secondary">
                   Cancel
                 </Button>
                 <Button
@@ -132,10 +154,6 @@ class AddTask extends React.Component {
                 >
                   Save
                 </Button>
-                </form>
-              </CardBody>
-              <CardFooter>
-                
               </CardFooter>
             </Card>
           </GridItem>
