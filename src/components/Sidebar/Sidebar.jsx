@@ -78,7 +78,7 @@ class Sidebar extends React.Component {
 
   getCurrName() {
     var that = this;
-    auth.onAuthStateChanged(function(user) {
+    /*auth.onAuthStateChanged(function(user) {
       //get current user
       if (user) {
         fire
@@ -86,12 +86,12 @@ class Sidebar extends React.Component {
           .doc(`${user.uid}`)
           .get()
           .then(snap => {
-            that.setState({
-              name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
+            //that.setState({
+             // name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
             });
           });
       }
-    });
+    });*/
   }
 
   componentDidMount() {

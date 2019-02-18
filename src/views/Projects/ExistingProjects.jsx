@@ -93,10 +93,18 @@ render() {
     for (i; i < len; i++) {
       dbarray[i] = "kristen" + i + ", "
     }
+    let projList = this.state.projects;
+    let optionItems = projList.map((project, index) => (
+      <div  style={{float: 'left', padding:'20px'}} key={index} value={project.projectName}>
+        <p>{project.projectName} </p>
+       <p>{project.companyName} </p>
+       <p>{project.projectDescription}</p>
+      </div>
+    ));
 
-    var docRef = fire.collection('Projects').doc('HogJ2XkOGTbEadJwAtoM');
+    //var docRef = fire.collection('Projects').doc('HogJ2XkOGTbEadJwAtoM');
 
-    docRef.get().then(function(doc){console.log("Document Data:", doc.data())})
+    //docRef.get().then(function(doc){console.log("Document Data:", doc.data())})
 
 return (
   <div>
@@ -158,6 +166,10 @@ return (
 
                       </div>
                     ))}
+
+                    <div>
+                      {optionItems}
+                    </div>
 
                 </h4>
                 <p className={classes.cardProductDesciprion}>

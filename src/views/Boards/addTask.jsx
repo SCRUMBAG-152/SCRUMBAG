@@ -11,14 +11,7 @@ import { Button } from "@material-ui/core";
 //import { bool } from "prop-types";
 
 class AddTask extends React.Component {
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -29,14 +22,28 @@ class AddTask extends React.Component {
       isHidden: true
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+ 
+
+  /*handleChangeIndex = index => {
+    this.setState({ value: index });
+  };*/
+
 
   toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     });
   }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  }
+
   async componentDidMount() {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
     const projectRef = await fire
@@ -57,28 +64,25 @@ class AddTask extends React.Component {
     });
   }
 
-  handleInputChange(event) {
-    // const target = event.target;
-    // const value = target.value;
-    // const name = target.name;
-  }
+ 
+  
 
   newTask = async task => {
     await fire.collection("Tasks").add({
-      columnID: "1O7NHVhZYmGgQzRGAPg3",
-      taskName: "newTasks",
-      taskPoints: 5,
+      columnID: this.state.columnID,
+      taskName: this.state.taskName,
+      taskPoints: this.state.taskPoint,
       userID: []
     });
     this.componentDidMount();
     console.log("Completed Adding a Task.");
-  };
+  }
 
   render() {
     //const { projectRef } = this.state;
     let columns = this.state.columns;
     let optionItems = columns.map((column, index) => (
-      <option key={index} value={column.columnName}>
+      <option key={index} value={column.columnName} inputProps={{onChange: this.handleChange}}>
         {column.columnName}
       </option>
     ));
@@ -89,24 +93,24 @@ class AddTask extends React.Component {
             <Card>
               <CardHeader color="warning">ADD A TASK</CardHeader>
               <CardBody>
-                <form>
+                <form onClick={() => this.newTask()}>
                   <label>
                     Task Name:
                     <input
-                      name="taskName"
                       type="text"
+                      name="taskName"
+                      inputProps={{onChange: this.handleChange}}
                       value={this.state.taskName}
-                      onChange={this.handleInputChange}
                     />
                   </label>
                   <br />
                   <label>
                     Task Points:
                     <input
-                      name="taskPoint"
                       type="number"
+                      name="taskPoint"
+                      inputProps={{onChange: this.handleChange}}
                       value={this.state.taskPoints}
-                      onChange={this.handleInputChange}
                     />
                   </label>
                   <br />
@@ -114,24 +118,24 @@ class AddTask extends React.Component {
                     Column:
                     <select
                       value="this.state.columnID"
-                      onChange={this.handleInputChange}
                     >
                       {optionItems}
                     </select>
                   </label>
-                </form>
-              </CardBody>
-              <CardFooter>
-                <Button size="small" color="secondary">
+                  <Button size="small" color="secondary">
                   Cancel
                 </Button>
                 <Button
                   size="small"
                   color="success"
-                  onClick={() => this.newTask()}
+                  
                 >
                   Save
                 </Button>
+                </form>
+              </CardBody>
+              <CardFooter>
+                
               </CardFooter>
             </Card>
           </GridItem>
