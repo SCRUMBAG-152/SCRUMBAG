@@ -32,7 +32,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 // import Table from "components/Table/Table.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
+// import CardHeader from "components/Card/CardHeader.jsx";
 // import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
@@ -45,25 +45,70 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-pro-react/views/dashboardStyle";
 
-import project1 from "assets/img/project1.jpg";
-import project2 from "assets/img/project2.png";
-import project3 from "assets/img/project3.jpeg";
+//import project1 from "assets/img/project1.jpg";
+//import project2 from "assets/img/project2.png";
+//import project3 from "assets/img/project3.jpeg";
+
+import fire from "config/Fire.jsx";
+
 
 class Dashboard extends React.Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
+  state = {
+    projects: []
+  }
+  handleChange = (event, value) => {
+    this.setState({ value })
+  }
+
+  handleChangeIndex = index => {
+    this.setState({ value: index })
+  }
+
+  async componentDidMount() {
+    const projectList = await fire.collection('Projects')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
+    console.log("Projects List: ", projectList)
+
+    this.setState({
+      projects: projectList
+    })
+
+    //  var docRef = fire.collection('Projects').doc('Organize Shelves')
+    // docRef.get().then(function(doc) {console.log("Document Data:", doc.data())})
+
+  };
+
+
+
+
+
+render() {
+    const { classes } = this.props
+    const { projects } = this.state
+
+    var len = projects.length
+    var i = 0
+    var dbarray = []
+    for (i; i < len; i++) {
+      dbarray[i] = "kristen" + i + ", "
+    }
+
+    var docRef = fire.collection('Projects').doc('HogJ2XkOGTbEadJwAtoM');
+
+    docRef.get().then(function(doc){console.log("Document Data:", doc.data())})
+
+return (
+  <div>
         <h3>Manage Projects</h3>
-        <br />
+
+        <p>{dbarray}</p>
+        <div></div>
+
+      <br />
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card product className={classes.cardHover}>
-              <CardHeader image className={classes.cardHeaderHover}>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <img src={project1} alt="..." />
-                </a>
-              </CardHeader>
               <CardBody>
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
@@ -97,10 +142,23 @@ class Dashboard extends React.Component {
                     </Button>
                   </Tooltip>
                 </div>
+
+
                 <h4 className={classes.cardProductTitle}>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Fortnite
-                  </a>
+
+
+
+                  {projects &&
+                    projects.map(log => (
+                      <div key={log.projectName}>
+
+                        <a href="#pablo" onClick={e => e.preventDefault()}>
+                          <p>{log.projectName}</p>
+                        </a>
+
+                      </div>
+                    ))}
+
                 </h4>
                 <p className={classes.cardProductDesciprion}>
                   Action packed Massive Multiplayer Online game in battle royale
@@ -117,13 +175,11 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+
+
+          {/*  <GridItem xs={12} sm={12} md={4}>
             <Card product className={classes.cardHover}>
-              <CardHeader image className={classes.cardHeaderHover}>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <img src={project2} alt="..." />
-                </a>
-              </CardHeader>
+              
               <CardBody>
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
@@ -157,6 +213,8 @@ class Dashboard extends React.Component {
                     </Button>
                   </Tooltip>
                 </div>
+
+
                 <h4 className={classes.cardProductTitle}>
                   <a href="#pablo" onClick={e => e.preventDefault()}>
                     Watson
@@ -175,15 +233,14 @@ class Dashboard extends React.Component {
                   <Place /> Murica, US
                 </div>
               </CardFooter>
+
+
             </Card>
           </GridItem>
+
+
           <GridItem xs={12} sm={12} md={4}>
             <Card product className={classes.cardHover}>
-              <CardHeader image className={classes.cardHeaderHover}>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <img src={project3} alt="..." />
-                </a>
-              </CardHeader>
               <CardBody>
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
@@ -236,9 +293,9 @@ class Dashboard extends React.Component {
                 </div>
               </CardFooter>
             </Card>
-          </GridItem>
+                  </GridItem>*/}
         </GridContainer>
-      </div>
+  </div>
     );
   }
 }
