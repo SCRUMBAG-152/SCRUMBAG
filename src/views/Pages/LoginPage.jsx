@@ -7,7 +7,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
+// import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
 // import LockOutline from "@material-ui/icons/LockOutline";
 
@@ -22,7 +22,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
-import { auth } from "config/Fire.jsx"
+import { auth } from "config/Fire.jsx";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class LoginPage extends React.Component {
     this.state = {
       cardAnimaton: "cardHidden",
       email: "",
-      password: "",
+      password: ""
     };
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,11 +39,15 @@ class LoginPage extends React.Component {
 
   login(e) {
     e.preventDefault();
-    auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
-      window.location.replace("http://localhost:3000/dashboard");
-    }).catch((error) => {   //if an error occurs, alert user of the error
-      window.alert(error);
-    });
+    auth
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        window.location.replace("http://localhost:3000/dashboard");
+      })
+      .catch(error => {
+        //if an error occurs, alert user of the error
+        window.alert(error);
+      });
   }
 
   //handle changes from email and password
@@ -56,7 +60,7 @@ class LoginPage extends React.Component {
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     this.timeOutFunction = setTimeout(
-      function () {
+      function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       700
@@ -134,10 +138,15 @@ class LoginPage extends React.Component {
                       )
                     }}
                   />
-
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
-                  <Button onClick={this.login} color="rose" simple size="lg" block>
+                  <Button
+                    onClick={this.login}
+                    color="rose"
+                    simple
+                    size="lg"
+                    block
+                  >
                     Let's Go
                   </Button>
                 </CardFooter>

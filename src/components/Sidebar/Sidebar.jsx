@@ -23,9 +23,9 @@ import sidebarStyle from "assets/jss/material-dashboard-pro-react/components/sid
 
 import avatar from "assets/img/default-avatar.png";
 
-import { persistence } from 'config/Fire.jsx';
-import { auth } from 'config/Fire.jsx';
-import fire from 'config/Fire.jsx';
+// import { persistence } from 'config/Fire.jsx';
+import { auth } from "config/Fire.jsx";
+import fire from "config/Fire.jsx";
 
 var ps;
 
@@ -78,13 +78,18 @@ class Sidebar extends React.Component {
 
   getCurrName() {
     var that = this;
-    auth.onAuthStateChanged(function (user) { //get current user
+    auth.onAuthStateChanged(function(user) {
+      //get current user
       if (user) {
-        fire.collection('Users').doc(`${user.uid}`).get().then((snap) => {
-          that.setState({
-            name: snap.data().firstName + " " + snap.data().lastName  //set name state to current users name
+        fire
+          .collection("Users")
+          .doc(`${user.uid}`)
+          .get()
+          .then(snap => {
+            that.setState({
+              name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
+            });
           });
-        });
       }
     });
   }
@@ -302,8 +307,8 @@ class Sidebar extends React.Component {
                     {typeof prop.icon === "string" ? (
                       <Icon>{prop.icon}</Icon>
                     ) : (
-                        <prop.icon />
-                      )}
+                      <prop.icon />
+                    )}
                   </ListItemIcon>
                   <ListItemText
                     primary={prop.name}
@@ -387,8 +392,8 @@ class Sidebar extends React.Component {
                   {typeof prop.icon === "string" ? (
                     <Icon>{prop.icon}</Icon>
                   ) : (
-                      <prop.icon />
-                    )}
+                    <prop.icon />
+                  )}
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.name}

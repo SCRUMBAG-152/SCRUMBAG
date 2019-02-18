@@ -1,16 +1,14 @@
 import Dashboard from "views/Dashboard/Dashboard.jsx";
-import RegularForms from "views/Projects/RegularForms.jsx";
-import ExtendedForms from "views/Projects/ExtendedForms.jsx";
-import ValidationForms from "views/Projects/ValidationForms.jsx";
+// import RegularForms from "views/Projects/RegularForms.jsx";
+// import ExtendedForms from "views/Projects/ExtendedForms.jsx";
+// import ValidationForms from "views/Projects/ValidationForms.jsx";
 import ExistingProjects from "views/Projects/ExistingProjects.jsx";
-import Wizard from "views/Projects/Wizard.jsx";
+// import Wizard from "views/Projects/Wizard.jsx";
 import Charts from "views/Charts/Charts.jsx";
 import Calendar from "views/Calendar/Calendar.jsx";
 import UserProfile from "views/Pages/UserProfile.jsx";
-import TimelinePage from "views/Pages/Timeline.jsx";
+// import TimelinePage from "views/Pages/Timeline.jsx";
 import Boards from "../views/Boards/Boards.jsx";
-
-
 
 import pagesRoutes from "./pages.jsx";
 
@@ -21,7 +19,6 @@ import Image from "@material-ui/icons/Image";
 import Timeline from "@material-ui/icons/Timeline";
 import DateRange from "@material-ui/icons/DateRange";
 import Assignment from "@material-ui/icons/Assignment";
-
 
 var pages = [
   /*{
@@ -35,7 +32,7 @@ var pages = [
     name: "User Profile",
     mini: "UP",
     component: UserProfile
-  },
+  }
 ].concat(pagesRoutes);
 
 var dashRoutes = [
@@ -65,7 +62,7 @@ var dashRoutes = [
         name: "Exsting Projects",
         mini: "EP",
         component: ExistingProjects
-      },
+      }
       /*{
         path: "/projects/regular-forms",
         name: "Regular Forms",
@@ -89,7 +86,7 @@ var dashRoutes = [
     ]
   },
   { path: "/boards", name: "Boards", icon: Assignment, component: Boards },
-  
+
   { path: "/charts", name: "Charts", icon: Timeline, component: Charts },
   { path: "/calendar", name: "Calendar", icon: DateRange, component: Calendar },
   { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }

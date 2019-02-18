@@ -21,7 +21,7 @@ import appStyle from "assets/jss/material-dashboard-pro-react/layouts/dashboardS
 import image from "assets/img/sidebar-3.jpg";
 import logo from "assets/img/logo-white.svg";
 
-import { persistence } from 'config/Fire.jsx';
+// import { persistence } from 'config/Fire.jsx';
 
 const switchRoutes = (
   <Switch>
@@ -128,8 +128,8 @@ class Dashboard extends React.Component {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-              <div className={classes.map}>{switchRoutes}</div>
-            )}
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
           {this.getRoute() ? <Footer fluid /> : null}
         </div>
       </div>
