@@ -87,79 +87,66 @@ render() {
     const { classes } = this.props
     const { projects } = this.state
 
-    var len = projects.length
-    var i = 0
-    var dbarray = []
-    for (i; i < len; i++) {
-      dbarray[i] = "kristen" + i + ", "
-    }
     let projList = this.state.projects;
     let optionItems = projList.map((project, index) => (
       <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card product className={classes.cardHover}>
-        
               <CardBody>
-              <div className={classes.cardHoverUnder}>
-                <Tooltip
-                  id="tooltip-top"
-                  title="View"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="transparent" simple justIcon>
-                    <ArtTrack className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Edit"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="success" simple justIcon>
-                    <Refresh className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  id="tooltip-top"
-                  title="Remove"
-                  placement="bottom"
-                  classes={{ tooltip: classes.tooltip }}
-                >
-                  <Button color="danger" simple justIcon>
-                    <Edit className={classes.underChartIcons} />
-                  </Button>
-                </Tooltip>
-              </div>
+                <div className={classes.cardHoverUnder}>
+                  <Tooltip
+                    id="tooltip-top"
+                    title="View"
+                    placement="bottom"
+                    classes={{ tooltip: classes.tooltip }}
+                  >
+                    <Button color="transparent" simple justIcon>
+                      <ArtTrack className={classes.underChartIcons} />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip
+                    id="tooltip-top"
+                    title="Edit"
+                    placement="bottom"
+                    classes={{ tooltip: classes.tooltip }}
+                  >
+                    <Button color="success" simple justIcon>
+                      <Refresh className={classes.underChartIcons} />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip
+                    id="tooltip-top"
+                    title="Remove"
+                    placement="bottom"
+                    classes={{ tooltip: classes.tooltip }}
+                  >
+                    <Button color="danger" simple justIcon>
+                      <Edit className={classes.underChartIcons} />
+                    </Button>
+                  </Tooltip>
+                </div>
 
 
               <h4 className={classes.cardProductTitle}>
-
-              <p>{project.projectName} </p>
-              <p>{project.companyName} </p>
-              <p>{project.projectDescription}</p>
-              </h4>
+                <p/>{project.projectName}
+              </h4>  
             
-
-                
-
-                  
-
+              <p className={classes.cardProductDesciprion}>
+                {project.projectDescription}
+              </p>
               
-              
-            </CardBody>
-          <CardFooter product>
-          <div className={classes.price}>
-            <h4>EpicGames</h4>
-          </div>
-          <div className={`${classes.stats} ${classes.productStats}`}>
-            <Place /> Funland, Mars
-          </div>
-        </CardFooter>
-      </Card>
+          </CardBody>
+            <CardFooter product>
+            <div className={classes.price}>
+              <h4>{project.companyName}</h4>
+            </div>
+
+            <div className={`${classes.stats} ${classes.productStats}`}>
+            </div>
+          </CardFooter>
+        </Card>
       </GridItem>
-      </GridContainer>
+    </GridContainer>
     ));
 
  
@@ -167,9 +154,7 @@ return (
   <div>
         <h3>Manage Projects</h3>
 
- 
-                 
-                      {optionItems}
+       {optionItems}
                   
   </div>
          
