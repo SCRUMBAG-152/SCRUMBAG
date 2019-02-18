@@ -64,9 +64,9 @@ class RegisterPage extends React.Component {
   }
 
   //initialize Document in user collection
-  initializeDoc(company) {
+  async initializeDoc() {
     const newUse = fire.collection('Users').doc(`${auth.currentUser.uid}`);
-    newUse.get().then(async (snapshot) => {
+    await newUse.get().then(async () => {
       newUse.set({      // create the document if it's a new user
         companyID: await this.getCompanyID(),
         departmentID: [],
@@ -86,8 +86,9 @@ class RegisterPage extends React.Component {
     e.preventDefault();
     //verify that fields are filled out correctly
     if (this.state.first !== "" && this.state.last !== "" && await this.getCompanyID() !== undefined) {
-      auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-        this.initializeDoc();         //initialize a new doc in the Users collection in firestore
+      auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
+        await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
+        window.location.replace("http://localhost:3000/dashboard");   //redirect user to dashboard page once logged in
       }).catch((error) => {           //if an error occurs, alert user of the error
         window.alert(error);
       });

@@ -18,8 +18,10 @@ import dashboardRoutes from "routes/dashboard.jsx";
 
 import appStyle from "assets/jss/material-dashboard-pro-react/layouts/dashboardStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/img/sidebar-3.jpg";
 import logo from "assets/img/logo-white.svg";
+
+// import { persistence } from 'config/Fire.jsx';
 
 const switchRoutes = (
   <Switch>

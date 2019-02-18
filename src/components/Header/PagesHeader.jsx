@@ -95,7 +95,7 @@ class PagesHeader extends React.Component {
           <Hidden smDown>
             <div className={classes.flex}>
               <Button href="#" className={classes.title} color="transparent">
-                Scrumble
+                Scrumbag
               </Button>
             </div>
           </Hidden>
