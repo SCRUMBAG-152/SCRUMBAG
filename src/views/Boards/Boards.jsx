@@ -4,6 +4,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import fire from '../../config/Fire.jsx'
 import {DragDropContext} from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
+
 
 import BackLog from './taskComponents/Backlog.jsx'
 import Todo from './taskComponents/Todo.jsx'
@@ -28,6 +30,7 @@ class Boards extends React.Component {
   constructor (props) {
     super(props)
     this.handleTaskClick = this.handleTaskClick.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this);
     this.state = {
       taskPressed: false,
       value: 0,
@@ -202,6 +205,20 @@ class Boards extends React.Component {
     this.getDone()
   }
 
+  onBeforeDragStart = () => {
+    /*...*/
+  };
+
+  onDragStart = () => {
+    /*...*/
+  };
+  onDragUpdate = () => {
+    /*...*/
+  };
+  onDragEnd = () => {
+
+  };
+
   render () {
     const { classes } = this.props
     const { doing, toDos, backLog, done } = this.state
@@ -220,20 +237,39 @@ class Boards extends React.Component {
           Add Task
         </Button>
         {taskBox}
-        <GridContainer style={{textAlign: 'center'}}>
-          <GridItem xs={12} sm={6} md={4} lg={3}>
-            <BackLog backLog={this.state.backLog} deleteTask={this.deleteTask}></BackLog>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={4} lg={3}>
-            <Todo toDos={this.state.toDos} deleteTask={this.deleteTask}></Todo>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={4} lg={3}>
-          <Doing doing={this.state.doing} deleteTask={this.deleteTask}></Doing>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={4} lg={3}>
-            <Done done={this.state.done} deleteTask={this.deleteTask}></Done>
-          </GridItem>
-        </GridContainer>
+        <DragDropContext
+          onBeforeDragStart={this.onBeforeDragStart}
+          onDragStart={this.onDragStart}
+          onDragUpdate={this.onDragUpdate}
+          onDragEnd={this.onDragEnd}
+        >
+          <GridContainer style={{textAlign: 'center'}}>
+          <Droppable droppableId="droppable-1" type="PERSON">
+          {(provided, snapshot) => (
+            <div
+              xs={12} sm={6} md={4} lg={3}
+              ref={provided.innerRef}
+              style={{ backgroundColor: snapshot.isDraggingOver ? 'none' : 'none' }}
+              {...provided.droppableProps}
+            >
+            <GridItem >
+              <BackLog backLog={this.state.backLog} deleteTask={this.deleteTask} columnID={"one"}></BackLog>
+            </GridItem>
+            {provided.placeholder}
+            </div>
+          )}
+          </Droppable>
+            <GridItem xs={12} sm={6} md={4} lg={3}>
+              <Todo toDos={this.state.toDos} deleteTask={this.deleteTask} columnID={"two"}>></Todo>
+            </GridItem>
+            <GridItem xs={12} sm={6} md={4} lg={3}>
+            <Doing doing={this.state.doing} deleteTask={this.deleteTask} columnID={"three"}>></Doing>
+            </GridItem>
+            <GridItem xs={12} sm={6} md={4} lg={3}>
+              <Done done={this.state.done} deleteTask={this.deleteTask} columnID={"four"}>></Done>
+            </GridItem>
+          </GridContainer>
+        </DragDropContext>
       </div>
     )
   }

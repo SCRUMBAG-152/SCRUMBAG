@@ -11,10 +11,10 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Refresh from '@material-ui/icons/Refresh'
 import Update from '@material-ui/icons/Update'
 
+import { Draggable } from 'react-beautiful-dnd'
 
 
 export class BackLog extends Component {
-
     render() {
         return (
             <Card>
@@ -24,40 +24,52 @@ export class BackLog extends Component {
             </h4>
             <p>Things waiting to be started</p>
             </CardHeader>
-            <CardBody>
-            {this.props.backLog &&
-                this.props.backLog.map(log => {
-                return (
-                    <Card raised key={log.id}>
-                    <div>
-                        <p>{log.taskName}</p>
-                        <Tooltip
-                        id='tooltip-top'
-                        title='Edit'
-                        placement='bottom'
-                        >
-                        <Button color='success' simple justIcon>
-                            <Refresh/>
-                        </Button>
-                        </Tooltip>
-                        <Tooltip
-                        id='tooltip-top'
-                        title='Remove'
-                        placement='bottom'
-                        >
-                        <Button
-                            onClick={() => this.props.deleteTask(log.id)}
-                            color='danger'
-                            simple
-                            justIcon>
-                            <Edit/>
-                        </Button>
-                        </Tooltip>
-                    </div>
-                    </Card>
-                )
-                })}
-            </CardBody>
+                <CardBody>
+                {this.props.backLog &&
+                    this.props.backLog.map(log => {
+                    return (
+                        <Draggable draggableId={log.id} index={0}>
+                        {(provided, snapshot) => (
+                        <div>
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style= {{textAlign: "center"}}
+                            >
+                                <Card raised key={log.id}>
+                                
+                                    <p>{log.taskName}</p>
+                                    <Tooltip
+                                    id='tooltip-top'
+                                    title='Edit'
+                                    placement='bottom'
+                                    >
+                                    <Button color='success' simple justIcon>
+                                        <Refresh/>
+                                    </Button>
+                                    </Tooltip>
+                                    <Tooltip
+                                    id='tooltip-top'
+                                    title='Remove'
+                                    placement='bottom'
+                                    >
+                                    <Button
+                                        onClick={() => this.props.deleteTask(log.id)}
+                                        color='danger'
+                                        simple
+                                        justIcon>
+                                        <Edit/>
+                                    </Button>
+                                    </Tooltip>
+                                </Card>
+                            </div>
+                        </div>
+                        )}
+                        </Draggable>
+                    )
+                    })}
+                </CardBody>
             <CardFooter stats>
             <div>
                 <Update />
@@ -72,7 +84,8 @@ export class BackLog extends Component {
 BackLog.propTypes = {
   backLog: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  deleteTask: PropTypes.func.isRequired
+  deleteTask: PropTypes.func.isRequired,
+  columnID: PropTypes.string.isRequired
 }
 
 export default BackLog
