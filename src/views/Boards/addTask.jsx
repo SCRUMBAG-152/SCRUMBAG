@@ -107,7 +107,7 @@ class AddTask extends React.Component {
         value={column.id}
         onChange={this.handleChange}
       >
-        {column.columnName}  -- {column.id}
+        {column.columnName} - {column.id}
       </option>
     ));
 
@@ -158,7 +158,7 @@ class AddTask extends React.Component {
                 </Button>
                 <Button
                   size="small"
-                  
+                
                   onClick={this.newTask}
                   
                 >
