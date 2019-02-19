@@ -233,6 +233,7 @@ class Dashboard extends React.Component {
                 {backLog &&
                   backLog.map(log => {
                     return (
+                      <Card raised>
                       <div key={log.id}>
                         <p>{log.taskName}</p>
                         <Button
@@ -244,6 +245,7 @@ class Dashboard extends React.Component {
                           right
                         </Button>
                       </div>
+                      </Card>
                     )
                   })}
               </CardBody>
@@ -267,6 +269,7 @@ class Dashboard extends React.Component {
                 {toDos &&
                   toDos.map(todos => {
                     return (
+                      <Card raised>
                       <div key={todos.id}>
                         <p>{todos.taskName}</p>
                         <Button size='sm' onClick={() => console.todos('Left')}>
@@ -283,6 +286,7 @@ class Dashboard extends React.Component {
                           right
                         </Button>
                       </div>
+                      </Card>
                     )
                   })}
 
@@ -312,6 +316,7 @@ class Dashboard extends React.Component {
                 {doing &&
                   doing.map(doings => {
                     return (
+                      <Card raised>
                       <div key={doings.id}>
                         <p>{doings.taskName}</p>
                         <Button size='sm' onClick={() => console.log('Left')}>
@@ -326,6 +331,7 @@ class Dashboard extends React.Component {
                           right
                         </Button>
                       </div>
+                      </Card>
                     )
                   })}
 
@@ -351,6 +357,7 @@ class Dashboard extends React.Component {
                 {done &&
                   done.map(dones => {
                     return (
+                      <Card raised>
                       <div key={dones.id}>
                         <p>{dones.taskName}</p>
                         <Button size='sm' onClick={() => console.log('Left')}>
@@ -365,6 +372,7 @@ class Dashboard extends React.Component {
                           right
                         </Button>
                       </div>
+                      </Card>
                     )
                   })}
               </CardBody>
