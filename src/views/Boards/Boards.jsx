@@ -264,7 +264,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <Button size='sm' onClick={() => this.newTask(),this.handleTaskClick}>
+        <Button size='sm' onClick={() => this.newTask(),this.handleTaskClick()}>
           Add Task
         </Button>
         {taskBox}
