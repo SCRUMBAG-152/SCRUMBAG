@@ -14,6 +14,7 @@ import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
 import fire from 'config/Fire.jsx'
+import addProject from './addProject.jsx'
 
 class Dashboard extends React.Component {
   constructor (props) {
