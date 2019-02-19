@@ -38,6 +38,7 @@ class AddTask extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+    
   }
 
   async componentDidMount() {
@@ -46,7 +47,13 @@ class AddTask extends React.Component {
       .collection("Columns")
       .where("projectID", "==", "HogJ2XkOGTbEadJwAtoM")
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          };
+        }));
     console.log("project reference", projectRef);
     
 
@@ -63,7 +70,7 @@ class AddTask extends React.Component {
     this.setState({
       taskName: "",
       taskPoints: "",
-      //columnID: {value: ''},
+      columnID: projectRef.id,
       columns: projectRef
     });
   }
@@ -95,11 +102,12 @@ class AddTask extends React.Component {
     let columns = this.state.columns;
     let optionItems = columns.map((column, index) => (
       <option
+        name="columnID"
         key={index}
-        value={column.columnName}
+        value={column.id}
         onChange={this.handleChange}
       >
-        {column.columnName}
+        {column.columnName} - {column.id}
       </option>
     ));
 
@@ -136,7 +144,8 @@ class AddTask extends React.Component {
                   <label>
                     Column:
                     <select
-                      value={this.state.value} onChange={this.handleChange}
+                      name="columnID"
+                      value={this.state.id} onChange={this.handleChange}
                     >
                       {optionItems}
                     </select>
@@ -149,7 +158,7 @@ class AddTask extends React.Component {
                 </Button>
                 <Button
                   size="small"
-                  color="success"
+                
                   onClick={this.newTask}
                   
                 >
