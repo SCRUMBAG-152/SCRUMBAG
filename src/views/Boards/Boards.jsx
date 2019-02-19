@@ -39,13 +39,9 @@ class Dashboard extends React.Component {
   }
 
   handleTaskClick () {
-<<<<<<< HEAD
     this.setState(prevState => ({
       taskPressed: !prevState.taskPressed
     }));
-=======
-    this.setState({ taskPressed: true })
->>>>>>> 8cecb590545fd385deef6eb19e78c8d65f3dc182
   }
 
   handleChange = (event, value) => {
