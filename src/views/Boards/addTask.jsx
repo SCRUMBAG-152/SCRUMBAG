@@ -34,9 +34,9 @@ class AddTask extends React.Component {
     });
   }*/
 
-  handleChange(e) {
+  handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -48,13 +48,14 @@ class AddTask extends React.Component {
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
     console.log("project reference", projectRef);
+    
 
-    const emptyTasks = await fire
+    /* const emptyTasks = await fire
       .collection("Tasks")
       .where("taskName", "==", "")
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("empty task reference", emptyTasks);
+      console.log("empty task reference", emptyTasks);*/
 
     /*const columnRef = await fire
           .collection('Columns')*/
@@ -67,14 +68,16 @@ class AddTask extends React.Component {
     });
   }
 
-  deleteEmpty() {
+ 
+  
+  /*deleteEmpty() {
     const emptyTasks = fire
       .collection("Columns")
       .where("taskName", "==", "")
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("empty task reference", emptyTasks);
-  }
+      console.log("empty task reference", emptyTasks);
+  }*/
 
   newTask = async task => {
     await fire.collection("Tasks").add({
@@ -132,7 +135,11 @@ class AddTask extends React.Component {
                   <br />
                   <label>
                     Column:
-                    <select value="this.state.columnID">{optionItems}</select>
+                    <select
+                      value={this.state.value} onChange={this.handleChange}
+                    >
+                      {optionItems}
+                    </select>
                   </label>
                 </form>
               </CardBody>
@@ -140,7 +147,14 @@ class AddTask extends React.Component {
                 <Button size="small" color="secondary">
                   Cancel
                 </Button>
-                <Button size="small">Save</Button>
+                <Button
+                  size="small"
+                  color="success"
+                  onClick={this.newTask}
+                  
+                >
+                  Save
+                </Button>
               </CardFooter>
             </Card>
           </GridItem>
