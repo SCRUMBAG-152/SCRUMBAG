@@ -14,15 +14,25 @@ import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
 import fire from 'config/Fire.jsx'
-import addProject from './addProject.jsx'
+import AddProject from './addProject.jsx'
 
 class Dashboard extends React.Component {
   constructor (props) {
+    
     super(props)
+    this.handleTaskClick = this.handleTaskClick.bind(this)
     this.state = {
       projects: []
     }
   }
+
+  handleTaskClick () {
+    this.setState(prevState => ({
+      taskPressed: !prevState.taskPressed
+    }))
+  }
+
+  
   handleChange = (event, value) => {
     this.setState({ value })
   }
@@ -78,6 +88,15 @@ class Dashboard extends React.Component {
   render () {
     const { classes } = this.props
     const { projects } = this.state
+
+    const taskPressed = this.state.taskPressed
+    let taskBox
+
+    if (taskPressed) {
+      taskBox = <AddProject>Show</AddProject>
+    } else {
+      taskBox = null
+    }
 
     let projList = this.state.projects
     let optionItems = projList.map((project, index) => (
@@ -138,6 +157,11 @@ class Dashboard extends React.Component {
 
     return (
       <div>
+        <Button onClick={this.handleTaskClick}>
+          Add Project
+        </Button>
+        {taskBox}
+
         <Button onClick={() => this.newProject()}>New Project</Button>
         <h3>Manage Projects</h3>
         <GridContainer>{optionItems}</GridContainer>

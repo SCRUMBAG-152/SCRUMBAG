@@ -12,29 +12,20 @@ import PropTypes from "prop-types";
 
 //import { bool } from "prop-types";
 
-class AddTask extends React.Component {
+class AddProject extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
-      taskName: "",
-      taskPoints: "",
-      columnID: { value: "" },
-      columns: []
-      //isHidden: true
+      projectName: "",
+      companyName: "",
+      projectDescription: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  /*handleChangeIndex = index => {
-    this.setState({ value: index });
-  };*/
-
-  /*toggleHidden() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    });
-  }*/
+  
 
   handleChange = e => {
     this.setState({
@@ -43,11 +34,11 @@ class AddTask extends React.Component {
     
   }
 
+  
   async componentDidMount() {
-    // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
+   
     const projectRef = await fire
-      .collection("Columns")
-      .where("projectID", "==", "HogJ2XkOGTbEadJwAtoM")
+      .collection("Projects")
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
@@ -59,48 +50,32 @@ class AddTask extends React.Component {
     console.log("project reference", projectRef);
     
 
-    /* const emptyTasks = await fire
-      .collection("Tasks")
-      .where("taskName", "==", "")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-      console.log("empty task reference", emptyTasks);*/
-
-    /*const columnRef = await fire
-          .collection('Columns')*/
+ 
 
     this.setState({
-      taskName: "",
-      taskPoints: "",
-      columnID: projectRef.id,
-      columns: projectRef
+      projectName: "",
+      companyName: "",
+      projectDescription: ""
     });
   }
 
  
   
-  /*deleteEmpty() {
-    const emptyTasks = fire
-      .collection("Columns")
-      .where("taskName", "==", "")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-      console.log("empty task reference", emptyTasks);
-  }*/
+ 
 
   newTask = async task => {
-    await fire.collection("Tasks").add({
-      columnID: this.state.columnID,
-      taskName: this.state.taskName,
-      taskPoints: this.state.taskPoints,
-      userID: []
+    await fire.collection("Projects").add({
+      projectName: this.state.projectName,
+      companyName: this.state.companyName,
+      projectDescription: this.state.projectDescription,
     });
     this.componentDidMount();
-    console.log("Completed Adding a Task.");
+    console.log("Completed Adding a Project.");
   };
 
   render() {
-    //const { projectRef } = this.state;
+
+    {/*
     let columns = this.state.columns;
     let optionItems = columns.map((column, index) => (
       <option
@@ -111,46 +86,46 @@ class AddTask extends React.Component {
       >
         {column.columnName}
       </option>
-    ));
+    )); */}
 
-    //onClick={() => this.newTask()}
+  
 
     return (
-      <div id="AddTask">
+      <div id="AddProject">
         <GridContainer>
           <GridItem /* xs={12} sm={6} md={6} lg={3} */>
             <Card raised>
-              <CardHeader color="warning">ADD A TASK</CardHeader>
+              <CardHeader color="danger">ADD A PROJECT</CardHeader>
               <CardBody>
                 <form>
                   <label>
-                    Task Name:
+                    Project Name:
                     <input
                       type="text"
-                      name="taskName"
+                      name="ProjectName"
                       onChange={this.handleChange}
-                      value={this.state.taskName}
+                      value={this.state.ProjectName}
                     />
                   </label>
-                  <br />
+                  <br/>
                   <label>
-                    Task Points:
+                    Company Name:
                     <input
-                      type="number"
-                      name="taskPoints"
+                      type="text"
+                      name="CompanyName"
                       onChange={this.handleChange}
-                      value={this.state.taskPoints}
+                      value={this.state.CompanyName}
                     />
+                    <br/>
                   </label>
-                  <br />
                   <label>
-                    Column:
-                    <select
-                      name="columnID"
-                      value={this.state.id} onChange={this.handleChange}
-                    >
-                      {optionItems}
-                    </select>
+                    Project Description:
+                    <input
+                      type="text"
+                      name="ProjectDescription"
+                      onChange={this.handleChange}
+                      value={this.state.ProjectDescription}
+                    />
                   </label>
                 </form>
               </CardBody>
@@ -158,12 +133,7 @@ class AddTask extends React.Component {
                 <Button size="small" color="secondary">
                   Cancel
                 </Button>
-                <Button
-                  size="small"
-                
-                  onClick={this.newTask}
-                  
-                >
+                <Button size="small" onClick={this.newProject}>
                   Save
                 </Button>
               </CardFooter>
@@ -175,8 +145,8 @@ class AddTask extends React.Component {
   }
 }
 
-AddTask.propTypes = {
+AddProject.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default AddTask;
+export default AddProject;
