@@ -40,14 +40,7 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
-
-  async componentDidMount() {
-    // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
-    const companyRef = await fire
-      .collection("Companies")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-
+  getBackLog = async () => {
     // BACKLOG
     const columnBacklog = await fire
       .collection("Columns")
@@ -59,8 +52,29 @@ class Dashboard extends React.Component {
       .collection("Tasks")
       .where("columnID", "==", columnBacklog)
       .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          };
+        })
+      );
+    this.setState({
+      backLog: taskBacklog
+    });
+  };
+
+  // deleteBagLogTask
+  // get id and go into firebase and delete backlog task
+  // get BackLogTasks
+  async componentDidMount() {
+    // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
+    const companyRef = await fire
+      .collection("Companies")
+      .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("Task Backlog: ", taskBacklog);
+    this.getBackLog();
 
     // TO-DO
     const columnTodo = await fire
@@ -105,12 +119,12 @@ class Dashboard extends React.Component {
     console.log("Task Done: ", taskDone);
 
     this.setState({
-      backLog: taskBacklog,
+      // backLog: taskBacklog,
       toDos: taskToDo,
       doing: taskDoing,
       done: taskDone,
-      companyRef,
-      columnBacklog
+      companyRef
+      // columnBacklog
     });
 
     // Need To Do
@@ -145,15 +159,23 @@ class Dashboard extends React.Component {
     console.log("Completed Adding a Task.");
   };
 
-  deleteTask = async task => {
-    const delTask = await fire
+  deleteTask = async id => {
+    console.log("this is the id", id);
+    // console.log("task", task.columnID);
+    await fire
       .collection("Tasks")
-      .where("taskName", "==", "newTasks")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      .doc(id)
+      .delete();
 
-    this.componentDidMount();
-    console.log("Deleted a Task.", delTask);
+    this.getBackLog();
+
+    // const delTask = await fire
+    //   .collection("Tasks")
+    //   .where("taskName", "==", "newTasks")
+    //   .get()
+    //   .then(snapshot => snapshot.docs.map(doc => doc.id));
+    // this.componentDidMount();
+    // console.log("Deleted a Task.", delTask);
   };
 
   toDoToBackLog = todo => {
@@ -195,17 +217,28 @@ class Dashboard extends React.Component {
               </CardHeader>
               <CardBody>
                 {backLog &&
-                  backLog.map(log => (
-                    <div key={log.taskName}>
-                      <p>{log.taskName}</p>
-                      {/* {<Button size='sm' onClick={e => console.log(e, log)}>
+                  backLog.map(log => {
+                    {
+                      console.log("log", log);
+                    }
+                    return (
+                      <div key={log.taskName}>
+                        <p>{log.taskName}</p>
+                        {/* {<Button size='sm' onClick={e => console.log(e, log)}>
                         left
                       </Button>} */}
-                      <Button size="sm" onClick={() => console.log("right")}>
-                        right
-                      </Button>
-                    </div>
-                  ))}
+                        <Button size="sm" onClick={() => console.log("right")}>
+                          right
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => this.deleteTask(log.id)}
+                        >
+                          delete task
+                        </Button>
+                      </div>
+                    );
+                  })}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>

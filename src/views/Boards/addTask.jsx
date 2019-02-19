@@ -11,26 +11,22 @@ import { Button } from "@material-ui/core";
 //import { bool } from "prop-types";
 
 class AddTask extends React.Component {
-  
   constructor(props) {
     super(props);
     this.state = {
       taskName: "",
       taskPoints: "",
       columnID: { value: "" },
-      columns: [],
+      columns: []
       //isHidden: true
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
- 
-
   /*handleChangeIndex = index => {
     this.setState({ value: index });
   };*/
-
 
   /*toggleHidden() {
     this.setState({
@@ -58,7 +54,7 @@ class AddTask extends React.Component {
       .where("taskName", "==", "")
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
-      console.log("empty task reference", emptyTasks);
+    console.log("empty task reference", emptyTasks);
 
     /*const columnRef = await fire
           .collection('Columns')*/
@@ -71,15 +67,13 @@ class AddTask extends React.Component {
     });
   }
 
- 
-  
   deleteEmpty() {
     const emptyTasks = fire
       .collection("Columns")
       .where("taskName", "==", "")
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()));
-      console.log("empty task reference", emptyTasks);
+    console.log("empty task reference", emptyTasks);
   }
 
   newTask = async task => {
@@ -91,18 +85,22 @@ class AddTask extends React.Component {
     });
     this.componentDidMount();
     console.log("Completed Adding a Task.");
-  }
+  };
 
   render() {
     //const { projectRef } = this.state;
     let columns = this.state.columns;
     let optionItems = columns.map((column, index) => (
-      <option key={index} value={column.columnName} onChange={this.handleChange}>
+      <option
+        key={index}
+        value={column.columnName}
+        onChange={this.handleChange}
+      >
         {column.columnName}
       </option>
     ));
 
-    //onClick={() => this.newTask()} 
+    //onClick={() => this.newTask()}
 
     return (
       <div id="AddTask">
@@ -111,7 +109,7 @@ class AddTask extends React.Component {
             <Card>
               <CardHeader color="warning">ADD A TASK</CardHeader>
               <CardBody>
-                <form> 
+                <form>
                   <label>
                     Task Name:
                     <input
@@ -134,26 +132,15 @@ class AddTask extends React.Component {
                   <br />
                   <label>
                     Column:
-                    <select
-                      value="this.state.columnID"
-                    >
-                      {optionItems}
-                    </select>
+                    <select value="this.state.columnID">{optionItems}</select>
                   </label>
-                  
                 </form>
               </CardBody>
               <CardFooter>
-              <Button size="small" color="secondary">
+                <Button size="small" color="secondary">
                   Cancel
                 </Button>
-                <Button
-                  size="small"
-                  color="success"
-                  
-                >
-                  Save
-                </Button>
+                <Button size="small">Save</Button>
               </CardFooter>
             </Card>
           </GridItem>
