@@ -165,38 +165,18 @@ class Dashboard extends React.Component {
       .get()
       .then(snapshot => snapshot.docs.map(doc => doc.data()))
 
-    this.getBackLog()
+    // This will re-render the page when any of the data in the database has changed.
+    this.getBackLog() // Call a function to query the Backlog
 
-    this.getTodo()
+    this.getTodo() // Call a function to query the Todo
 
-    this.getDoing()
+    this.getDoing() // Call a function to query the Doing
 
-    this.getDone()
+    this.getDone() // Call a function to query the Done
 
     this.setState({
       companyRef
-      // columnBacklog
     })
-
-    // Need To Do
-    // get company project ID's
-
-    // company[id] matches departments.companyID
-    // projects.id matches columns.projectID
-    // projects.companyID matches Companies.id
-    // tasks.columnID matches columns.id
-
-    // const departmentRef = await fire.collection("companies")
-    // .orderBy("Projects", "asc").get()
-    // const data = query.map(test => test.data())
-    // console.log(companyRef)
-    // const data = query.get().then(snapshot => {
-    //     return Promise.all(snapshot.docs.map(doc => console.log(doc.data())))
-    //     // snapshot.doc.map(snap => {
-    //     //   return snap.data()
-    //     // })
-
-    // })
   }
 
   newTask = async task => {
