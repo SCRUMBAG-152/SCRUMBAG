@@ -7,6 +7,8 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import { Button } from "@material-ui/core";
+import PropTypes from "prop-types";
+
 
 //import { bool } from "prop-types";
 
@@ -117,7 +119,7 @@ class AddTask extends React.Component {
       <div id="AddTask">
         <GridContainer>
           <GridItem /* xs={12} sm={6} md={6} lg={3} */>
-            <Card>
+            <Card raised>
               <CardHeader color="warning">ADD A TASK</CardHeader>
               <CardBody>
                 <form>
@@ -171,6 +173,10 @@ class AddTask extends React.Component {
       </div>
     );
   }
+}
+
+AddTask.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
 export default AddTask;
