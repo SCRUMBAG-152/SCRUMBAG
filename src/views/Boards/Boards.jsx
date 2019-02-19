@@ -18,17 +18,16 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-import ToDo from '../../components/ToDo/ToDo.jsx'
+// import ToDo from '../../components/ToDo/ToDo.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
 import AddTask from './addTask.jsx'
 
 //= ========================================Imports End=========================================//
 
 class Dashboard extends React.Component {
-
-  constructor(props){
-    super(props);
-    this.handleTaskClick = this.handleTaskClick.bind(this);
+  constructor (props) {
+    super(props)
+    this.handleTaskClick = this.handleTaskClick.bind(this)
     this.state = {
       taskPressed: false,
       value: 0,
@@ -36,12 +35,11 @@ class Dashboard extends React.Component {
       doing: [],
       done: [],
       backLog: []
-    
-    };
+    }
   }
 
   handleTaskClick () {
-    this.setState({taskPressed: true})
+    this.setState({ taskPressed: true })
   }
 
   handleChange = (event, value) => {
@@ -249,22 +247,16 @@ class Dashboard extends React.Component {
               <CardBody>
                 {backLog &&
                   backLog.map(log => {
-                    {
-                      console.log('log', log)
-                    }
                     return (
                       <div key={log.taskName}>
                         <p>{log.taskName}</p>
-                        {/* {<Button size='sm' onClick={e => console.log(e, log)}>
-                        left
-                      </Button>} */}
-                        <Button size='sm' onClick={() => console.log('right')}>
-                          right
-                        </Button>
                         <Button
                           size='sm'
                           onClick={() => this.deleteTask(log.id)}>
                           delete task
+                        </Button>
+                        <Button size='sm' onClick={() => console.log('right')}>
+                          right
                         </Button>
                       </div>
                     )
@@ -287,11 +279,33 @@ class Dashboard extends React.Component {
                 <p>Category subtitle</p>
               </CardHeader>
               <CardBody>
-                {toDos.map(todo => (
+                {toDos &&
+                  toDos.map(todos => {
+                    return (
+                      <div key={todos.taskName}>
+                        <p>{todos.taskName}</p>
+                        <Button size='sm' onClick={() => console.todos('Left')}>
+                          Left
+                        </Button>
+                        <Button
+                          size='sm'
+                          onClick={() => this.deleteTask(todos.id)}>
+                          delete task
+                        </Button>
+                        <Button
+                          size='sm'
+                          onClick={() => console.todos('Right')}>
+                          right
+                        </Button>
+                      </div>
+                    )
+                  })}
+
+                {/* {toDos.map(todo => (
                   <div key={todo.taskName}>
                     <ToDo todo={todo} toDoToBackLog={this.toDoToBackLog} />
                   </div>
-                ))}
+                ))} */}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -310,18 +324,29 @@ class Dashboard extends React.Component {
                 <p>Category subtitle</p>
               </CardHeader>
               <CardBody>
-                {doing &&
-                  doing.map(task => (
-                    <div key={task.taskName}>
-                      <p>{task.taskName}</p>
-                      <Button size='sm' onClick={e => console.log(e, task)}>
-                        left
-                      </Button>
-                      <Button size='sm' onClick={() => console.log('right')}>
-                        right
-                      </Button>
-                    </div>
-                  ))}
+                {/* doing &&
+                  doing.map(doings => {
+                    return (
+                      <div key={doings.taskName}>
+                        <p>{doings.taskName}</p>;
+                        <Button
+                          size='sm'
+                          onClick={() => console.doings('Left')}>
+                          Left
+                        </Button>
+                        <Button
+                          size='sm'
+                          onClick={() => this.deleteTask(doings.id)}>
+                          delete task
+                        </Button>
+                        <Button
+                          size='sm'
+                          onClick={() => console.doings('Right')}>
+                          right
+                        </Button>
+                      </div>
+                    )
+                  }) */}
 
                 {/* <Tasks checkedIndexes={[3]} tasksIndexes={[3]} tasks={bugs} /> */}
               </CardBody>
