@@ -51,6 +51,7 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index })
   }
+
   getBackLog = async () => {
     // BACKLOG
     const columnBacklog = await fire
@@ -261,11 +262,11 @@ class Dashboard extends React.Component {
     }
   
 
-    console.log(toDos)
     return (
       <div>
-        <button onClick={() => this.newTask(),this.handleTaskClick}>Add Task</button>
-        <button onClick={() => this.deleteTask(this.task)}>Delete Task</button>
+        <Button size='sm' onClick={() => this.newTask(),this.handleTaskClick}>
+          Add Task
+        </Button>
         {taskBox}
         <GridContainer>
           <GridItem xs={12} sm={6} md={6} lg={3}>
@@ -285,7 +286,7 @@ class Dashboard extends React.Component {
                         <Button
                           size='sm'
                           onClick={() => this.deleteTask(log.id)}>
-                          delete task
+                          delete
                         </Button>
                         <Button size='sm' onClick={() => console.log('right')}>
                           right
@@ -322,7 +323,7 @@ class Dashboard extends React.Component {
                         <Button
                           size='sm'
                           onClick={() => this.deleteTask(todos.id)}>
-                          delete task
+                          delete
                         </Button>
                         <Button
                           size='sm'
@@ -356,29 +357,25 @@ class Dashboard extends React.Component {
                 <p>Category subtitle</p>
               </CardHeader>
               <CardBody>
-                {/* doing &&
+                {doing &&
                   doing.map(doings => {
                     return (
                       <div key={doings.taskName}>
-                        <p>{doings.taskName}</p>;
-                        <Button
-                          size='sm'
-                          onClick={() => console.doings('Left')}>
+                        <p>{doings.taskName}</p>
+                        <Button size='sm' onClick={() => console.log('Left')}>
                           Left
                         </Button>
                         <Button
                           size='sm'
                           onClick={() => this.deleteTask(doings.id)}>
-                          delete task
+                          delete
                         </Button>
-                        <Button
-                          size='sm'
-                          onClick={() => console.doings('Right')}>
+                        <Button size='sm' onClick={() => console.log('Right')}>
                           right
                         </Button>
                       </div>
                     )
-                  }) */}
+                  })}
 
                 {/* <Tasks checkedIndexes={[3]} tasksIndexes={[3]} tasks={bugs} /> */}
               </CardBody>
