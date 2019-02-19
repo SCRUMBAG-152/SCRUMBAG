@@ -18,6 +18,10 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
+import Edit from "@material-ui/icons/Edit";
+import Tooltip from "@material-ui/core/Tooltip";
+import Refresh from "@material-ui/icons/Refresh";
+
 // import ToDo from '../../components/ToDo/ToDo.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
 import AddTask from './addTask.jsx'
@@ -236,14 +240,26 @@ class Dashboard extends React.Component {
                       <Card raised>
                       <div key={log.id}>
                         <p>{log.taskName}</p>
-                        <Button
-                          size='sm'
-                          onClick={() => this.deleteTask(log.id)}>
-                          delete
-                        </Button>
-                        <Button size='sm' onClick={() => console.log('right')}>
-                          right
-                        </Button>
+                        <Tooltip
+                        id="tooltip-top"
+                        title="Edit"
+                        placement="bottom"
+                        classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button color="success" simple justIcon>
+                            <Refresh className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          id="tooltip-top"
+                          title="Remove"
+                          placement="bottom"
+                          classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button onClick={() => this.deleteTask(log.id)} color="danger" simple justIcon>
+                            <Edit className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
                       </div>
                       </Card>
                     )
@@ -272,19 +288,26 @@ class Dashboard extends React.Component {
                       <Card raised>
                       <div key={todos.id}>
                         <p>{todos.taskName}</p>
-                        <Button size='sm' onClick={() => console.todos('Left')}>
-                          Left
-                        </Button>
-                        <Button
-                          size='sm'
-                          onClick={() => this.deleteTask(todos.id)}>
-                          delete
-                        </Button>
-                        <Button
-                          size='sm'
-                          onClick={() => console.todos('Right')}>
-                          right
-                        </Button>
+                        <Tooltip
+                        id="tooltip-top"
+                        title="Edit"
+                        placement="bottom"
+                        classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button color="success" simple justIcon>
+                            <Refresh className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          id="tooltip-top"
+                          title="Remove"
+                          placement="bottom"
+                          classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button onClick={() => this.deleteTask(todos.id)} color="danger" simple justIcon>
+                            <Edit className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
                       </div>
                       </Card>
                     )
@@ -319,17 +342,26 @@ class Dashboard extends React.Component {
                       <Card raised>
                       <div key={doings.id}>
                         <p>{doings.taskName}</p>
-                        <Button size='sm' onClick={() => console.log('Left')}>
-                          Left
-                        </Button>
-                        <Button
-                          size='sm'
-                          onClick={() => this.deleteTask(doings.id)}>
-                          delete
-                        </Button>
-                        <Button size='sm' onClick={() => console.log('Right')}>
-                          right
-                        </Button>
+                        <Tooltip
+                        id="tooltip-top"
+                        title="Edit"
+                        placement="bottom"
+                        classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button color="success" simple justIcon>
+                            <Refresh className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          id="tooltip-top"
+                          title="Remove"
+                          placement="bottom"
+                          classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button onClick={() => this.deleteTask(doings.id)} color="danger" simple justIcon>
+                            <Edit className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
                       </div>
                       </Card>
                     )
@@ -360,17 +392,26 @@ class Dashboard extends React.Component {
                       <Card raised>
                       <div key={dones.id}>
                         <p>{dones.taskName}</p>
-                        <Button size='sm' onClick={() => console.log('Left')}>
-                          Left
-                        </Button>
-                        <Button
-                          size='sm'
-                          onClick={() => this.deleteTask(dones.id)}>
-                          delete
-                        </Button>
-                        <Button size='sm' onClick={() => console.log('Right')}>
-                          right
-                        </Button>
+                        <Tooltip
+                        id="tooltip-top"
+                        title="Edit"
+                        placement="bottom"
+                        classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button color="success" simple justIcon>
+                            <Refresh className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
+                        <Tooltip
+                          id="tooltip-top"
+                          title="Remove"
+                          placement="bottom"
+                          classes={{ tooltip: classes.tooltip }}
+                        >
+                          <Button onClick={() => this.deleteTask(dones.id)} color="danger" simple justIcon>
+                            <Edit className={classes.underChartIcons} />
+                          </Button>
+                        </Tooltip>
                       </div>
                       </Card>
                     )
