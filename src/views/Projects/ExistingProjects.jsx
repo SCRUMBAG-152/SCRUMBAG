@@ -80,7 +80,7 @@ class Dashboard extends React.Component {
 
     let projList = this.state.projects
     let optionItems = projList.map((project, index) => (
-      <GridItem xs={12} sm={12} md={4}>
+      <GridItem xs={12} sm={12} md={4} key={index}>
         <Card product className={classes.cardHover}>
           <CardBody>
             <div className={classes.cardHoverUnder}>
