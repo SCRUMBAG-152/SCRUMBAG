@@ -3,30 +3,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import fire from '../../config/Fire.jsx'
+import {DragDropContext} from 'react-beautiful-dnd';
+
+import BackLog from './taskComponents/Backlog.jsx'
+import Todo from './taskComponents/Todo.jsx'
+import Doing from './taskComponents/Doing.jsx'
+import Done from './taskComponents/Done.jsx'
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 import boardsStyle from '../../assets/jss/material-dashboard-pro-react/views/boardsStyle'
 // @material-ui/icons
-import Update from '@material-ui/icons/Update'
-
 // core components
 import GridContainer from 'components/Grid/GridContainer.jsx'
 import GridItem from 'components/Grid/GridItem.jsx'
 import Button from 'components/CustomButtons/Button.jsx'
-import Card from 'components/Card/Card.jsx'
-import CardHeader from 'components/Card/CardHeader.jsx'
-import CardBody from 'components/Card/CardBody.jsx'
-import CardFooter from 'components/Card/CardFooter.jsx'
-import Edit from '@material-ui/icons/Edit'
-import Tooltip from '@material-ui/core/Tooltip'
-import Refresh from '@material-ui/icons/Refresh'
+
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
 import AddTask from './addTask.jsx'
 
 //= ========================================Imports End=========================================//
-
 class Boards extends React.Component {
   constructor (props) {
     super(props)
@@ -223,214 +220,18 @@ class Boards extends React.Component {
           Add Task
         </Button>
         {taskBox}
-        <GridContainer>
-          <GridItem xs={12} sm={6} md={6} lg={3}>
-            <Card>
-              <CardHeader color='danger'>
-                <h4 style={{ color: 'White' }} className={classes.cardTitle}>
-                  Backlog
-                </h4>
-                <p>Things waiting to be started</p>
-              </CardHeader>
-              <CardBody>
-                {backLog &&
-                  backLog.map(log => {
-                    return (
-                      <Card style={boardsStyle.card} raised key={log.id}>
-                        <div>
-                          <p>{log.taskName}</p>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Edit'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button color='success' simple justIcon>
-                              <Refresh className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Remove'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button
-                              onClick={() => this.deleteTask(log.id)}
-                              color='danger'
-                              simple
-                              justIcon>
-                              <Edit className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                        </div>
-                      </Card>
-                    )
-                  })}
-              </CardBody>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
+        <GridContainer style={{textAlign: 'center'}}>
+          <GridItem xs={12} sm={6} md={4} lg={3}>
+            <BackLog backLog={this.state.backLog} deleteTask={this.deleteTask}></BackLog>
           </GridItem>
-          <GridItem xs={12} sm={6} md={6} lg={3}>
-            <Card>
-              <CardHeader color='info'>
-                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
-                  To-do
-                </h4>
-                <p>Category subtitle</p>
-              </CardHeader>
-              <CardBody>
-                {toDos &&
-                  toDos.map(todos => {
-                    return (
-                      <Card style={boardsStyle.card} raised key={todos.id}>
-                        <div>
-                          <p>{todos.taskName}</p>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Edit'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button color='success' simple justIcon>
-                              <Refresh className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Remove'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button
-                              onClick={() => this.deleteTask(todos.id)}
-                              color='danger'
-                              simple
-                              justIcon>
-                              <Edit className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                        </div>
-                      </Card>
-                    )
-                  })}
-
-                {/* {toDos.map(todo => (
-                  <div key={todo.taskName}>
-                    <ToDo todo={todo} toDoToBackLog={this.toDoToBackLog} />
-                  </div>
-                ))} */}
-              </CardBody>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
+          <GridItem xs={12} sm={6} md={4} lg={3}>
+            <Todo toDos={this.state.toDos} deleteTask={this.deleteTask}></Todo>
           </GridItem>
-          <GridItem xs={12} sm={6} md={6} lg={3}>
-            <Card>
-              <CardHeader color='success'>
-                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
-                  Doing
-                </h4>
-                <p>Category subtitle</p>
-              </CardHeader>
-              <CardBody>
-                {doing &&
-                  doing.map(doings => {
-                    return (
-                      <Card style={boardsStyle.card} raised key={doings.id}>
-                        <div>
-                          <p>{doings.taskName}</p>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Edit'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button color='success' simple justIcon>
-                              <Refresh className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Remove'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button
-                              onClick={() => this.deleteTask(doings.id)}
-                              color='danger'
-                              simple
-                              justIcon>
-                              <Edit className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                        </div>
-                      </Card>
-                    )
-                  })}
-
-                {/* <Tasks checkedIndexes={[3]} tasksIndexes={[3]} tasks={bugs} /> */}
-              </CardBody>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
+          <GridItem xs={12} sm={6} md={4} lg={3}>
+          <Doing doing={this.state.doing} deleteTask={this.deleteTask}></Doing>
           </GridItem>
-          <GridItem xs={12} sm={6} md={6} lg={3}>
-            <Card>
-              <CardHeader color='rose'>
-                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
-                  Done
-                </h4>
-                <p>Category subtitle</p>
-              </CardHeader>
-              <CardBody>
-                {done &&
-                  done.map(dones => {
-                    return (
-                      <Card style={boardsStyle.card} raised key={dones.id}>
-                        <div>
-                          <p>{dones.taskName}</p>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Edit'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button color='success' simple justIcon>
-                              <Refresh className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                          <Tooltip
-                            id='tooltip-top'
-                            title='Remove'
-                            placement='bottom'
-                            classes={{ tooltip: classes.tooltip }}>
-                            <Button
-                              onClick={() => this.deleteTask(dones.id)}
-                              color='danger'
-                              simple
-                              justIcon>
-                              <Edit className={classes.underChartIcons} />
-                            </Button>
-                          </Tooltip>
-                        </div>
-                      </Card>
-                    )
-                  })}
-              </CardBody>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
-                </div>
-              </CardFooter>
-            </Card>
+          <GridItem xs={12} sm={6} md={4} lg={3}>
+            <Done done={this.state.done} deleteTask={this.deleteTask}></Done>
           </GridItem>
         </GridContainer>
       </div>
