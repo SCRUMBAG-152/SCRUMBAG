@@ -25,12 +25,23 @@ import AddTask from './addTask.jsx'
 //= ========================================Imports End=========================================//
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0,
-    toDos: [],
-    doing: [],
-    done: [],
-    backLog: []
+
+  constructor(props){
+    super(props);
+    this.handleTaskClick = this.handleTaskClick.bind(this);
+    this.state = {
+      taskPressed: false,
+      value: 0,
+      toDos: [],
+      doing: [],
+      done: [],
+      backLog: []
+    
+    };
+  }
+
+  handleTaskClick () {
+    this.setState({taskPressed: true})
   }
 
   handleChange = (event, value) => {
