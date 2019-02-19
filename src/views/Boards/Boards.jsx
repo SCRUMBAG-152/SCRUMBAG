@@ -6,7 +6,7 @@ import fire from '../../config/Fire.jsx'
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
-
+import boardsStyle from '../../assets/jss/material-dashboard-pro-react/views/boardsStyle'
 // @material-ui/icons
 import Update from '@material-ui/icons/Update'
 
@@ -21,6 +21,7 @@ import CardFooter from 'components/Card/CardFooter.jsx'
 import Edit from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
 import Refresh from "@material-ui/icons/Refresh";
+
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
@@ -237,7 +238,7 @@ class Dashboard extends React.Component {
                 {backLog &&
                   backLog.map(log => {
                     return (
-                      <Card raised>
+                      <Card style={boardsStyle.card} raised>
                       <div key={log.id}>
                         <p>{log.taskName}</p>
                         <Tooltip
@@ -285,7 +286,7 @@ class Dashboard extends React.Component {
                 {toDos &&
                   toDos.map(todos => {
                     return (
-                      <Card raised>
+                      <Card style={boardsStyle.card} raised>
                       <div key={todos.id}>
                         <p>{todos.taskName}</p>
                         <Tooltip
@@ -339,7 +340,7 @@ class Dashboard extends React.Component {
                 {doing &&
                   doing.map(doings => {
                     return (
-                      <Card raised>
+                      <Card style={boardsStyle.card} raised>
                       <div key={doings.id}>
                         <p>{doings.taskName}</p>
                         <Tooltip
@@ -389,7 +390,7 @@ class Dashboard extends React.Component {
                 {done &&
                   done.map(dones => {
                     return (
-                      <Card raised>
+                      <Card style={boardsStyle.card} raised>
                       <div key={dones.id}>
                         <p>{dones.taskName}</p>
                         <Tooltip
@@ -431,8 +432,9 @@ class Dashboard extends React.Component {
   }
 }
 
+
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(dashboardStyle)(Dashboard)
+export default withStyles(boardsStyle)(Dashboard)

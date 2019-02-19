@@ -510,7 +510,7 @@ class Dashboard extends React.Component {
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
                     id='tooltip-top'
-                    title='View'
+                    title='View' 
                     placement='bottom'
                     classes={{ tooltip: classes.tooltip }}>
                     <Button color='transparent' simple justIcon>
