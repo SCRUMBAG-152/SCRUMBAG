@@ -22,7 +22,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from "./AddTask";
+import AddTask from "./addTask";
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
