@@ -1,26 +1,26 @@
 //= ========================================Imports Start=========================================//
 
-import React from "react";
-import PropTypes from "prop-types";
-import fire from "../../config/Fire.jsx";
+import React from 'react'
+import PropTypes from 'prop-types'
+import fire from '../../config/Fire.jsx'
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles'
 
 // @material-ui/icons
-import Update from "@material-ui/icons/Update";
+import Update from '@material-ui/icons/Update'
 
 // core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-import ToDo from "../../components/ToDo/ToDo.jsx";
-import dashboardStyle from "assets/jss/material-dashboard-pro-react/views/dashboardStyle";
-import AddTask from "./addTask.jsx";
+import GridContainer from 'components/Grid/GridContainer.jsx'
+import GridItem from 'components/Grid/GridItem.jsx'
+import Button from 'components/CustomButtons/Button.jsx'
+import Card from 'components/Card/Card.jsx'
+import CardHeader from 'components/Card/CardHeader.jsx'
+import CardBody from 'components/Card/CardBody.jsx'
+import CardFooter from 'components/Card/CardFooter.jsx'
+import ToDo from '../../components/ToDo/ToDo.jsx'
+import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
+import AddTask from './addTask.jsx'
 
 //= ========================================Imports End=========================================//
 
@@ -31,101 +31,141 @@ class Dashboard extends React.Component {
     doing: [],
     done: [],
     backLog: []
-  };
+  }
 
   handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    this.setState({ value })
+  }
 
   handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
+    this.setState({ value: index })
+  }
   getBackLog = async () => {
     // BACKLOG
     const columnBacklog = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Backlog")
+      .collection('Columns')
+      .where('columnName', '==', 'Backlog')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
 
     const taskBacklog = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnBacklog)
+      .collection('Tasks')
+      .where('columnID', '==', columnBacklog)
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
+      )
+
     this.setState({
       backLog: taskBacklog
-    });
-  };
+    })
+  }
+
+  getTodo = async () => {
+    // TO-DO
+    const columnTodo = await fire
+      .collection('Columns')
+      .where('columnName', '==', 'ToDo')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
+
+    const taskToDo = await fire
+      .collection('Tasks')
+      .where('columnID', '==', columnTodo)
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          }
+        })
+      )
+
+    this.setState({
+      toDos: taskToDo
+    })
+  }
+
+  getDoing = async () => {
+    // DOING
+    const columnDoing = await fire
+      .collection('Columns')
+      .where('columnName', '==', 'Doing')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
+
+    const taskDoing = await fire
+      .collection('Tasks')
+      .where('columnID', '==', columnDoing)
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          }
+        })
+      )
+
+    this.setState({
+      doing: taskDoing
+    })
+  }
+
+  getDone = async () => {
+    // Done
+    const columnDone = await fire
+      .collection('Columns')
+      .where('columnName', '==', 'Done')
+      .get()
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
+
+    const taskDone = await fire
+      .collection('Tasks')
+      .where('columnID', '==', columnDone)
+      .get()
+      .then(snapshot =>
+        snapshot.docs.map(doc => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          }
+        })
+      )
+
+    this.setState({
+      done: taskDone
+    })
+  }
 
   // deleteBagLogTask
   // get id and go into firebase and delete backlog task
   // get BackLogTasks
-  async componentDidMount() {
+  async componentDidMount () {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
     const companyRef = await fire
-      .collection("Companies")
+      .collection('Companies')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    this.getBackLog();
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
 
-    // TO-DO
-    const columnTodo = await fire
-      .collection("Columns")
-      .where("columnName", "==", "ToDo")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+    this.getBackLog()
 
-    const taskToDo = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnTodo)
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("Task To-Do: ", taskToDo);
+    this.getTodo()
 
-    // DOING
-    const columnDoing = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Doing")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+    this.getDoing()
 
-    const taskDoing = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnDoing)
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("Task Doing: ", taskDoing);
-
-    // Done
-    const columnDone = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Done")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
-
-    const taskDone = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnDone)
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-    console.log("Task Done: ", taskDone);
+    this.getDone()
 
     this.setState({
-      // backLog: taskBacklog,
-      toDos: taskToDo,
-      doing: taskDoing,
-      done: taskDone,
       companyRef
       // columnBacklog
-    });
+    })
 
     // Need To Do
     // get company project ID's
@@ -149,25 +189,25 @@ class Dashboard extends React.Component {
   }
 
   newTask = async task => {
-    await fire.collection("Tasks").add({
-      columnID: "1O7NHVhZYmGgQzRGAPg3",
-      taskName: "newTasks",
+    await fire.collection('Tasks').add({
+      columnID: '1O7NHVhZYmGgQzRGAPg3',
+      taskName: 'newTasks',
       taskPoints: 5,
       userID: []
-    });
-    this.componentDidMount();
-    console.log("Completed Adding a Task.");
-  };
+    })
+    this.componentDidMount()
+    console.log('Completed Adding a Task.')
+  }
 
   deleteTask = async id => {
-    console.log("this is the id", id);
+    console.log('this is the id', id)
     // console.log("task", task.columnID);
     await fire
-      .collection("Tasks")
+      .collection('Tasks')
       .doc(id)
-      .delete();
+      .delete()
 
-    this.getBackLog();
+    this.getBackLog()
 
     // const delTask = await fire
     //   .collection("Tasks")
@@ -176,31 +216,31 @@ class Dashboard extends React.Component {
     //   .then(snapshot => snapshot.docs.map(doc => doc.id));
     // this.componentDidMount();
     // console.log("Deleted a Task.", delTask);
-  };
+  }
 
   toDoToBackLog = todo => {
-    const { toDos } = this.state;
-    const task = toDos.find(to => to.columnBacklog === todo.columnID);
+    const { toDos } = this.state
+    const task = toDos.find(to => to.columnBacklog === todo.columnID)
 
     this.setState(
       prevState => ({
         backLog: [...prevState.backLog, task]
       }),
       () => this.remove(task)
-    );
-  };
+    )
+  }
 
   remove = task => {
     this.setState({
       toDos: this.state.toDos.filter(todo => todo.taskName !== task.taskName)
-    });
-  };
+    })
+  }
 
-  render() {
-    const { classes } = this.props;
-    const { doing, toDos, backLog, done } = this.state;
+  render () {
+    const { classes } = this.props
+    const { doing, toDos, backLog, done } = this.state
 
-    console.log(toDos);
+    console.log(toDos)
     return (
       <div>
         <button onClick={() => this.newTask()}>Add Task</button>
@@ -209,8 +249,8 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
-              <CardHeader color="danger">
-                <h4 style={{ color: "White" }} className={classes.cardTitle}>
+              <CardHeader color='danger'>
+                <h4 style={{ color: 'White' }} className={classes.cardTitle}>
                   Backlog
                 </h4>
                 <p>Things waiting to be started</p>
@@ -219,7 +259,7 @@ class Dashboard extends React.Component {
                 {backLog &&
                   backLog.map(log => {
                     {
-                      console.log("log", log);
+                      console.log('log', log)
                     }
                     return (
                       <div key={log.taskName}>
@@ -227,17 +267,16 @@ class Dashboard extends React.Component {
                         {/* {<Button size='sm' onClick={e => console.log(e, log)}>
                         left
                       </Button>} */}
-                        <Button size="sm" onClick={() => console.log("right")}>
+                        <Button size='sm' onClick={() => console.log('right')}>
                           right
                         </Button>
                         <Button
-                          size="sm"
-                          onClick={() => this.deleteTask(log.id)}
-                        >
+                          size='sm'
+                          onClick={() => this.deleteTask(log.id)}>
                           delete task
                         </Button>
                       </div>
-                    );
+                    )
                   })}
               </CardBody>
               <CardFooter stats>
@@ -250,8 +289,8 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
-              <CardHeader color="info">
-                <h4 style={{ color: "white" }} className={classes.cardTitle}>
+              <CardHeader color='info'>
+                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
                   To-do
                 </h4>
                 <p>Category subtitle</p>
@@ -273,8 +312,8 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
-              <CardHeader color="success">
-                <h4 style={{ color: "white" }} className={classes.cardTitle}>
+              <CardHeader color='success'>
+                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
                   Doing
                 </h4>
                 <p>Category subtitle</p>
@@ -284,10 +323,10 @@ class Dashboard extends React.Component {
                   doing.map(task => (
                     <div key={task.taskName}>
                       <p>{task.taskName}</p>
-                      <Button size="sm" onClick={e => console.log(e, task)}>
+                      <Button size='sm' onClick={e => console.log(e, task)}>
                         left
                       </Button>
-                      <Button size="sm" onClick={() => console.log("right")}>
+                      <Button size='sm' onClick={() => console.log('right')}>
                         right
                       </Button>
                     </div>
@@ -305,8 +344,8 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
-              <CardHeader color="rose">
-                <h4 style={{ color: "white" }} className={classes.cardTitle}>
+              <CardHeader color='rose'>
+                <h4 style={{ color: 'white' }} className={classes.cardTitle}>
                   Done
                 </h4>
                 <p>Category subtitle</p>
@@ -316,7 +355,7 @@ class Dashboard extends React.Component {
                   done.map(log => (
                     <div key={log.taskName}>
                       <p>{log.taskName}</p>
-                      <Button size="sm" onClick={e => console.log(e, log)}>
+                      <Button size='sm' onClick={e => console.log(e, log)}>
                         left
                       </Button>
                       {/* <Button size='sm' onClick={() => console.log('right')}>
@@ -335,12 +374,12 @@ class Dashboard extends React.Component {
           </GridItem>
         </GridContainer>
       </div>
-    );
+    )
   }
 }
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(dashboardStyle)(Dashboard);
+export default withStyles(dashboardStyle)(Dashboard)
