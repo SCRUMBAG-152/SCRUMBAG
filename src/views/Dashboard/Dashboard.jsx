@@ -36,7 +36,7 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardIcon from 'components/Card/CardIcon.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-import AddTask from '../Boards/addTask.jsx'
+
 
 import {
   dailySalesChart,
@@ -86,7 +86,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <GridContainer>
-          <AddTask />
+        
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
               <CardHeader color='warning' stats icon>
@@ -510,7 +510,7 @@ class Dashboard extends React.Component {
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
                     id='tooltip-top'
-                    title='View'
+                    title='View' 
                     placement='bottom'
                     classes={{ tooltip: classes.tooltip }}>
                     <Button color='transparent' simple justIcon>
