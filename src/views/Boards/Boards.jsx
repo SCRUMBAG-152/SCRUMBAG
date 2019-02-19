@@ -183,7 +183,7 @@ class Boards extends React.Component {
     })
   }
 
-  newTask = async task => {
+  /*newTask = async task => {
     await fire.collection('Tasks').add({
       columnID: '1O7NHVhZYmGgQzRGAPg3',
       taskName: 'newTasks',
@@ -192,7 +192,7 @@ class Boards extends React.Component {
     })
     this.componentDidMount()
     console.log('Completed Adding a Task.')
-  }
+  }*/
 
   deleteTask = async id => {
     await fire
