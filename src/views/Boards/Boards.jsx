@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
   handleTaskClick () {
     this.setState(prevState => ({
       taskPressed: !prevState.taskPressed
-    }));
+    }))
   }
 
   handleChange = (event, value) => {
@@ -176,28 +176,7 @@ class Dashboard extends React.Component {
 
     this.setState({
       companyRef
-      // columnBacklog
     })
-
-    // Need To Do
-    // get company project ID's
-
-    // company[id] matches departments.companyID
-    // projects.id matches columns.projectID
-    // projects.companyID matches Companies.id
-    // tasks.columnID matches columns.id
-
-    // const departmentRef = await fire.collection("companies")
-    // .orderBy("Projects", "asc").get()
-    // const data = query.map(test => test.data())
-    // console.log(companyRef)
-    // const data = query.get().then(snapshot => {
-    //     return Promise.all(snapshot.docs.map(doc => console.log(doc.data())))
-    //     // snapshot.doc.map(snap => {
-    //     //   return snap.data()
-    //     // })
-
-    // })
   }
 
   newTask = async task => {
@@ -212,59 +191,32 @@ class Dashboard extends React.Component {
   }
 
   deleteTask = async id => {
-    console.log('this is the id', id)
-    // console.log("task", task.columnID);
     await fire
       .collection('Tasks')
       .doc(id)
       .delete()
 
     this.getBackLog()
-
-    // const delTask = await fire
-    //   .collection("Tasks")
-    //   .where("taskName", "==", "newTasks")
-    //   .get()
-    //   .then(snapshot => snapshot.docs.map(doc => doc.id));
-    // this.componentDidMount();
-    // console.log("Deleted a Task.", delTask);
-  }
-
-  toDoToBackLog = todo => {
-    const { toDos } = this.state
-    const task = toDos.find(to => to.columnBacklog === todo.columnID)
-
-    this.setState(
-      prevState => ({
-        backLog: [...prevState.backLog, task]
-      }),
-      () => this.remove(task)
-    )
-  }
-
-  remove = task => {
-    this.setState({
-      toDos: this.state.toDos.filter(todo => todo.taskName !== task.taskName)
-    })
+    this.getTodo()
+    this.getDoing()
+    this.getDone()
   }
 
   render () {
     const { classes } = this.props
     const { doing, toDos, backLog, done } = this.state
-    const taskPressed = this.state.taskPressed;
-    let taskBox;
+    const taskPressed = this.state.taskPressed
+    let taskBox
 
-    if(taskPressed){
+    if (taskPressed) {
       taskBox = <AddTask>Show</AddTask>
+    } else {
+      taskBox = null
     }
-    else{
-      taskBox = null;
-    }
-  
 
     return (
       <div>
-        <Button size='sm' onClick={() => this.newTask(),this.handleTaskClick}>
+        <Button size='sm' onClick={this.handleTaskClick}>
           Add Task
         </Button>
         {taskBox}
@@ -281,7 +233,7 @@ class Dashboard extends React.Component {
                 {backLog &&
                   backLog.map(log => {
                     return (
-                      <div key={log.taskName}>
+                      <div key={log.id}>
                         <p>{log.taskName}</p>
                         <Button
                           size='sm'
@@ -315,7 +267,7 @@ class Dashboard extends React.Component {
                 {toDos &&
                   toDos.map(todos => {
                     return (
-                      <div key={todos.taskName}>
+                      <div key={todos.id}>
                         <p>{todos.taskName}</p>
                         <Button size='sm' onClick={() => console.todos('Left')}>
                           Left
@@ -360,7 +312,7 @@ class Dashboard extends React.Component {
                 {doing &&
                   doing.map(doings => {
                     return (
-                      <div key={doings.taskName}>
+                      <div key={doings.id}>
                         <p>{doings.taskName}</p>
                         <Button size='sm' onClick={() => console.log('Left')}>
                           Left
@@ -397,17 +349,24 @@ class Dashboard extends React.Component {
               </CardHeader>
               <CardBody>
                 {done &&
-                  done.map(log => (
-                    <div key={log.taskName}>
-                      <p>{log.taskName}</p>
-                      <Button size='sm' onClick={e => console.log(e, log)}>
-                        left
-                      </Button>
-                      {/* <Button size='sm' onClick={() => console.log('right')}>
-                        right
-                      </Button> */}
-                    </div>
-                  ))}
+                  done.map(dones => {
+                    return (
+                      <div key={dones.id}>
+                        <p>{dones.taskName}</p>
+                        <Button size='sm' onClick={() => console.log('Left')}>
+                          Left
+                        </Button>
+                        <Button
+                          size='sm'
+                          onClick={() => this.deleteTask(dones.id)}>
+                          delete
+                        </Button>
+                        <Button size='sm' onClick={() => console.log('Right')}>
+                          right
+                        </Button>
+                      </div>
+                    )
+                  })}
               </CardBody>
               <CardFooter stats>
                 <div className={classes.stats}>
