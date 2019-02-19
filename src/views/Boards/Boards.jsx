@@ -18,10 +18,9 @@ import Card from 'components/Card/Card.jsx'
 import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-import Edit from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
-import Refresh from "@material-ui/icons/Refresh";
-
+import Edit from '@material-ui/icons/Edit'
+import Tooltip from '@material-ui/core/Tooltip'
+import Refresh from '@material-ui/icons/Refresh'
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
 import AddTask from './addTask.jsx'
@@ -183,7 +182,7 @@ class Boards extends React.Component {
     })
   }
 
-  /*newTask = async task => {
+  /* newTask = async task => {
     await fire.collection('Tasks').add({
       columnID: '1O7NHVhZYmGgQzRGAPg3',
       taskName: 'newTasks',
@@ -192,7 +191,7 @@ class Boards extends React.Component {
     })
     this.componentDidMount()
     console.log('Completed Adding a Task.')
-  }*/
+  } */
 
   deleteTask = async id => {
     await fire
@@ -238,29 +237,31 @@ class Boards extends React.Component {
                   backLog.map(log => {
                     return (
                       <Card style={boardsStyle.card} raised key={log.id}>
-                      <div>
-                        <p>{log.taskName}</p>
-                        <Tooltip
-                        id="tooltip-top"
-                        title="Edit"
-                        placement="bottom"
-                        classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button color="success" simple justIcon>
-                            <Refresh className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Remove"
-                          placement="bottom"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button onClick={() => this.deleteTask(log.id)} color="danger" simple justIcon>
-                            <Edit className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                      </div>
+                        <div>
+                          <p>{log.taskName}</p>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Edit'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button color='success' simple justIcon>
+                              <Refresh className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Remove'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button
+                              onClick={() => this.deleteTask(log.id)}
+                              color='danger'
+                              simple
+                              justIcon>
+                              <Edit className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                        </div>
                       </Card>
                     )
                   })}
@@ -286,29 +287,31 @@ class Boards extends React.Component {
                   toDos.map(todos => {
                     return (
                       <Card style={boardsStyle.card} raised key={todos.id}>
-                      <div>
-                        <p>{todos.taskName}</p>
-                        <Tooltip
-                        id="tooltip-top"
-                        title="Edit"
-                        placement="bottom"
-                        classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button color="success" simple justIcon>
-                            <Refresh className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Remove"
-                          placement="bottom"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button onClick={() => this.deleteTask(todos.id)} color="danger" simple justIcon>
-                            <Edit className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                      </div>
+                        <div>
+                          <p>{todos.taskName}</p>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Edit'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button color='success' simple justIcon>
+                              <Refresh className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Remove'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button
+                              onClick={() => this.deleteTask(todos.id)}
+                              color='danger'
+                              simple
+                              justIcon>
+                              <Edit className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                        </div>
                       </Card>
                     )
                   })}
@@ -340,29 +343,31 @@ class Boards extends React.Component {
                   doing.map(doings => {
                     return (
                       <Card style={boardsStyle.card} raised key={doings.id}>
-                      <div>
-                        <p>{doings.taskName}</p>
-                        <Tooltip
-                        id="tooltip-top"
-                        title="Edit"
-                        placement="bottom"
-                        classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button color="success" simple justIcon>
-                            <Refresh className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Remove"
-                          placement="bottom"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button onClick={() => this.deleteTask(doings.id)} color="danger" simple justIcon>
-                            <Edit className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                      </div>
+                        <div>
+                          <p>{doings.taskName}</p>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Edit'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button color='success' simple justIcon>
+                              <Refresh className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Remove'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button
+                              onClick={() => this.deleteTask(doings.id)}
+                              color='danger'
+                              simple
+                              justIcon>
+                              <Edit className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                        </div>
                       </Card>
                     )
                   })}
@@ -390,29 +395,31 @@ class Boards extends React.Component {
                   done.map(dones => {
                     return (
                       <Card style={boardsStyle.card} raised key={dones.id}>
-                      <div>
-                        <p>{dones.taskName}</p>
-                        <Tooltip
-                        id="tooltip-top"
-                        title="Edit"
-                        placement="bottom"
-                        classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button color="success" simple justIcon>
-                            <Refresh className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Remove"
-                          placement="bottom"
-                          classes={{ tooltip: classes.tooltip }}
-                        >
-                          <Button onClick={() => this.deleteTask(dones.id)} color="danger" simple justIcon>
-                            <Edit className={classes.underChartIcons} />
-                          </Button>
-                        </Tooltip>
-                      </div>
+                        <div>
+                          <p>{dones.taskName}</p>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Edit'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button color='success' simple justIcon>
+                              <Refresh className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                          <Tooltip
+                            id='tooltip-top'
+                            title='Remove'
+                            placement='bottom'
+                            classes={{ tooltip: classes.tooltip }}>
+                            <Button
+                              onClick={() => this.deleteTask(dones.id)}
+                              color='danger'
+                              simple
+                              justIcon>
+                              <Edit className={classes.underChartIcons} />
+                            </Button>
+                          </Tooltip>
+                        </div>
                       </Card>
                     )
                   })}
@@ -430,7 +437,6 @@ class Boards extends React.Component {
     )
   }
 }
-
 
 Boards.propTypes = {
   classes: PropTypes.object.isRequired

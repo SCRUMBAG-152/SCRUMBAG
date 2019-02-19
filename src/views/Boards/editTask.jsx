@@ -7,11 +7,10 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import { Button } from '@material-ui/core'
-import tasksFun from './Boards.jsx'
 
 // import { bool } from "prop-types";
 
-class AddTask extends React.Component {
+class EditTask extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -19,7 +18,6 @@ class AddTask extends React.Component {
       taskPoints: '',
       columnID: { value: '' },
       columns: []
-      // isHidden: true
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -41,8 +39,8 @@ class AddTask extends React.Component {
     })
   }
 
-  getTasks = async () => {
-    const projectRef = await fire
+  getTask = async () => {
+    await fire
       .collection('Columns')
       .where('projectID', '==', 'HogJ2XkOGTbEadJwAtoM')
       .get()
@@ -57,16 +55,6 @@ class AddTask extends React.Component {
     console.log('project reference', projectRef)
     console.log('project id')
 
-    /* const emptyTasks = await fire
-      .collection("Tasks")
-      .where("taskName", "==", "")
-      .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
-      console.log("empty task reference", emptyTasks); */
-
-    /* const columnRef = await fire
-          .collection('Columns') */
-
     this.setState({
       taskName: '',
       taskPoints: '',
@@ -77,8 +65,7 @@ class AddTask extends React.Component {
 
   async componentDidMount () {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
-
-    this.getTasks()
+    const projectRef = await fire
   }
 
   /* deleteEmpty() {
@@ -90,14 +77,14 @@ class AddTask extends React.Component {
       console.log("empty task reference", emptyTasks);
   } */
 
-  newTask = async () => {
+  newTask = async task => {
     await fire.collection('Tasks').add({
       columnID: this.state.columnID,
       taskName: this.state.taskName,
       taskPoints: this.state.taskPoints,
       userID: []
     })
-    this.getTasks()
+    this.componentDidMount()
     console.log('Completed Adding a Task.')
   }
 
@@ -110,7 +97,7 @@ class AddTask extends React.Component {
         key={index}
         value={column.id}
         onChange={this.handleChange}>
-        {column.columnName}
+        {column.columnName} -- {column.id}
       </option>
     ))
 
@@ -150,8 +137,6 @@ class AddTask extends React.Component {
                       name='columnID'
                       value={this.state.id}
                       onChange={this.handleChange}>
-                      <option />
-
                       {optionItems}
                     </select>
                   </label>
