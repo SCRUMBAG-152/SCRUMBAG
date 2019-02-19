@@ -35,7 +35,6 @@ export class BackLog extends Component {
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                style= {{textAlign: "center"}}
                             >
                                 <Card raised key={log.id}>
                                 

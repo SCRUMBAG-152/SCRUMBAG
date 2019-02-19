@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Draggable } from 'react-beautiful-dnd'
 
 import Button from 'components/CustomButtons/Button.jsx'
 import Card from 'components/Card/Card.jsx'
@@ -27,35 +28,46 @@ export class Todo extends Component {
             <CardBody>
             {this.props.toDos &&
                 this.props.toDos.map(todos => {
-                return (
-                    <Card raised key={todos.id}>
-                    <div>
-                        <p>{todos.taskName}</p>
-                        <Tooltip
-                        id='tooltip-top'
-                        title='Edit'
-                        placement='bottom'
-                        >
-                        <Button color='success' simple justIcon>
-                            <Refresh/>
-                        </Button>
-                        </Tooltip>
-                        <Tooltip
-                        id='tooltip-top'
-                        title='Remove'
-                        placement='bottom'
-                        >
-                        <Button
-                            onClick={() => this.props.deleteTask(todos.id)}
-                            color='danger'
-                            simple
-                            justIcon>
-                            <Edit/>
-                        </Button>
-                        </Tooltip>
-                    </div>
-                    </Card>
-                )
+                    return (
+                        <Draggable draggableId={todos.id} index={2}>
+                        {(provided, snapshot) => (
+                        <div>
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                            >
+                                <Card raised key={todos.id}>
+                                
+                                    <p>{todos.taskName}</p>
+                                    <Tooltip
+                                    id='tooltip-top'
+                                    title='Edit'
+                                    placement='bottom'
+                                    >
+                                    <Button color='success' simple justIcon>
+                                        <Refresh/>
+                                    </Button>
+                                    </Tooltip>
+                                    <Tooltip
+                                    id='tooltip-top'
+                                    title='Remove'
+                                    placement='bottom'
+                                    >
+                                    <Button
+                                        onClick={() => this.props.deleteTask(todos.id)}
+                                        color='danger'
+                                        simple
+                                        justIcon>
+                                        <Edit/>
+                                    </Button>
+                                    </Tooltip>
+                                </Card>
+                            </div>
+                        </div>
+                        )}
+                        </Draggable>
+                    )
                 })}
             </CardBody>
             <CardFooter stats>
