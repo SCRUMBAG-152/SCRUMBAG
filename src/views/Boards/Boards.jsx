@@ -44,11 +44,11 @@ class Boards extends React.Component {
     };
   }
   handleColumnChange = event => {
-    console.log(
-      "in handle column change id",
-      event.target.name,
-      event.target.value
-    );
+    // console.log(
+    //   "in handle column change id",
+    //   event.target.name,
+    //   event.target.value
+    // );
 
     // this.setState({
     //   columnID: id
@@ -60,13 +60,14 @@ class Boards extends React.Component {
       Backlog: "1O7NHVhZYmGgQzRGAPg3"
     };
     const id = ids[event.target.value];
-    console.log("this is the id", id);
+    // console.log("this is the id", id);
     this.setState({
       columnID: id
     });
   };
+  
   handleAddTaskChange = e => {
-    console.log("name, value", e.target.name, e.target.value);
+    // console.log("name, value", e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -87,7 +88,7 @@ class Boards extends React.Component {
   };
 
   getTasks = async () => {
-    console.log("getting new tasks");
+    // console.log("getting new tasks");
     const projectRef = await fire
       .collection("Columns")
       .where("projectID", "==", "HogJ2XkOGTbEadJwAtoM")
@@ -101,8 +102,8 @@ class Boards extends React.Component {
         })
       );
 
-    console.log("project reference", projectRef);
-    console.log("project id");
+    // console.log("project reference", projectRef);
+    // console.log("project id");
 
     this.setState({
       taskName: "",
@@ -250,7 +251,7 @@ class Boards extends React.Component {
 
   newTask = async () => {
     const { columnID, taskName, taskPoints } = this.state;
-    console.log("data", columnID);
+    // console.log("data", columnID);
     await fire.collection("Tasks").add({
       columnID,
       taskName,
@@ -259,7 +260,7 @@ class Boards extends React.Component {
     });
 
     this.getTasks();
-    console.log("Completed Adding a Task.");
+    // console.log("Completed Adding a Task.");
   };
 
   deleteTask = async id => {
@@ -293,7 +294,7 @@ class Boards extends React.Component {
     const { classes } = this.props;
     const { taskName, taskPoints, columnID, columns, taskPressed } = this.state;
 
-    console.log("columnID", columnID);
+    // console.log("columnID", columnID);
     // const taskPressed = this.state.taskPressed;
     // let taskBox;
 
