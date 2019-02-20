@@ -29,7 +29,7 @@ export class Todo extends Component {
             {this.props.toDos &&
                 this.props.toDos.map(todos => {
                     return (
-                        <Draggable draggableId={todos.id} index={2}>
+                        <Draggable draggableId={todos.id} index={2} key={todos.id}>
                         {(provided, snapshot) => (
                         <div>
                             <div
@@ -82,8 +82,7 @@ export class Todo extends Component {
 }
 
 Todo.propTypes = {
-  toDos: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  toDos: PropTypes.array.isRequired,
   deleteTask: PropTypes.func.isRequired
 }
 

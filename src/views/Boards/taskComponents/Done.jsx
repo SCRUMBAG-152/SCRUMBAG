@@ -30,7 +30,7 @@ export class Done extends Component {
             {this.props.done &&
                 this.props.done.map(dones => {
                     return (
-                        <Draggable draggableId={dones.id} index={4}>
+                        <Draggable draggableId={dones.id} index={4} key={dones.id}>
                         {(provided, snapshot) => (
                         <div>
                             <div
@@ -83,8 +83,7 @@ export class Done extends Component {
 }
 
 Done.propTypes = {
-  done: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  done: PropTypes.array.isRequired,
   deleteTask: PropTypes.func.isRequired
 }
 

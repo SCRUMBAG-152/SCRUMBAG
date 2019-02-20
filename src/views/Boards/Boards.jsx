@@ -22,7 +22,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from "./addTask";
+import AddTask from "./AddTask";
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
@@ -291,7 +291,7 @@ class Boards extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     const { taskName, taskPoints, columnID, columns, taskPressed } = this.state;
 
     // console.log("columnID", columnID);

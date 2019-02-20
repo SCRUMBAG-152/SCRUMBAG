@@ -28,7 +28,7 @@ export class BackLog extends Component {
                 {this.props.backLog &&
                     this.props.backLog.map(log => {
                     return (
-                        <Draggable draggableId={log.id} index={0}>
+                        <Draggable draggableId={log.id} index={0} key={log.id}>
                         {(provided, snapshot) => (
                         <div>
                             <div
@@ -81,10 +81,8 @@ export class BackLog extends Component {
 }
 
 BackLog.propTypes = {
-  backLog: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  backLog: PropTypes.array.isRequired,
   deleteTask: PropTypes.func.isRequired,
-  columnID: PropTypes.string.isRequired
 }
 
 export default BackLog
