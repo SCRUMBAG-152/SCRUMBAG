@@ -24,6 +24,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-dashboard-pro-react/components/headerLinksStyle";
+import { auth } from "config/Fire.jsx";
 
 class HeaderLinks extends React.Component {
   state = {
@@ -228,8 +229,23 @@ class HeaderLinks extends React.Component {
             </span>
           </Hidden>
         </Button>
+        <Button
+          color="primary"
+          aria-label="Sign Out"
+          size="sm"
+          onClick={this.signOut}
+        >
+          Sign Out
+        </Button>
       </div>
     );
+  }
+  signOut() {
+    auth.signOut().then(function () { //signs user out
+      window.location.replace("http://localhost:3000/pages/login-page");
+    }).catch(function (error) {
+      console.log(error);
+    });
   }
 }
 

@@ -83,9 +83,10 @@ class RegisterPage extends React.Component {
 
   //handles new user signing in
   async signUp(e) {
+    console.log(this.state.checked);
     e.preventDefault();
     //verify that fields are filled out correctly
-    if (this.state.first !== "" && this.state.last !== "" && await this.getCompanyID() !== undefined) {
+    if (this.state.checked !== [] && this.state.first !== "" && this.state.last !== "" && await this.getCompanyID() !== undefined) {
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
         await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
         window.location.replace("http://localhost:3000/dashboard");   //redirect user to dashboard page once logged in

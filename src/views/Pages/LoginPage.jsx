@@ -38,7 +38,7 @@ class LoginPage extends React.Component {
   }
 
   login(e) {
-    e.preventDefault();
+    //e.preventDefault();
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
@@ -53,14 +53,14 @@ class LoginPage extends React.Component {
   //handle changes from email and password
   handleChange(e) {
     this.setState({
-      value: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     this.timeOutFunction = setTimeout(
-      function() {
+      function () {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       700
@@ -111,6 +111,7 @@ class LoginPage extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
+                      name: "email",
                       onChange: this.handleChange,
                       endAdornment: (
                         <InputAdornment position="end">
@@ -128,6 +129,7 @@ class LoginPage extends React.Component {
                       fullWidth: true
                     }}
                     inputProps={{
+                      name: "password",
                       onChange: this.handleChange,
                       endAdornment: (
                         <InputAdornment position="end">
