@@ -75,18 +75,18 @@ class AddProject extends React.Component {
 
   render() {
 
-    {/*
-    let columns = this.state.columns;
-    let optionItems = columns.map((column, index) => (
-      <option
-        name="columnID"
-        key={index}
-        value={column.id}
-        onChange={this.handleChange}
-      >
-        {column.columnName}
-      </option>
-    )); */}
+    // {/*
+    // let columns = this.state.columns;
+    // let optionItems = columns.map((column, index) => (
+    //   <option
+    //     name="columnID"
+    //     key={index}
+    //     value={column.id}
+    //     onChange={this.handleChange}
+    //   >
+    //     {column.columnName}
+    //   </option>
+    // )); */}
 
   
 
