@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
 
   render () {
     const { classes } = this.props
-    const { projects } = this.state
+    //const { projects } = this.state
 
     const taskPressed = this.state.taskPressed
     let taskBox

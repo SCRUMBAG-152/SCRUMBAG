@@ -87,7 +87,7 @@ class Sidebar extends React.Component {
           .get()
           .then(snap => {
             that.setState({
-            name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
+            //name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
             });
           });
       }
