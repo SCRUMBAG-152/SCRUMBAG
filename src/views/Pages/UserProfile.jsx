@@ -11,7 +11,7 @@ import PermIdentity from "@material-ui/icons/PermIdentity";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
+// import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Clearfix from "components/Clearfix/Clearfix.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -72,10 +72,9 @@ function UserProfile(props) {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
-                  
                 </GridItem>
               </GridContainer>
-              
+
               <Clearfix />
             </CardBody>
           </Card>

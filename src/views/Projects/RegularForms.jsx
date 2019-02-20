@@ -292,7 +292,7 @@ class RegularForms extends React.Component {
                   <GridItem xs={12} sm={10}>
                     <div className={classes.staticFormGroup}>
                       <p className={classes.staticFormControl}>
-                        Scrumble@scrumbag.com
+                        Scrumbag@scrumbag.com
                       </p>
                     </div>
                   </GridItem>

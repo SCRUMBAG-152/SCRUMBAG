@@ -1,13 +1,13 @@
-import PricingPage from "views/Pages/PricingPage.jsx";
+// import PricingPage from "views/Pages/PricingPage.jsx";
 import LoginPage from "views/Pages/LoginPage.jsx";
 import RegisterPage from "views/Pages/RegisterPage.jsx";
-import LockScreenPage from "views/Pages/LockScreenPage.jsx";
+// import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 // @material-ui/icons
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import Fingerprint from "@material-ui/icons/Fingerprint";
-import MonetizationOn from "@material-ui/icons/MonetizationOn";
-import LockOpen from "@material-ui/icons/LockOpen";
+// import MonetizationOn from "@material-ui/icons/MonetizationOn";
+// import LockOpen from "@material-ui/icons/LockOpen";
 
 const pagesRoutes = [
   {
@@ -26,7 +26,7 @@ const pagesRoutes = [
     icon: Fingerprint,
     component: LoginPage
   },
-  {
+  /*{
     path: "/pages/pricing-page",
     name: "Pricing Page",
     short: "Pricing",
@@ -41,7 +41,7 @@ const pagesRoutes = [
     mini: "LSP",
     icon: LockOpen,
     component: LockScreenPage
-  },
+  },*/
   {
     redirect: true,
     path: "/pages",
