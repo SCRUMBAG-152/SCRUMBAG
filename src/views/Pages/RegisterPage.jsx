@@ -83,19 +83,27 @@ class RegisterPage extends React.Component {
 
   //handles new user signing in
   async signUp(e) {
-    console.log(this.state.checked);
     e.preventDefault();
     //verify that fields are filled out correctly
-    if (this.state.checked !== [] && this.state.first !== "" && this.state.last !== "" && await this.getCompanyID() !== undefined) {
+    if (this.state.checked.length === 0) {  //terms and conditions not checked
+      window.alert("Make sure to agree to the terms and conditions.");
+    }
+    else if (this.state.first === "") { //first nae field is empty
+      window.alert("Make sure you fill in your first name.");
+    }
+    else if (this.state.last === "") {  //last name field is empty
+      window.alert("Make sure you fill in your last name.");
+    }
+    else if (await this.getCompanyID() === undefined) { //bad company code
+      window.alert("The company code did not match a current company.");
+    }
+    else {  //fields are filled out correctly
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
         await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
         window.location.replace("http://localhost:3000/dashboard");   //redirect user to dashboard page once logged in
       }).catch((error) => {           //if an error occurs, alert user of the error
         window.alert(error);
       });
-    }
-    else {  //fields aren't filled out correctly
-      window.alert("Make sure all fields are field out correctly.");
     }
   }
 
