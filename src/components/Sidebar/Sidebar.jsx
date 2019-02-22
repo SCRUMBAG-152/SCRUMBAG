@@ -78,7 +78,7 @@ class Sidebar extends React.Component {
 
   getCurrName() {
     var that = this;
-    auth.onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function (user) {
       //get current user
       if (user) {
         fire
@@ -87,7 +87,7 @@ class Sidebar extends React.Component {
           .get()
           .then(snap => {
             that.setState({
-            //name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
+              name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
             });
           });
       }
@@ -307,8 +307,8 @@ class Sidebar extends React.Component {
                     {typeof prop.icon === "string" ? (
                       <Icon>{prop.icon}</Icon>
                     ) : (
-                      <prop.icon />
-                    )}
+                        <prop.icon />
+                      )}
                   </ListItemIcon>
                   <ListItemText
                     primary={prop.name}
@@ -392,8 +392,8 @@ class Sidebar extends React.Component {
                   {typeof prop.icon === "string" ? (
                     <Icon>{prop.icon}</Icon>
                   ) : (
-                    <prop.icon />
-                  )}
+                      <prop.icon />
+                    )}
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.name}
