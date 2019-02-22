@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 // import { Manager, Target, Popper } from "react-popper";
+import { Link } from "react-router-dom"
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -27,6 +28,14 @@ import headerLinksStyle from "assets/jss/material-dashboard-pro-react/components
 import { auth } from "config/Fire.jsx";
 
 class HeaderLinks extends React.Component {
+  async signOut() {
+    await auth.signOut().then(function () { //signs user out
+
+    }).catch(function (error) {
+      window.alert(error);
+    });
+  }
+
   state = {
     open: false
   };
@@ -229,24 +238,20 @@ class HeaderLinks extends React.Component {
             </span>
           </Hidden>
         </Button>
-        <Button
-          color="primary"
-          aria-label="Sign Out"
-          size="sm"
-          onClick={this.signOut}
-        >
-          Sign Out
-        </Button>
+        <Link to="/pages/login-page"> {/*When clicked, signs user out and redirects to login page*/}
+          <Button
+            color="primary"
+            aria-label="Sign Out"
+            size="sm"
+            onClick={this.signOut}
+          >
+            Sign Out
+          </Button>
+        </Link>
       </div>
     );
   }
-  signOut() {
-    auth.signOut().then(function () { //signs user out
-      window.location.replace("http://localhost:3000/pages/login-page");
-    }).catch(function (error) {
-      console.log(error);
-    });
-  }
+
 }
 
 HeaderLinks.propTypes = {

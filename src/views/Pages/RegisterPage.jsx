@@ -100,7 +100,7 @@ class RegisterPage extends React.Component {
     else {  //fields are filled out correctly
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
         await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
-        window.location.replace("http://localhost:3000/dashboard"); //redirect user to dashboard page once registered
+        this.props.history.push("/dashboard");
       }).catch((error) => {           //if an error occurs, alert user of the error
         window.alert(error);
       });
