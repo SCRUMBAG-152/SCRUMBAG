@@ -87,7 +87,7 @@ class LoginPage extends React.Component {
                     {[
                       "fab fa-facebook-square",
                       "fab fa-twitter",
-                      "fab fa-google-plus"
+                      "fab fa-google"
                     ].map((prop, key) => {
                       return (
                         <Button

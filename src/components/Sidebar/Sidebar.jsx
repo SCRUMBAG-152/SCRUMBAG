@@ -34,7 +34,7 @@ var ps
 // There might be something with the Hidden component from material-ui, and we didn't have access to
 // the links, and couldn't initialize the plugin.
 class SidebarWrapper extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     if (navigator.platform.indexOf('Win') > -1) {
       ps = new PerfectScrollbar(this.refs.sidebarWrapper, {
         suppressScrollX: true,
@@ -42,12 +42,12 @@ class SidebarWrapper extends React.Component {
       })
     }
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (navigator.platform.indexOf('Win') > -1) {
       ps.destroy()
     }
   }
-  render () {
+  render() {
     const { className, user, headerLinks, links } = this.props
     return (
       <div className={className} ref='sidebarWrapper'>
@@ -60,7 +60,7 @@ class SidebarWrapper extends React.Component {
 }
 
 class Sidebar extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       openAvatar: false,
@@ -76,38 +76,40 @@ class Sidebar extends React.Component {
     this.getCurrName = this.getCurrName.bind(this)
   }
 
-  getCurrName () {
+  getCurrName() {
     var that = this
-    auth.onAuthStateChanged(function (user) {
+    auth.onAuthStateChanged(async (user) => {
       // get current user
       if (user) {
-        fire
+        await fire
           .collection('Users')
           .doc(`${user.uid}`)
           .get()
           .then(snap => {
             that.setState({
-              // name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
+              name: snap.data().firstName + " " + snap.data().lastName //set name state to current users name
             })
+          }).catch(error => {
+
           })
       }
     })
   }
 
-  componentWillMount () {
+  componentDidMount() {
     this.getCurrName()
   }
 
   // verifies if routeName is the one active (in browser input)
-  activeRoute (routeName) {
+  activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1
   }
-  openCollapse (collapse) {
+  openCollapse(collapse) {
     var st = {}
     st[collapse] = !this.state[collapse]
     this.setState(st)
   }
-  render () {
+  render() {
     const {
       classes,
       color,
@@ -302,8 +304,8 @@ class Sidebar extends React.Component {
                     {typeof prop.icon === 'string' ? (
                       <Icon>{prop.icon}</Icon>
                     ) : (
-                      <prop.icon />
-                    )}
+                        <prop.icon />
+                      )}
                   </ListItemIcon>
                   <ListItemText
                     primary={prop.name}
@@ -387,8 +389,8 @@ class Sidebar extends React.Component {
                   {typeof prop.icon === 'string' ? (
                     <Icon>{prop.icon}</Icon>
                   ) : (
-                    <prop.icon />
-                  )}
+                      <prop.icon />
+                    )}
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.name}

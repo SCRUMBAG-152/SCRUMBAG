@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom"
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -27,8 +28,9 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
-import fire from "config/Fire.jsx"
-import { auth } from "config/Fire.jsx"
+import fire from "config/Fire.jsx";
+import { auth } from "config/Fire.jsx";
+import { google } from "config/Fire.jsx";
 
 
 class RegisterPage extends React.Component {
@@ -40,13 +42,15 @@ class RegisterPage extends React.Component {
       password: "",
       code: "",
       first: "",
-      last: ""
+      last: "",
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signUp = this.signUp.bind(this);
     this.initializeDoc = this.initializeDoc.bind(this);
     this.getCompanyID = this.getCompanyID.bind(this);
+    this.googleSignUp = this.googleSignUp.bind(this);
+    this.verifyInputs = this.verifyInputs.bind(this);
   }
 
   //return the company id with correct code
@@ -84,24 +88,27 @@ class RegisterPage extends React.Component {
   //handles new user signing in
   async signUp(e) {
     e.preventDefault();
-    //verify that fields are filled out correctly
-    if (this.state.checked.length === 0) {  //terms and conditions not checked
-      window.alert("Make sure to agree to the terms and conditions.");
-    }
-    else if (this.state.first === "") { //first nae field is empty
-      window.alert("Make sure you fill in your first name.");
-    }
-    else if (this.state.last === "") {  //last name field is empty
-      window.alert("Make sure you fill in your last name.");
-    }
-    else if (await this.getCompanyID() === undefined) { //bad company code
-      window.alert("The company code did not match a current company.");
-    }
-    else {  //fields are filled out correctly
+    if (await this.verifyInputs()) { //verify the inputs are filled in correctly
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
         await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
         this.props.history.push("/dashboard");
       }).catch((error) => {           //if an error occurs, alert user of the error
+        window.alert(error);
+      });
+    }
+  }
+
+  async googleSignUp(e) {
+    e.preventDefault();
+    if (await this.verifyInputs()) {
+      auth.signInWithPopup(google).then(async function (result) {
+        // this.setState({
+        //   email: result.user.email
+        // })
+        console.log(result.user.email);
+        //await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
+        //this.props.history.push("/dashboard");
+      }).catch(function (error) {
         window.alert(error);
       });
     }
@@ -165,9 +172,11 @@ class RegisterPage extends React.Component {
                         <i className="fab fa-twitter" />
                       </Button>
                       {` `}
-                      <Button justIcon round color="dribbble">
-                        <i className="fab fa-dribbble" />
-                      </Button>
+                      <Link to="/dashboard">
+                        <Button onClick={this.googleSignUp} justIcon round color="google">
+                          <i className="fab fa-google" />
+                        </Button>
+                      </Link>
                       {` `}
                       <Button justIcon round color="facebook">
                         <i className="fab fa-facebook-f" />
@@ -336,6 +345,30 @@ class RegisterPage extends React.Component {
       </div>
     );
   }
+
+  async verifyInputs() {
+    //verify that fields are filled out correctly
+    if (this.state.checked.length === 0) {  //terms and conditions not checked
+      window.alert("Make sure to agree to the terms and conditions.");
+      return false;
+    }
+    else if (this.state.first === "") { //first nae field is empty
+      window.alert("Make sure you fill in your first name.");
+      return false;
+    }
+    else if (this.state.last === "") {  //last name field is empty
+      window.alert("Make sure you fill in your last name.");
+      return false;
+    }
+    else if (await this.getCompanyID() === undefined) { //bad company code
+      window.alert("The company code did not match a current company.");
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
 }
 
 RegisterPage.propTypes = {
