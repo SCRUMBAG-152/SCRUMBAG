@@ -41,10 +41,12 @@ class Boards extends React.Component {
       columnID: "1O7NHVhZYmGgQzRGAPg3",
       columnIDs: [],
       column: {
-        todo: "NGhFjQbPhxqLWDi0e1pf",
-        doing: "CjECfaNBTOmx7JG85d5s",
-        done: "B6ZGS5apr1Xt93ctAufH",
-        backLog: "1O7NHVhZYmGgQzRGAPg3"
+        id: {
+          todo: "NGhFjQbPhxqLWDi0e1pf",
+          doing: "CjECfaNBTOmx7JG85d5s",
+          done: "B6ZGS5apr1Xt93ctAufH",
+          backLog: "1O7NHVhZYmGgQzRGAPg3"
+        }
       }
     };
   }
@@ -358,7 +360,7 @@ class Boards extends React.Component {
         >
           <GridContainer style={{ textAlign: "center" }}>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.backLog} type="TASK">
+              <Droppable droppableId={this.state.column.id.backLog} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -378,7 +380,7 @@ class Boards extends React.Component {
             </GridItem>
 
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.todo} type="TASK">
+              <Droppable droppableId={this.state.column.id.todo} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -397,7 +399,7 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.doing} type="TASK">
+              <Droppable droppableId={this.state.column.id.doing} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -416,7 +418,7 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.done} type="TASK">
+              <Droppable droppableId={this.state.column.id.done} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
