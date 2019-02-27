@@ -3,7 +3,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import fire from "../../config/Fire.jsx";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 import BackLog from "./taskComponents/Backlog.jsx";
 import Todo from "./taskComponents/Todo.jsx";
@@ -20,7 +21,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from "./AddTask";
+import AddTask from "./addTask";
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
@@ -38,7 +39,13 @@ class Boards extends React.Component {
       taskName: "",
       taskPoints: "",
       columnID: "1O7NHVhZYmGgQzRGAPg3",
-      columns: []
+      columnIDs: [],
+      column: {
+        todo: "NGhFjQbPhxqLWDi0e1pf",
+        doing: "CjECfaNBTOmx7JG85d5s",
+        done: "B6ZGS5apr1Xt93ctAufH",
+        backLog: "1O7NHVhZYmGgQzRGAPg3"
+      }
     };
   }
   handleColumnChange = event => {
@@ -93,15 +100,16 @@ class Boards extends React.Component {
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
+          this.setState({
+            columnID: doc.id
+          });
           return {
             ...doc.data(),
             id: doc.id
           };
         })
       );
-
-    // console.log("project reference", projectRef);
-    // console.log("project id");
+    console.log(this.state.columnID);
 
     this.setState({
       taskName: "",
@@ -283,7 +291,18 @@ class Boards extends React.Component {
   onDragUpdate = () => {
     /*...*/
   };
-  onDragEnd = () => {};
+  onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    const column = this.state.column;
+    const newIds = Array.from(column.id);
+    newIds.splice(source.index, 1);
+    newIds.splice(destination.index, 0, draggableId);
+
+    console.log(result);
+  };
 
   render() {
     // const { classes } = this.props;
@@ -339,7 +358,7 @@ class Boards extends React.Component {
         >
           <GridContainer style={{ textAlign: "center" }}>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId="droppable-1" type="TASK">
+              <Droppable droppableId={this.state.column.backLog} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -351,7 +370,6 @@ class Boards extends React.Component {
                     <BackLog
                       backLog={this.state.backLog}
                       deleteTask={this.deleteTask}
-                      columnID={"one"}
                     />
                     {provided.placeholder}
                   </div>
@@ -360,7 +378,7 @@ class Boards extends React.Component {
             </GridItem>
 
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId="droppable-2" type="TASK">
+              <Droppable droppableId={this.state.column.todo} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -372,7 +390,6 @@ class Boards extends React.Component {
                     <Todo
                       toDos={this.state.toDos}
                       deleteTask={this.deleteTask}
-                      columnID={"two"}
                     />
                     {provided.placeholder}
                   </div>
@@ -380,7 +397,7 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId="droppable-3" type="TASK">
+              <Droppable droppableId={this.state.column.doing} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -392,7 +409,6 @@ class Boards extends React.Component {
                     <Doing
                       doing={this.state.doing}
                       deleteTask={this.deleteTask}
-                      columnID={"three"}
                     />
                     {provided.placeholder}
                   </div>
@@ -400,7 +416,7 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId="droppable-4" type="TASK">
+              <Droppable droppableId={this.state.column.done} type="TASK">
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -409,11 +425,7 @@ class Boards extends React.Component {
                     }}
                     {...provided.droppableProps}
                   >
-                    <Done
-                      done={this.state.done}
-                      deleteTask={this.deleteTask}
-                      columnID={"four"}
-                    />
+                    <Done done={this.state.done} deleteTask={this.deleteTask} />
                     {provided.placeholder}
                   </div>
                 )}
