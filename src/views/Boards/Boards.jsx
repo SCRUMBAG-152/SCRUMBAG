@@ -1,34 +1,34 @@
 //= ========================================Imports Start=========================================//
 
-import React from "react";
-import PropTypes from "prop-types";
-import fire from "../../config/Fire.jsx";
-import { DragDropContext } from "react-beautiful-dnd";
-import { Droppable } from "react-beautiful-dnd";
+import React from 'react'
+import PropTypes from 'prop-types'
+import fire from '../../config/Fire.jsx'
+import { DragDropContext } from 'react-beautiful-dnd'
+import { Droppable } from 'react-beautiful-dnd'
 
-import BackLog from "./taskComponents/Backlog.jsx";
-import Todo from "./taskComponents/Todo.jsx";
-import Doing from "./taskComponents/Doing.jsx";
-import Done from "./taskComponents/Done.jsx";
+import BackLog from './taskComponents/Backlog.jsx'
+import Todo from './taskComponents/Todo.jsx'
+import Doing from './taskComponents/Doing.jsx'
+import Done from './taskComponents/Done.jsx'
 
 // @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
-import boardsStyle from "../../assets/jss/material-dashboard-pro-react/views/boardsStyle";
+import withStyles from '@material-ui/core/styles/withStyles'
+import boardsStyle from '../../assets/jss/material-dashboard-pro-react/views/boardsStyle'
 // @material-ui/icons
 // core components
-import GridContainer from "components/Grid/GridContainer.jsx";
-import GridItem from "components/Grid/GridItem.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import GridContainer from 'components/Grid/GridContainer.jsx'
+import GridItem from 'components/Grid/GridItem.jsx'
+import Button from 'components/CustomButtons/Button.jsx'
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from "./addTask";
+import AddTask from './AddTask'
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleTaskClick = this.handleTaskClick.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
+  constructor (props) {
+    super(props)
+    this.handleTaskClick = this.handleTaskClick.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
     this.state = {
       taskPressed: false,
       value: 0,
@@ -36,19 +36,19 @@ class Boards extends React.Component {
       doing: [],
       done: [],
       backLog: [],
-      taskName: "",
-      taskPoints: "",
-      columnID: "1O7NHVhZYmGgQzRGAPg3",
+      taskName: '',
+      taskPoints: '',
+      columnID: '1O7NHVhZYmGgQzRGAPg3',
       columnIDs: [],
       column: {
         id: {
-          todo: "NGhFjQbPhxqLWDi0e1pf",
-          doing: "CjECfaNBTOmx7JG85d5s",
-          done: "B6ZGS5apr1Xt93ctAufH",
-          backLog: "1O7NHVhZYmGgQzRGAPg3"
+          todo: 'NGhFjQbPhxqLWDi0e1pf',
+          doing: 'CjECfaNBTOmx7JG85d5s',
+          done: 'B6ZGS5apr1Xt93ctAufH',
+          backLog: '1O7NHVhZYmGgQzRGAPg3'
         }
       }
-    };
+    }
   }
   handleColumnChange = event => {
     // console.log(
@@ -61,254 +61,261 @@ class Boards extends React.Component {
     //   columnID: id
     // });
     const ids = {
-      ToDo: "NGhFjQbPhxqLWDi0e1pf",
-      Doing: "CjECfaNBTOmx7JG85d5s",
-      Done: "B6ZGS5apr1Xt93ctAufH",
-      Backlog: "1O7NHVhZYmGgQzRGAPg3"
-    };
-    const id = ids[event.target.value];
+      ToDo: 'NGhFjQbPhxqLWDi0e1pf',
+      Doing: 'CjECfaNBTOmx7JG85d5s',
+      Done: 'B6ZGS5apr1Xt93ctAufH',
+      Backlog: '1O7NHVhZYmGgQzRGAPg3'
+    }
+    const id = ids[event.target.value]
     // console.log("this is the id", id);
     this.setState({
       columnID: id
-    });
-  };
+    })
+  }
 
   handleAddTaskChange = e => {
     // console.log("name, value", e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value
-    });
-  };
+    })
+  }
 
-  handleTaskClick() {
+  handleTaskClick () {
     this.setState(prevState => ({
       taskPressed: !prevState.taskPressed
-    }));
+    }))
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    this.setState({ value })
+  }
 
   handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
+    this.setState({ value: index })
+  }
 
   getTasks = async () => {
     // console.log("getting new tasks");
     const projectRef = await fire
-      .collection("Columns")
-      .where("projectID", "==", "HogJ2XkOGTbEadJwAtoM")
+      .collection('Columns')
+      .where('projectID', '==', 'HogJ2XkOGTbEadJwAtoM')
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           this.setState({
             columnID: doc.id
-          });
+          })
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
-    console.log(this.state.columnID);
+      )
+    console.log(this.state.columnID)
 
     this.setState({
-      taskName: "",
-      taskPoints: "",
+      taskName: '',
+      taskPoints: '',
       // columnID: projectRef.id,
       columns: projectRef
-    });
-    this.getBackLog();
+    })
+    this.getBackLog()
 
-    this.getTodo();
+    this.getTodo()
 
-    this.getDoing();
+    this.getDoing()
 
-    this.getDone();
-  };
+    this.getDone()
+  }
 
   getBackLog = async () => {
     // BACKLOG
     const columnBacklog = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Backlog")
+      .collection('Columns')
+      .where('columnName', '==', 'Backlog')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
 
     const taskBacklog = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnBacklog)
+      .collection('Tasks')
+      .where('columnID', '==', columnBacklog)
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
+      )
 
     this.setState({
       backLog: taskBacklog
-    });
-  };
+    })
+  }
 
   getTodo = async () => {
     // TO-DO
     const columnTodo = await fire
-      .collection("Columns")
-      .where("columnName", "==", "ToDo")
+      .collection('Columns')
+      .where('columnName', '==', 'ToDo')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
 
     const taskToDo = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnTodo)
+      .collection('Tasks')
+      .where('columnID', '==', columnTodo)
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
+      )
 
     this.setState({
       toDos: taskToDo
-    });
-  };
+    })
+  }
 
   getDoing = async () => {
     // DOING
     const columnDoing = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Doing")
+      .collection('Columns')
+      .where('columnName', '==', 'Doing')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
 
     const taskDoing = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnDoing)
+      .collection('Tasks')
+      .where('columnID', '==', columnDoing)
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
+      )
 
     this.setState({
       doing: taskDoing
-    });
-  };
+    })
+  }
 
   getDone = async () => {
     // Done
     const columnDone = await fire
-      .collection("Columns")
-      .where("columnName", "==", "Done")
+      .collection('Columns')
+      .where('columnName', '==', 'Done')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.id)[0]);
+      .then(snapshot => snapshot.docs.map(doc => doc.id)[0])
 
     const taskDone = await fire
-      .collection("Tasks")
-      .where("columnID", "==", columnDone)
+      .collection('Tasks')
+      .where('columnID', '==', columnDone)
       .get()
       .then(snapshot =>
         snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             id: doc.id
-          };
+          }
         })
-      );
+      )
 
     this.setState({
       done: taskDone
-    });
-  };
+    })
+  }
 
   // deleteBagLogTask
   // get id and go into firebase and delete backlog task
   // get BackLogTasks
-  async componentDidMount() {
+  async componentDidMount () {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
     const companyRef = await fire
-      .collection("Companies")
+      .collection('Companies')
       .get()
-      .then(snapshot => snapshot.docs.map(doc => doc.data()));
+      .then(snapshot => snapshot.docs.map(doc => doc.data()))
 
-    this.getBackLog();
+    this.getBackLog()
 
-    this.getTodo();
+    this.getTodo()
 
-    this.getDoing();
+    this.getDoing()
 
-    this.getDone();
+    this.getDone()
 
-    this.getTasks();
+    this.getTasks()
 
     this.setState({
       companyRef
-    });
+    })
   }
 
   newTask = async () => {
-    const { columnID, taskName, taskPoints } = this.state;
+    const { columnID, taskName, taskPoints } = this.state
     // console.log("data", columnID);
-    await fire.collection("Tasks").add({
+    await fire.collection('Tasks').add({
       columnID,
       taskName,
       taskPoints,
       userID: []
-    });
+    })
 
-    this.getTasks();
+    this.getTasks()
     // console.log("Completed Adding a Task.");
-  };
+  }
 
   deleteTask = async id => {
     await fire
-      .collection("Tasks")
+      .collection('Tasks')
       .doc(id)
-      .delete();
+      .delete()
 
-    this.getBackLog();
-    this.getTodo();
-    this.getDoing();
-    this.getDone();
-  };
+    this.getBackLog()
+    this.getTodo()
+    this.getDoing()
+    this.getDone()
+  }
 
   onBeforeDragStart = () => {
-    /*...*/
-  };
+    /* ... */
+  }
 
   onDragStart = () => {
-    /*...*/
-  };
+    /* ... */
+  }
   onDragUpdate = () => {
-    /*...*/
-  };
+    /* ... */
+  }
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId } = result
     if (!destination) {
-      return;
+      return
     }
-    const column = this.state.column;
-    const newIds = Array.from(column.id);
-    newIds.splice(source.index, 1);
-    newIds.splice(destination.index, 0, draggableId);
+    const column = this.state.column
+    const newIds = Array.from(column.id)
+    newIds.splice(source.index, 1)
+    newIds.splice(destination.index, 0, draggableId)
 
-    console.log(result);
-  };
+    console.log(result)
+  }
 
-  render() {
+  render () {
     // const { classes } = this.props;
-    const { taskName, taskPoints, columnID, columns, taskPressed } = this.state;
+    const {
+      taskName,
+      taskPoints,
+      columnID,
+      columns,
+      taskPressed,
+      column
+    } = this.state
 
     // console.log("columnID", columnID);
     // const taskPressed = this.state.taskPressed;
@@ -335,7 +342,7 @@ class Boards extends React.Component {
 
     return (
       <div>
-        <Button size="sm" onClick={this.handleTaskClick}>
+        <Button size='sm' onClick={this.handleTaskClick}>
           Add Task
         </Button>
         {taskPressed && (
@@ -347,8 +354,7 @@ class Boards extends React.Component {
             newTask={this.newTask}
             getTasks={this.getTasks}
             handleColumnChange={this.handleColumnChange}
-            handleAddTaskChange={this.handleAddTaskChange}
-          >
+            handleAddTaskChange={this.handleAddTaskChange}>
             Show
           </AddTask>
         )}
@@ -356,19 +362,19 @@ class Boards extends React.Component {
           onBeforeDragStart={this.onBeforeDragStart}
           onDragStart={this.onDragStart}
           onDragUpdate={this.onDragUpdate}
-          onDragEnd={this.onDragEnd}
-        >
-          <GridContainer style={{ textAlign: "center" }}>
+          onDragEnd={this.onDragEnd}>
+          <GridContainer style={{ textAlign: 'center' }}>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.id.backLog} type="TASK">
+              <Droppable droppableId={column.id.backLog} type='TASK'>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     style={{
-                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                      backgroundColor: snapshot.isDraggingOver
+                        ? 'none'
+                        : 'none'
                     }}
-                    {...provided.droppableProps}
-                  >
+                    {...provided.droppableProps}>
                     <BackLog
                       backLog={this.state.backLog}
                       deleteTask={this.deleteTask}
@@ -380,15 +386,16 @@ class Boards extends React.Component {
             </GridItem>
 
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.id.todo} type="TASK">
+              <Droppable droppableId={column.id.todo} type='TASK'>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     style={{
-                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                      backgroundColor: snapshot.isDraggingOver
+                        ? 'none'
+                        : 'none'
                     }}
-                    {...provided.droppableProps}
-                  >
+                    {...provided.droppableProps}>
                     <Todo
                       toDos={this.state.toDos}
                       deleteTask={this.deleteTask}
@@ -399,15 +406,16 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.id.doing} type="TASK">
+              <Droppable droppableId={column.id.doing} type='TASK'>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     style={{
-                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                      backgroundColor: snapshot.isDraggingOver
+                        ? 'none'
+                        : 'none'
                     }}
-                    {...provided.droppableProps}
-                  >
+                    {...provided.droppableProps}>
                     <Doing
                       doing={this.state.doing}
                       deleteTask={this.deleteTask}
@@ -418,15 +426,16 @@ class Boards extends React.Component {
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
-              <Droppable droppableId={this.state.column.id.done} type="TASK">
+              <Droppable droppableId={column.id.done} type='TASK'>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     style={{
-                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                      backgroundColor: snapshot.isDraggingOver
+                        ? 'none'
+                        : 'none'
                     }}
-                    {...provided.droppableProps}
-                  >
+                    {...provided.droppableProps}>
                     <Done done={this.state.done} deleteTask={this.deleteTask} />
                     {provided.placeholder}
                   </div>
@@ -436,12 +445,12 @@ class Boards extends React.Component {
           </GridContainer>
         </DragDropContext>
       </div>
-    );
+    )
   }
 }
 
 Boards.propTypes = {
   classes: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(boardsStyle)(Boards);
+export default withStyles(boardsStyle)(Boards)
