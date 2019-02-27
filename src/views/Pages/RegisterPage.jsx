@@ -44,6 +44,7 @@ class RegisterPage extends React.Component {
       first: "",
       last: "",
     };
+    this.handleRedirect = this.handleRedirect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -51,6 +52,19 @@ class RegisterPage extends React.Component {
     this.getCompanyID = this.getCompanyID.bind(this);
     this.googleSignUp = this.googleSignUp.bind(this);
     this.verifyInputs = this.verifyInputs.bind(this);
+    this.providerEmail = this.providerEmail.bind(this);
+  }
+
+  //redirect
+  handleRedirect() {
+    this.props.history.push("/dashboard");  //redirects to dashboard
+  }
+
+  //set this.state.email to the user providers email 
+  providerEmail(user) {
+    this.setState({
+      email: user.email     //get user email from provider
+    });
   }
 
   //return the company id with correct code
@@ -85,30 +99,28 @@ class RegisterPage extends React.Component {
     });
   }
 
-  //handles new user signing in
+  //handles new user signing in with email and password
   async signUp(e) {
     e.preventDefault();
-    if (await this.verifyInputs()) { //verify the inputs are filled in correctly
+    if (await this.verifyInputs()) {            //verify the inputs are filled in correctly
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
-        await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
-        this.props.history.push("/dashboard");
-      }).catch((error) => {           //if an error occurs, alert user of the error
+        await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        this.handleRedirect();                  //handles redirect
+      }).catch((error) => {                     //if an error occurs, alert user of the error
         window.alert(error);
       });
     }
   }
 
+  //handles new user signing in with google
   async googleSignUp(e) {
     e.preventDefault();
-    if (await this.verifyInputs()) {
-      auth.signInWithPopup(google).then(async function (result) {
-        // this.setState({
-        //   email: result.user.email
-        // })
-        console.log(result.user.email);
-        //await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
-        //this.props.history.push("/dashboard");
-      }).catch(function (error) {
+    if (await this.verifyInputs()) {            //verify fields are filled out correctly
+      auth.signInWithPopup(google).then(async (result) => {
+        await this.providerEmail(result.user);  //changes this.state.email to work with the provider email   
+        await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        this.handleRedirect();                  //handles redirect
+      }).catch(error => {
         window.alert(error);
       });
     }
