@@ -1,4 +1,4 @@
-import fire from "config/Fire.jsx";
+//import fire from "config/Fire.jsx";
 import React from "react";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -105,10 +105,10 @@ class AddTask extends React.Component {
     const {
       taskName,
       taskPoints,
-      columnID,
+      //columnID,
       columns,
       newTask,
-      getTasks,
+      //getTasks,
       handleAddTaskChange,
       handleColumnChange
     } = this.props;

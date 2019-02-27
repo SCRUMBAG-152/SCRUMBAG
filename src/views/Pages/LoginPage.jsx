@@ -42,7 +42,7 @@ class LoginPage extends React.Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        window.location.replace("http://localhost:3000/dashboard");
+        this.props.history.push("/dashboard");
       })
       .catch(error => {
         //if an error occurs, alert user of the error

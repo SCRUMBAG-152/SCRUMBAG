@@ -3,9 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import fire from "../../config/Fire.jsx";
-import { DragDropContext } from "react-beautiful-dnd";
-import { Droppable } from 'react-beautiful-dnd';
-
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import BackLog from "./taskComponents/Backlog.jsx";
 import Todo from "./taskComponents/Todo.jsx";
@@ -22,7 +20,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from "./addTask";
+import AddTask from "./AddTask";
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
@@ -65,7 +63,7 @@ class Boards extends React.Component {
       columnID: id
     });
   };
-  
+
   handleAddTaskChange = e => {
     // console.log("name, value", e.target.name, e.target.value);
     this.setState({
@@ -285,13 +283,10 @@ class Boards extends React.Component {
   onDragUpdate = () => {
     /*...*/
   };
-  onDragEnd = () => {
-
-  };
-
+  onDragEnd = () => {};
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     const { taskName, taskPoints, columnID, columns, taskPressed } = this.state;
 
     // console.log("columnID", columnID);
@@ -345,83 +340,87 @@ class Boards extends React.Component {
           <GridContainer style={{ textAlign: "center" }}>
             <GridItem xs={12} sm={6} md={4} lg={3}>
               <Droppable droppableId="droppable-1" type="TASK">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={{ backgroundColor: snapshot.isDraggingOver ? 'none' : 'none' }}
-                  {...provided.droppableProps}
-                >
-                  <BackLog 
-                    backLog={this.state.backLog} 
-                    deleteTask={this.deleteTask} 
-                    columnID={"one"}
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{
+                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                    }}
+                    {...provided.droppableProps}
                   >
-                  </BackLog>
-                {provided.placeholder}
-                </div>
-              )}
+                    <BackLog
+                      backLog={this.state.backLog}
+                      deleteTask={this.deleteTask}
+                      columnID={"one"}
+                    />
+                    {provided.placeholder}
+                  </div>
+                )}
               </Droppable>
             </GridItem>
 
             <GridItem xs={12} sm={6} md={4} lg={3}>
               <Droppable droppableId="droppable-2" type="TASK">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={{ backgroundColor: snapshot.isDraggingOver ? 'none' : 'none' }}
-                  {...provided.droppableProps}
-                >
-                  <Todo 
-                    toDos={this.state.toDos} 
-                    deleteTask={this.deleteTask} 
-                    columnID={"two"}
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{
+                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                    }}
+                    {...provided.droppableProps}
                   >
-                  </Todo>
-                {provided.placeholder}
-                </div>
-              )}
+                    <Todo
+                      toDos={this.state.toDos}
+                      deleteTask={this.deleteTask}
+                      columnID={"two"}
+                    />
+                    {provided.placeholder}
+                  </div>
+                )}
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
               <Droppable droppableId="droppable-3" type="TASK">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={{ backgroundColor: snapshot.isDraggingOver ? 'none' : 'none' }}
-                  {...provided.droppableProps}
-                >
-                  <Doing 
-                    doing={this.state.doing} 
-                    deleteTask={this.deleteTask} 
-                    columnID={"three"}
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{
+                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                    }}
+                    {...provided.droppableProps}
                   >
-                  </Doing>
-                {provided.placeholder}
-                </div>
-              )}
+                    <Doing
+                      doing={this.state.doing}
+                      deleteTask={this.deleteTask}
+                      columnID={"three"}
+                    />
+                    {provided.placeholder}
+                  </div>
+                )}
               </Droppable>
             </GridItem>
             <GridItem xs={12} sm={6} md={4} lg={3}>
               <Droppable droppableId="droppable-4" type="TASK">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={{ backgroundColor: snapshot.isDraggingOver ? 'none' : 'none' }}
-                  {...provided.droppableProps}
-                >
-                  <Done 
-                    done={this.state.done} 
-                    deleteTask={this.deleteTask} 
-                    columnID={"four"}
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{
+                      backgroundColor: snapshot.isDraggingOver ? "none" : "none"
+                    }}
+                    {...provided.droppableProps}
                   >
-                  </Done>
-                {provided.placeholder}
-                </div>
-              )}
+                    <Done
+                      done={this.state.done}
+                      deleteTask={this.deleteTask}
+                      columnID={"four"}
+                    />
+                    {provided.placeholder}
+                  </div>
+                )}
               </Droppable>
             </GridItem>
           </GridContainer>
-          </DragDropContext>
+        </DragDropContext>
       </div>
     );
   }
