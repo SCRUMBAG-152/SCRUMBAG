@@ -85,9 +85,9 @@ class LoginPage extends React.Component {
                   <h4 className={classes.cardTitle}>Log in</h4>
                   <div className={classes.socialLine}>
                     {[
-                      "fab fa-facebook-square",
                       "fab fa-twitter",
-                      "fab fa-google"
+                      "fab fa-google",
+                      "fab fa-facebook-square",
                     ].map((prop, key) => {
                       return (
                         <Button

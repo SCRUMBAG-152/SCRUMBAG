@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom"
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -83,9 +82,9 @@ class RegisterPage extends React.Component {
 
   //initialize Document in user collection
   async initializeDoc() {
-    const newUse = await fire.collection('Users').doc(`${auth.currentUser.uid}`);
-    await newUse.get().then(async () => {
-      await newUse.set({      // create the document if it's a new user
+    await fire.collection('Users')
+      .doc(`${auth.currentUser.uid}`)
+      .set({      // create the document if it's a new user
         companyID: await this.getCompanyID(),
         departmentID: [],
         email: this.state.email,
@@ -93,10 +92,9 @@ class RegisterPage extends React.Component {
         lastName: this.state.last,
         projectID: [],
         role: "user",
+      }).catch((error) => {   //if an error occurs, alert user of the error
+        window.alert(error);
       });
-    }).catch((error) => {   //if an error occurs, alert user of the error
-      window.alert(error);
-    });
   }
 
   //handles new user signing in with email and password
