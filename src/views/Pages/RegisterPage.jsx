@@ -52,6 +52,17 @@ class RegisterPage extends React.Component {
     this.googleSignUp = this.googleSignUp.bind(this);
     this.verifyInputs = this.verifyInputs.bind(this);
     this.providerEmail = this.providerEmail.bind(this);
+    this.verifyNewUser = this.verifyNewUser.bind(this);
+  }
+
+  //check if the user signing in with a provider is a new user or old 
+  //if old just log them in without changing any fields
+  async verifyNewUser(docUID) {
+    var exists;
+    await fire.collection("Users").doc(docUID).get().then(doc => {
+      exists = doc.exists;
+    })
+    return exists;
   }
 
   //redirect
@@ -60,9 +71,9 @@ class RegisterPage extends React.Component {
   }
 
   //set this.state.email to the user providers email 
-  providerEmail(user) {
+  providerEmail(userEmail) {
     this.setState({
-      email: user.email     //get user email from provider
+      email: userEmail     //get user email from provider
     });
   }
 
@@ -115,8 +126,13 @@ class RegisterPage extends React.Component {
     e.preventDefault();
     if (await this.verifyInputs()) {            //verify fields are filled out correctly
       auth.signInWithPopup(google).then(async (result) => {
-        await this.providerEmail(result.user);  //changes this.state.email to work with the provider email   
-        await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        if (await this.verifyNewUser(result.user.uid)) {    //verify that it's a new user registering
+          window.alert("Account has already registered. Logging in instead.");
+        }
+        else {
+          await this.providerEmail(result.user.email);  //changes this.state.email to work with the provider email   
+          await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        }
         this.handleRedirect();                  //handles redirect
       }).catch(error => {
         window.alert(error);
