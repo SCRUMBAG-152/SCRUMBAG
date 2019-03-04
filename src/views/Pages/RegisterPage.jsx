@@ -12,6 +12,7 @@ import Icon from "@material-ui/core/Icon";
 import Timeline from "@material-ui/icons/Timeline";
 import Code from "@material-ui/icons/Code";
 import Group from "@material-ui/icons/Group";
+import Help from "@material-ui/icons/Help";
 //import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
 // import LockOutline from "@material-ui/icons/LockOutline";
@@ -173,6 +174,12 @@ class RegisterPage extends React.Component {
               <CardBody>
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={5}>
+                    <InfoArea
+                      title="Who should register?"
+                      description="If you are an employee at a company that has already registered, then this form is for you!"
+                      icon={Help}
+                      iconColor="warning"
+                    />
                     <InfoArea
                       title="Marketing"
                       description="We've created the marketing campaign of the website. It was a very interesting collaboration."
