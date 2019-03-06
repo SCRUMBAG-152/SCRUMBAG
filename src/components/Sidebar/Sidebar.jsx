@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from 'perfect-scrollbar'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import cx from 'classnames'
 
 // @material-ui/core components
@@ -41,6 +41,7 @@ class SidebarWrapper extends React.Component {
         suppressScrollY: false
       })
     }
+
   }
   componentWillUnmount() {
     if (navigator.platform.indexOf('Win') > -1) {
@@ -70,10 +71,45 @@ class Sidebar extends React.Component {
       openMaps: this.activeRoute('/maps'),
       openPages: this.activeRoute('-page'),
       miniActive: true,
-      name: ''
+      name: '',
+      user: null,
+      userLoaded: false,
     }
     this.activeRoute.bind(this)
     this.getCurrName = this.getCurrName.bind(this)
+    this.setUser = this.setUser.bind(this);
+    this.handleRedirect = this.handleRedirect.bind(this);
+  }
+
+  handleRedirect() {
+    if (this.state.userLoaded) {
+      if (!this.state.user) {
+        return <Redirect to='/pages/register-page' />
+      }
+    }
+  }
+
+  getUser() {
+    return new Promise(function (resolve, reject) {
+      auth.onAuthStateChanged(function (user) {
+        if (user) {       //if user is signed in
+          resolve(user);
+        } else {          //if no user is signed in
+          reject('Please register or login.');
+        }
+      });
+    });
+  }
+
+  async setUser() {
+    await this.getUser().then((user) => {
+      this.setState({ user });    //sets this.state.user to current user
+    }, (error) => {
+      alert(error);
+    });
+    this.setState({
+      userLoaded: true
+    })
   }
 
   getCurrName() {
@@ -98,6 +134,7 @@ class Sidebar extends React.Component {
 
   componentDidMount() {
     this.getCurrName()
+    this.setUser();
   }
 
   // verifies if routeName is the one active (in browser input)
@@ -455,6 +492,7 @@ class Sidebar extends React.Component {
       })
     return (
       <div ref='mainPanel'>
+        {this.handleRedirect()}
         <Hidden mdUp implementation='css'>
           <Drawer
             variant='temporary'
