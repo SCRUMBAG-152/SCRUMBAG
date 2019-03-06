@@ -12,6 +12,7 @@ import Icon from "@material-ui/core/Icon";
 import Timeline from "@material-ui/icons/Timeline";
 import Code from "@material-ui/icons/Code";
 import Group from "@material-ui/icons/Group";
+import Help from "@material-ui/icons/Help";
 //import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
 // import LockOutline from "@material-ui/icons/LockOutline";
@@ -27,8 +28,9 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
-import fire from "config/Fire.jsx"
-import { auth } from "config/Fire.jsx"
+import fire from "config/Fire.jsx";
+import { auth } from "config/Fire.jsx";
+import { google } from "config/Fire.jsx";
 
 
 class RegisterPage extends React.Component {
@@ -40,13 +42,40 @@ class RegisterPage extends React.Component {
       password: "",
       code: "",
       first: "",
-      last: ""
+      last: "",
     };
+    this.handleRedirect = this.handleRedirect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.signUp = this.signUp.bind(this);
     this.initializeDoc = this.initializeDoc.bind(this);
     this.getCompanyID = this.getCompanyID.bind(this);
+    this.googleSignUp = this.googleSignUp.bind(this);
+    this.verifyInputs = this.verifyInputs.bind(this);
+    this.providerEmail = this.providerEmail.bind(this);
+    this.verifyNewUser = this.verifyNewUser.bind(this);
+  }
+
+  //check if the user signing in with a provider is a new user or old 
+  //if old just log them in without changing any fields
+  async verifyNewUser(docUID) {
+    var exists;
+    await fire.collection("Users").doc(docUID).get().then(doc => {
+      exists = doc.exists;
+    })
+    return exists;
+  }
+
+  //redirect
+  handleRedirect() {
+    this.props.history.push("/dashboard");  //redirects to dashboard
+  }
+
+  //set this.state.email to the user providers email 
+  providerEmail(userEmail) {
+    this.setState({
+      email: userEmail     //get user email from provider
+    });
   }
 
   //return the company id with correct code
@@ -65,9 +94,9 @@ class RegisterPage extends React.Component {
 
   //initialize Document in user collection
   async initializeDoc() {
-    const newUse = await fire.collection('Users').doc(`${auth.currentUser.uid}`);
-    await newUse.get().then(async () => {
-      await newUse.set({      // create the document if it's a new user
+    await fire.collection('Users')
+      .doc(`${auth.currentUser.uid}`)
+      .set({      // create the document if it's a new user
         companyID: await this.getCompanyID(),
         departmentID: [],
         email: this.state.email,
@@ -75,33 +104,38 @@ class RegisterPage extends React.Component {
         lastName: this.state.last,
         projectID: [],
         role: "user",
+      }).catch((error) => {   //if an error occurs, alert user of the error
+        window.alert(error);
       });
-    }).catch((error) => {   //if an error occurs, alert user of the error
-      window.alert(error);
-    });
   }
 
-  //handles new user signing in
+  //handles new user signing in with email and password
   async signUp(e) {
     e.preventDefault();
-    //verify that fields are filled out correctly
-    if (this.state.checked.length === 0) {  //terms and conditions not checked
-      window.alert("Make sure to agree to the terms and conditions.");
-    }
-    else if (this.state.first === "") { //first nae field is empty
-      window.alert("Make sure you fill in your first name.");
-    }
-    else if (this.state.last === "") {  //last name field is empty
-      window.alert("Make sure you fill in your last name.");
-    }
-    else if (await this.getCompanyID() === undefined) { //bad company code
-      window.alert("The company code did not match a current company.");
-    }
-    else {  //fields are filled out correctly
+    if (await this.verifyInputs()) {            //verify the inputs are filled in correctly
       auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
-        await this.initializeDoc();         //initialize a new doc in the Users collection in firestore
-        this.props.history.push("/dashboard");
-      }).catch((error) => {           //if an error occurs, alert user of the error
+        await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        this.handleRedirect();                  //handles redirect
+      }).catch((error) => {                     //if an error occurs, alert user of the error
+        window.alert(error);
+      });
+    }
+  }
+
+  //handles new user signing in with google
+  async googleSignUp(e) {
+    e.preventDefault();
+    if (await this.verifyInputs()) {            //verify fields are filled out correctly
+      auth.signInWithPopup(google).then(async (result) => {
+        if (await this.verifyNewUser(result.user.uid)) {    //verify that it's a new user registering
+          window.alert("Account has already registered. Logging in instead.");
+        }
+        else {
+          await this.providerEmail(result.user.email);  //changes this.state.email to work with the provider email   
+          await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
+        }
+        this.handleRedirect();                  //handles redirect
+      }).catch(error => {
         window.alert(error);
       });
     }
@@ -141,6 +175,12 @@ class RegisterPage extends React.Component {
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={5}>
                     <InfoArea
+                      title="Who should register?"
+                      description="If you are an employee at a company that has already registered, then this form is for you!"
+                      icon={Help}
+                      iconColor="warning"
+                    />
+                    <InfoArea
                       title="Marketing"
                       description="We've created the marketing campaign of the website. It was a very interesting collaboration."
                       icon={Timeline}
@@ -165,8 +205,8 @@ class RegisterPage extends React.Component {
                         <i className="fab fa-twitter" />
                       </Button>
                       {` `}
-                      <Button justIcon round color="dribbble">
-                        <i className="fab fa-dribbble" />
+                      <Button onClick={this.googleSignUp} justIcon round color="google">
+                        <i className="fab fa-google" />
                       </Button>
                       {` `}
                       <Button justIcon round color="facebook">
@@ -336,6 +376,30 @@ class RegisterPage extends React.Component {
       </div>
     );
   }
+
+  async verifyInputs() {
+    //verify that fields are filled out correctly
+    if (this.state.checked.length === 0) {  //terms and conditions not checked
+      window.alert("Make sure to agree to the terms and conditions.");
+      return false;
+    }
+    else if (this.state.first === "") { //first nae field is empty
+      window.alert("Make sure you fill in your first name.");
+      return false;
+    }
+    else if (this.state.last === "") {  //last name field is empty
+      window.alert("Make sure you fill in your last name.");
+      return false;
+    }
+    else if (await this.getCompanyID() === undefined) { //bad company code
+      window.alert("The company code did not match a current company.");
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
 }
 
 RegisterPage.propTypes = {

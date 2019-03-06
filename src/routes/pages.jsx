@@ -6,6 +6,7 @@ import RegisterPage from "views/Pages/RegisterPage.jsx";
 // @material-ui/icons
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import Fingerprint from "@material-ui/icons/Fingerprint";
+import CompanyRegisterPage from "../views/Pages/CompanyRegisterPage";
 // import MonetizationOn from "@material-ui/icons/MonetizationOn";
 // import LockOpen from "@material-ui/icons/LockOpen";
 
@@ -17,6 +18,14 @@ const pagesRoutes = [
     mini: "RP",
     icon: PersonAdd,
     component: RegisterPage
+  },
+  {
+    path: "/pages/company-register-page",
+    name: "Company Register Page",
+    short: "Company",
+    mini: "CP",
+    icon: PersonAdd,
+    component: CompanyRegisterPage
   },
   {
     path: "/pages/login-page",

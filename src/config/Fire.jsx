@@ -15,6 +15,9 @@ const fire = firebase.firestore();
 
 export default fire; // allow other files in the project to be able to access the information.
 export const auth = initFire.auth(); //allow other files to reference the database
+export const google = new firebase.auth.GoogleAuthProvider();
+export const facebook = new firebase.auth.FacebookAuthProvider();
+export const twitter = new firebase.auth.TwitterAuthProvider();
 export const persistence = initFire.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
