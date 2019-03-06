@@ -191,11 +191,9 @@ class RegisterPage extends React.Component {
                                                 <i className="fab fa-twitter" />
                                             </Button>
                                             {` `}
-                                            <Link to="/dashboard">
-                                                <Button onClick={this.googleSignUp} justIcon round color="google">
-                                                    <i className="fab fa-google" />
-                                                </Button>
-                                            </Link>
+                                            <Button onClick={this.googleSignUp} justIcon round color="google">
+                                                <i className="fab fa-google" />
+                                            </Button>
                                             {` `}
                                             <Button justIcon round color="facebook">
                                                 <i className="fab fa-facebook-f" />
