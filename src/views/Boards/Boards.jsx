@@ -21,11 +21,11 @@ import GridItem from 'components/Grid/GridItem.jsx'
 import Button from 'components/CustomButtons/Button.jsx'
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
-import AddTask from './addTask'
+import AddTask from './AddTask'
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.handleTaskClick = this.handleTaskClick.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
@@ -80,7 +80,7 @@ class Boards extends React.Component {
     })
   }
 
-  handleTaskClick() {
+  handleTaskClick () {
     this.setState(prevState => ({
       taskPressed: !prevState.taskPressed
     }))
@@ -235,7 +235,7 @@ class Boards extends React.Component {
   // deleteBagLogTask
   // get id and go into firebase and delete backlog task
   // get BackLogTasks
-  async componentDidMount() {
+  async componentDidMount () {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
     const companyRef = await fire
       .collection('Companies')
@@ -303,19 +303,31 @@ class Boards extends React.Component {
     newIds.splice(source.index, 1)
     newIds.splice(destination.index, 0, draggableId)
 
-    console.log(result.destination.droppableId);
-    console.log(result.source.droppableId);
+    console.log(result.destination.droppableId)
+    console.log(result.source.droppableId)
 
-    await fire.collection('Tasks').doc(result.draggableId).update({
-      columnID: result.destination.droppableId,
-    });
+    await fire
+      .collection('Tasks')
+      .doc(result.draggableId)
+      .update({
+        columnID: result.destination.droppableId
+      })
 
+    // rerender the page
     this.getTasks()
+
+    this.getBackLog()
+
+    this.getTodo()
+
+    this.getDoing()
+
+    this.getDone()
 
     console.log(result)
   }
 
-  render() {
+  render () {
     // const { classes } = this.props;
     const {
       taskName,
