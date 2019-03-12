@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom"
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -44,12 +43,14 @@ class RegisterPage extends React.Component {
             code: "",
             first: "",
             last: "",
+            companyName: "",
         };
         this.handleRedirect = this.handleRedirect.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.signUp = this.signUp.bind(this);
-        this.initializeDoc = this.initializeDoc.bind(this);
+        this.initializeUserDoc = this.initializeUserDoc.bind(this);
+        this.initializeCompanyDoc = this.initializeCompanyDoc.bind(this);
         this.getCompanyID = this.getCompanyID.bind(this);
         this.googleSignUp = this.googleSignUp.bind(this);
         this.verifyInputs = this.verifyInputs.bind(this);
@@ -82,22 +83,34 @@ class RegisterPage extends React.Component {
         return id;    //return company id
     }
 
-    //initialize Document in user collection
-    async initializeDoc() {
-        const newUse = await fire.collection('Users').doc(`${auth.currentUser.uid}`);
-        await newUse.get().then(async () => {
-            await newUse.set({      // create the document if it's a new user
+    //initialize document in the users collection with admin privileges
+    async initializeUserDoc() {
+        await fire.collection('Users')
+            .doc(`${auth.currentUser.uid}`)
+            .set({      // create the document if it's a new user
                 companyID: await this.getCompanyID(),
                 departmentID: [],
                 email: this.state.email,
                 firstName: this.state.first,
                 lastName: this.state.last,
                 projectID: [],
-                role: "user",
+                role: "admin",
+            }).catch((error) => {   //if an error occurs, alert user of the error
+                window.alert(error);
             });
-        }).catch((error) => {   //if an error occurs, alert user of the error
-            window.alert(error);
-        });
+    }
+
+    //initialize document in Companies collection
+    async initializeCompanyDoc() {
+        await fire.collection('Companies')
+            .add({      // create the document
+                companyName: this.state.companyName,
+                code: this.state.code,
+                departmentID: [],
+                projectID: [],
+            }).catch((error) => {   //if an error occurs, alert user of the error
+                window.alert(error);
+            });
     }
 
     //handles new user signing in with email and password
@@ -105,8 +118,9 @@ class RegisterPage extends React.Component {
         e.preventDefault();
         if (await this.verifyInputs()) {            //verify the inputs are filled in correctly
             auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(async () => {
-                //await this.initializeDoc();             //initialize a new doc in the Users collection in firestore
-                //this.handleRedirect();                  //handles redirect
+                await this.initializeCompanyDoc();
+                await this.initializeUserDoc();
+                this.handleRedirect();                  //handles redirect
             }).catch((error) => {                     //if an error occurs, alert user of the error
                 window.alert(error);
             });
@@ -156,7 +170,7 @@ class RegisterPage extends React.Component {
                 <GridContainer justify="center">
                     <GridItem xs={12} sm={12} md={10}>
                         <Card className={classes.cardSignup}>
-                            <h2 className={classes.cardTitle}>Company Register</h2>
+                            <h2 className={classes.cardTitle}>Register Company</h2>
                             <CardBody>
                                 <GridContainer justify="center">
                                     <GridItem xs={12} sm={12} md={5}>
@@ -252,13 +266,13 @@ class RegisterPage extends React.Component {
                                             />
 
                                             <CustomInput
-                                                value={this.state.code}
+                                                value={this.state.companyName}
                                                 formControlProps={{
                                                     fullWidth: true,
                                                     className: classes.customFormControlClasses
                                                 }}
                                                 inputProps={{
-                                                    name: "code",
+                                                    name: "companyName",
                                                     onChange: this.handleChange,
                                                     endAdornment: (
                                                         <InputAdornment
@@ -400,8 +414,16 @@ class RegisterPage extends React.Component {
             window.alert("Make sure you fill in your last name.");
             return false;
         }
-        else if (await this.getCompanyID() === undefined) { //bad company code
-            window.alert("The company code did not match a current company.");
+        else if (this.state.companyName === "") { //company name field is empty
+            window.alert("Make sure you fill in your company name.");
+            return false;
+        }
+        else if (this.state.code === "") { //company code field is empty
+            window.alert("Make sure you fill in your company code so employees can join.");
+            return false;
+        }
+        else if (await this.getCompanyID() !== undefined) { //company code field is empty
+            window.alert("Company Code already exists! Try another one.");
             return false;
         }
         else {
