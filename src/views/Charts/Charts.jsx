@@ -30,12 +30,24 @@ import {
 } from "variables/charts.jsx";
 
 import chartsStyle from "assets/jss/material-dashboard-pro-react/views/chartsStyle.jsx";
+import GetUser from "../../config/User";
 
 class Charts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null
+    }
+    this.setUser = this.setUser.bind(this);
+  }
+  setUser(user) {
+    this.setState({ user })
+  }
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <GetUser user={this.setUser} />
         <Heading
           textAlign="center"
           title="React Chartist"

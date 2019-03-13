@@ -22,10 +22,11 @@ import Button from 'components/CustomButtons/Button.jsx'
 
 // import ToDo from '../../components/ToDo/ToDo.jsx'
 import AddTask from './AddTask'
+import GetUser from '../../config/User.jsx';
 
 //= ========================================Imports End=========================================//
 class Boards extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.handleTaskClick = this.handleTaskClick.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
@@ -47,9 +48,16 @@ class Boards extends React.Component {
           done: 'B6ZGS5apr1Xt93ctAufH',
           backLog: '1O7NHVhZYmGgQzRGAPg3'
         }
-      }
+      },
+      user: null
     }
+    this.setUser = this.setUser.bind(this);
   }
+
+  setUser(user) {
+    this.setState({ user })
+  }
+
   handleColumnChange = event => {
     // console.log(
     //   "in handle column change id",
@@ -80,7 +88,7 @@ class Boards extends React.Component {
     })
   }
 
-  handleTaskClick () {
+  handleTaskClick() {
     this.setState(prevState => ({
       taskPressed: !prevState.taskPressed
     }))
@@ -235,7 +243,7 @@ class Boards extends React.Component {
   // deleteBagLogTask
   // get id and go into firebase and delete backlog task
   // get BackLogTasks
-  async componentDidMount () {
+  async componentDidMount() {
     // const companyRef = await fire.collection("Companies").get().then(snapshot => snapshot.forEach((doc) => docs.push(doc.data()))
     const companyRef = await fire
       .collection('Companies')
@@ -327,7 +335,7 @@ class Boards extends React.Component {
     console.log(result)
   }
 
-  render () {
+  render() {
     // const { classes } = this.props;
     const {
       taskName,
@@ -363,6 +371,7 @@ class Boards extends React.Component {
 
     return (
       <div>
+        <GetUser user={this.setUser} />
         <Button size='sm' onClick={this.handleTaskClick}>
           Add Task
         </Button>

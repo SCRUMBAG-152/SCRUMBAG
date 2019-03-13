@@ -13,8 +13,9 @@ import Card from 'components/Card/Card.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
 import dashboardStyle from 'assets/jss/material-dashboard-pro-react/views/dashboardStyle'
-import fire, { auth } from 'config/Fire.jsx'
+import fire from 'config/Fire.jsx'
 import AddProject from './addProject.jsx'
+import GetUser from 'config/User.jsx'
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -25,19 +26,11 @@ class Dashboard extends React.Component {
       projects: [],
       user: null
     }
-    this.getUser = this.getUser.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
-  getUser() {
-    return new Promise(function (resolve, reject) {
-      auth.onAuthStateChanged(function (user) {
-        if (user) {       //if user is signed in
-          resolve(user);
-        } else {          //if no user is signed in
-          reject('User not logged in');
-        }
-      });
-    });
+  setUser(user) {
+    this.setState({ user })
   }
 
   handleTaskClick() {
@@ -75,12 +68,6 @@ class Dashboard extends React.Component {
 
   async componentDidMount() {
     this.getProjects()
-    await this.getUser().then((user) => {
-      this.setState({ user });    //sets this.state.user to current user
-    }, (error) => {
-      alert(error);
-    });
-    console.log(this.state.user); //logs the current user
   }
 
   newProject = async project => {
@@ -177,6 +164,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
+        <GetUser user={this.setUser} />
         <Button onClick={this.handleTaskClick}>
           Add Project
         </Button>

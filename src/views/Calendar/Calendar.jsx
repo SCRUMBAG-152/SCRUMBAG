@@ -19,6 +19,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import buttonStyle from "assets/jss/material-dashboard-pro-react/components/buttonStyle.jsx";
 
 import { events } from "variables/general.jsx";
+import GetUser from "../../config/User";
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -27,9 +28,14 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       events: events,
-      alert: null
+      alert: null,
+      user: null
     };
+    this.setUser = this.setUser.bind(this);
     this.hideAlert = this.hideAlert.bind(this);
+  }
+  setUser(user) {
+    this.setState({ user })
   }
   selectedEvent(event) {
     alert(event.title);
@@ -83,6 +89,7 @@ class Calendar extends React.Component {
   render() {
     return (
       <div>
+        <GetUser user={this.setUser}/>
         <Heading
           textAlign="center"
           title="React Big Calendar"

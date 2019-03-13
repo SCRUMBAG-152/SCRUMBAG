@@ -36,7 +36,7 @@ import CardHeader from 'components/Card/CardHeader.jsx'
 import CardIcon from 'components/Card/CardIcon.jsx'
 import CardBody from 'components/Card/CardBody.jsx'
 import CardFooter from 'components/Card/CardFooter.jsx'
-
+import GetUser from 'config/User.jsx'
 
 import {
   dailySalesChart,
@@ -72,8 +72,16 @@ var mapData = {
 }
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0,
+      user: null
+    }
+    this.setUser = this.setUser.bind(this);
+  }
+  setUser(user) {
+    this.setState({ user })
   }
   handleChange = (event, value) => {
     this.setState({ value })
@@ -81,12 +89,13 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index })
   }
-  render () {
+  render() {
     const { classes } = this.props
     return (
       <div>
+        <GetUser user={this.setUser} />
         <GridContainer>
-        
+
           <GridItem xs={12} sm={6} md={6} lg={3}>
             <Card>
               <CardHeader color='warning' stats icon>
@@ -510,7 +519,7 @@ class Dashboard extends React.Component {
                 <div className={classes.cardHoverUnder}>
                   <Tooltip
                     id='tooltip-top'
-                    title='View' 
+                    title='View'
                     placement='bottom'
                     classes={{ tooltip: classes.tooltip }}>
                     <Button color='transparent' simple justIcon>
