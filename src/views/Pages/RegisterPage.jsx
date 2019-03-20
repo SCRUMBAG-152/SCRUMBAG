@@ -28,9 +28,7 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
 import registerPageStyle from "assets/jss/material-dashboard-pro-react/views/registerPageStyle";
-import fire from "config/Fire.jsx";
-import { auth } from "config/Fire.jsx";
-import { google } from "config/Fire.jsx";
+import fire, { auth, google } from "config/Fire.jsx";
 
 
 class RegisterPage extends React.Component {
@@ -321,6 +319,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           name: "password",
+                          type: "password",
                           onChange: this.handleChange,
                           endAdornment: (
                             <InputAdornment

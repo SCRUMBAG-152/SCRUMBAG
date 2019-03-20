@@ -344,6 +344,7 @@ class RegisterPage extends React.Component {
                                                 }}
                                                 inputProps={{
                                                     name: "password",
+                                                    type: "password",
                                                     onChange: this.handleChange,
                                                     endAdornment: (
                                                         <InputAdornment

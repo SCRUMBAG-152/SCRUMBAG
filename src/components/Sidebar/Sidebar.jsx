@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from 'perfect-scrollbar'
-import { NavLink, Redirect } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import cx from 'classnames'
 
 // @material-ui/core components

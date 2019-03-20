@@ -22,7 +22,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import loginPageStyle from "assets/jss/material-dashboard-pro-react/views/loginPageStyle.jsx";
-import { auth } from "config/Fire.jsx";
+import fire, { auth, google } from "config/Fire.jsx";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -34,20 +34,70 @@ class LoginPage extends React.Component {
       password: ""
     };
     this.login = this.login.bind(this);
+    this.googleSignUp = this.googleSignUp.bind(this);
+    this.isUserRegistered = this.isUserRegistered.bind(this);
+    this.signOutUnregisteredUser = this.signOutUnregisteredUser.bind(this)
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /*
+    login with email and password
+    redirect to dashboard
+  */
   login(e) {
-    //e.preventDefault();
+    e.preventDefault();
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         this.props.history.push("/dashboard");
       })
       .catch(error => {
-        //if an error occurs, alert user of the error
         window.alert(error);
       });
+  }
+
+  /*
+    Login with google provider
+    redirect to dashboard if user has registerd
+    sign out and redirect to register page if not registered
+    verify the the user trying to login is already registered
+  */
+  googleSignUp() {
+    auth.signInWithPopup(google).then(async (result) => {
+      if (await this.isUserRegistered(result.user.uid)) { //verify registeration 
+        this.props.history.push("/dashboard");
+      }
+      else {
+        window.alert("Please register first before logging in.");
+        this.signOutUnregisteredUser();
+      }
+    }).catch(error => {
+      window.alert(error);
+    })
+  }
+
+  /*
+    sign out user that has not yet registered 
+    this is for when users try to login with a provider but have no registered
+  */
+  signOutUnregisteredUser() {
+    auth.signOut().then(() => { //signs user out
+      this.props.history.push("/pages/register-page");  //redirects
+    }).catch(function (error) {
+      window.alert(error);
+    });
+  }
+
+  /*
+    return if the user trying to login has already registered
+    this is for users trying to login with a provider
+  */
+  async isUserRegistered(uid) {
+    var document;
+    await fire.collection("Users").doc(uid).get().then(doc => {
+      document = doc
+    })
+    return document.exists; //returns true if document exists
   }
 
   //handle changes from email and password
@@ -56,6 +106,7 @@ class LoginPage extends React.Component {
       [e.target.name]: e.target.value
     });
   }
+
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
@@ -84,22 +135,15 @@ class LoginPage extends React.Component {
                 >
                   <h4 className={classes.cardTitle}>Log in</h4>
                   <div className={classes.socialLine}>
-                    {[
-                      "fab fa-twitter",
-                      "fab fa-google",
-                      "fab fa-facebook-square",
-                    ].map((prop, key) => {
-                      return (
-                        <Button
-                          color="transparent"
-                          justIcon
-                          key={key}
-                          className={classes.customButtonClass}
-                        >
-                          <i className={prop} />
-                        </Button>
-                      );
-                    })}
+                    <Button className={classes.customButtonClass} justIcon round color="transparent">
+                      <i className="fab fa-twitter" />
+                    </Button>
+                    <Button className={classes.customButtonClass} onClick={this.googleSignUp} justIcon round color="transparent">
+                      <i className="fab fa-google" />
+                    </Button>
+                    <Button className={classes.customButtonClass} justIcon round color="transparent">
+                      <i className="fab fa-facebook-f" />
+                    </Button>
                   </div>
                 </CardHeader>
                 <CardBody>
@@ -130,6 +174,7 @@ class LoginPage extends React.Component {
                     }}
                     inputProps={{
                       name: "password",
+                      type: "password",
                       onChange: this.handleChange,
                       endAdornment: (
                         <InputAdornment position="end">
