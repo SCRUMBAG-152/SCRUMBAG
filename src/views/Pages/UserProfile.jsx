@@ -155,15 +155,45 @@ class UserProfile extends React.Component {
                     />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={4}>
-                    {this.state.role}
+                    <CustomInput
+                      value={this.state.role}
+                      formControlProps={{
+                        fullWidth: true,
+                        className: classes.customFormControlClasses
+                      }}
+                      inputProps={{
+                        disabled: true,
+                        value: this.state.role
+                      }}
+                    />
                   </GridItem>
                 </GridContainer>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
-                    {this.state.email}
+                    <CustomInput
+                      value={this.state.email}
+                      formControlProps={{
+                        fullWidth: true,
+                        className: classes.customFormControlClasses
+                      }}
+                      inputProps={{
+                        disabled: true,
+                        value: this.state.email
+                      }}
+                    />
                   </GridItem>
                   <GridItem xs={12} sm={12} md={6}>
-                    {this.state.companyName}
+                    <CustomInput
+                      value={this.state.companyName}
+                      formControlProps={{
+                        fullWidth: true,
+                        className: classes.customFormControlClasses
+                      }}
+                      inputProps={{
+                        disabled: true,
+                        value: this.state.companyName
+                      }}
+                    />
                   </GridItem>
                 </GridContainer>
                 <GridContainer>
