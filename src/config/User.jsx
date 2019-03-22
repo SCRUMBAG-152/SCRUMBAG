@@ -36,7 +36,7 @@ class GetUser extends React.Component {
     async setUser() {
         await this.getUser().then((user) => {
             this.setState({ user });    //sets this.state.user to current user
-            this.props.user(user);
+            this.props.user(user.uid);
         }, (error) => {
             alert(error);
         });
