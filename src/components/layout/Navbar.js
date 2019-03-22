@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './SignedInLink';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
+import { signOut } from '../../store/actions/authActions'
+import SignedInMobileMenu from './SignedInMobileMenu'
+import SignedOutMobileMenu from './SignedOutMobileMenu'
+
 
 
 //material UI
@@ -65,6 +69,10 @@ class Navbar extends React.Component {
     this.state= {
      mobileMoreAnchorEl: null,
     }
+    this.handleMobileMenuClose = this.handleMobileMenuClose.bind(this)
+    this.handleMobileMenuOpen = this.handleMobileMenuOpen.bind(this)
+    this.signOut = this.signOut.bind(this)
+
   }
 
 
@@ -76,11 +84,19 @@ class Navbar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  signOut = () => {
+    this.setState({ mobileMoreAnchorEl: null });
+    this.props.signOut()
+  }
+
   render() {
     const { mobileMoreAnchorEl } = this.state;
     const { classes, auth, profile } = this.props;
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const links = auth.uid ? <SignedInLinks profile={profile}/> : <SignedOutLinks/>;
+    const mobileMenu = auth.uid? 
+    <SignedInMobileMenu handleMobileMenuClose={this.handleMobileMenuClose} signOut={this.signOut}/> :
+    <SignedOutMobileMenu handleMobileMenuClose={this.handleMobileMenuClose}/>
 
     const renderMobileMenu = (
       <Menu
@@ -88,32 +104,9 @@ class Navbar extends React.Component {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={isMobileMenuOpen}
-        onClose={this.handleMenuClose}
+        onClose={this.handleMobileMenuClose}
       >
-        <Link to='/create'>
-          <MenuItem onClick={this.handleMobileMenuClose}>
-            <IconButton color="inherit">
-                <NoteAddIcon/>
-            </IconButton>
-            <p>New Project</p>
-          </MenuItem>
-        </Link>
-        <Link to='/'>
-          <MenuItem onClick={this.handleMobileMenuClose}>
-              <IconButton color="inherit">
-                <ExitToAppIcon/>
-              </IconButton>
-              <p>Log Out</p>
-          </MenuItem>
-        </Link>
-        <Link to='/'>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-            <IconButton color="inherit">
-                <AccountCircleIcon/>
-            </IconButton>
-            <p>My Profile</p>
-          </MenuItem>
-        </Link>
+        {mobileMenu}
       </Menu>
     );
     return (
@@ -181,9 +174,15 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut())
+  }
+}
+
 Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar))
 
