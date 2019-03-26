@@ -9,11 +9,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 export default function SignedInMobileMenu(props) {
 
-  const  { signOut } = props
+  const  { signOut, handleMobileMenuClose } = props
   return (
     <div>
       <Link to='/create'>
-          <MenuItem onClick={props.handleMobileMenuClose}>
+          <MenuItem onClick={handleMobileMenuClose}>
             <IconButton color="inherit">
                 <NoteAddIcon/>
             </IconButton>
@@ -29,7 +29,7 @@ export default function SignedInMobileMenu(props) {
           </MenuItem>
         </Link>
         <Link to='/'>
-        <MenuItem onClick={props.handleMobileMenuClose}>
+        <MenuItem onClick={handleMobileMenuClose}>
             <IconButton color="inherit">
                 <AccountCircleIcon/>
             </IconButton>

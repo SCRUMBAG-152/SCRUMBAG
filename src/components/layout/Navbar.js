@@ -93,7 +93,7 @@ class Navbar extends React.Component {
     const { mobileMoreAnchorEl } = this.state;
     const { classes, auth, profile } = this.props;
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const links = auth.uid ? <SignedInLinks profile={profile}/> : <SignedOutLinks/>;
+    const links = auth.uid ? <SignedInLinks signOut={this.signOut} profile={profile}/> : <SignedOutLinks/>;
     const mobileMenu = auth.uid? 
     <SignedInMobileMenu handleMobileMenuClose={this.handleMobileMenuClose} signOut={this.signOut}/> :
     <SignedOutMobileMenu handleMobileMenuClose={this.handleMobileMenuClose}/>
@@ -143,28 +143,6 @@ class Navbar extends React.Component {
 Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-
-/* const Navbar = (props) => {
-  const { classes, auth, profile } = props;
-  //output SignedInLinks if uid exist
-  const links = auth.uid ? <SignedInLinks profile={profile}/> : <SignedOutLinks/>;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.navbar}>
-        <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <HomeIcon />
-        </IconButton>
-        <Typography variant="h6" color="inherit" className={classes.grow}>
-              <Link to='/' className={classes.logo}>Personal Notes</Link>
-          </Typography>
-              { links }
-          </Toolbar>
-      </AppBar>
-    </div>
-  )
-} */
 
 
 const mapStateToProps = (state) => {

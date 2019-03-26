@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 import moment from 'moment'
 import ProjectBoard from './ProjectBoard'
 import {deleteTask} from '../../store/actions/taskActions'
+import ProjectTabs from './ProjectTabs'
 
 
 
@@ -33,12 +34,23 @@ const style = {
 class ProjectDetails extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tabValue: 0,
+    };
     this.handleDelete = this.handeDelete.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
+
+
   }
 
   handeDelete = (task) => {
     this.props.deleteTask(task);
   }
+
+  handleTabChange = (event, tabValue) => {
+    this.setState({ tabValue });
+  };
+
 
   render() {  
   const { projectID, project ,auth, classes,tasks } = this.props;
@@ -53,7 +65,11 @@ class ProjectDetails extends Component {
             <Typography  color="textSecondary" gutterBottom>
             {project.description}
             </Typography>
-          <ProjectBoard handleDelete={this.handleDelete} projectID={projectID} tasks={tasks} />
+            <ProjectTabs handleTabChange={this.handleTabChange} tabValue={this.state.tabValue} />
+
+           {this.state.tabValue === 0 &&
+            <ProjectBoard handleDelete={this.handleDelete} projectID={projectID} tasks={tasks}/>
+            }
           <CardActions>
             <Typography color="textSecondary" align="left" gutterBottom>
             Created By {project.authorCompany}
@@ -92,6 +108,7 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.firebase.auth,
     projectID: projectID,
     tasks:tasks,
+    profile: state.firebase.profile
   }
 }
 
