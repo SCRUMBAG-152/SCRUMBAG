@@ -14,11 +14,11 @@ const styles = {
 
 const ProjectList = ({projects}) => {
 
-  const [items, setItems] = useState(5)//number of items displayed, initialized at 5
+  const [items, setItems] = useState(9999)//number of items displayed, initialized at 5
   //const result = projects.filter(project => (project.authorFirstName === "Phuong" ))
 
   return (
-    <div className="project-list section">
+    <div className="project-list section" style={{overflow:'hidden'}}>
       { projects && projects.slice(0, items).map(project => {
         return (
           <Link to={'/project/' + project.id} key={project.id}>
@@ -26,9 +26,9 @@ const ProjectList = ({projects}) => {
           </Link>
         )
       })} 
-      <Button onClick={()=>setItems(items+4)}>
+      {/* <Button onClick={()=>setItems(items+4)}>
       <ArrowDropDown/>
-      </Button> 
+      </Button>  */}
     </div>
   )
 }

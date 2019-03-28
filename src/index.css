@@ -7,14 +7,39 @@ body{
   background-position: center center;
   min-height: 100%;
 }
-
+html, body, #root {
+  height: 100%
+}
 form{
   padding: 20px;
   margin-top: 60px;
 }
-
+.App {
+  height: 100%
+}
 form button, form h5{
   margin: 20px 0;
+}
+.row {
+  height: 100%;
+  margin-bottom: 0px !important;
+}
+.dashboard, /* .dashboard-row, */ .dashboard-right-column {
+  /* height: calc(100% - 64px) */
+  height: 90%;
+  width: auto;
+  overflow: auto;
+  
+}
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.dashboard-left-column{
+  height: 90% !important;
+  width: auto;
+  overflow: auto;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
