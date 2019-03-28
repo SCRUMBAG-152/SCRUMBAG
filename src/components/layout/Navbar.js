@@ -20,6 +20,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import CalendarIcon from '@material-ui/icons/CalendarToday';
 
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -116,6 +117,11 @@ class Navbar extends React.Component {
             <Link to='/'>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
                 <HomeIcon />
+              </IconButton>
+            </Link>
+            <Link to='/Calendar'>
+              <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                <CalendarIcon />
               </IconButton>
             </Link>
             <Link to='/'>
