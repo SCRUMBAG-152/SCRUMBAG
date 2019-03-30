@@ -1,4 +1,4 @@
-import { cardTitle } from "assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from "../../material-dashboard-pro-react.jsx";
 const userProfileStyles = {
   cardTitle,
   cardIconTitle: {

@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 import moment from 'moment'
 import ProjectBoard from './ProjectBoard'
 import {deleteTask} from '../../store/actions/taskActions'
-import ProjectTabs from './ProjectTabs'
 
 
 
@@ -18,15 +17,26 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TabsButtons from './TabsButtons';
 
 
 
 const style = {
   root: {
-    margin: '2rem'
+    margin: '1rem'
   },
   title: {
-    fontSize: '20px'
+    fontSize: '20px',
+    textAlign: 'center',
+    backgroundColor: '#ec407a',
+    color: '#fff'
+    
+  },
+  secondary: {
+    textAlign: 'center',
+    backgroundColor: 'rgba(125,125,153,0.5)',
+
+    
   },
 }
 
@@ -34,42 +44,25 @@ const style = {
 class ProjectDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tabValue: 0,
-    };
     this.handleDelete = this.handeDelete.bind(this);
-    this.handleTabChange = this.handleTabChange.bind(this);
-
-
   }
 
   handeDelete = (task) => {
     this.props.deleteTask(task);
   }
 
-  handleTabChange = (event, tabValue) => {
-    this.setState({ tabValue });
-  };
-
-
   render() {  
-  const { projectID, project ,auth, classes,tasks } = this.props;
-  
-  if(!auth.uid) return <Redirect to='/signin'/>
+  const { projectID, project ,auth, classes, cards, columns } = this.props; 
+  if(!auth.uid) return <Redirect to='/pages/login-page'/>
   if (project) {
     return (
         <div className={classes.root}>
-            <Typography className={classes.title}  gutterBottom>
+            <Typography className={classes.title} >
             {project.title}
             </Typography>
-            <Typography  color="textSecondary" gutterBottom>
-            {project.description}
-            </Typography>
-            <ProjectTabs handleTabChange={this.handleTabChange} tabValue={this.state.tabValue} />
-
-           {this.state.tabValue === 0 &&
-            <ProjectBoard handleDelete={this.handleDelete} projectID={projectID} tasks={tasks}/>
-            }
+          <TabsButtons/>
+          <ProjectBoard  columns={columns} projectID={projectID} cards={cards} />
+          
           <CardActions>
             <Typography color="textSecondary" align="left" gutterBottom>
             Created By {project.authorCompany}
@@ -91,24 +84,22 @@ class ProjectDetails extends Component {
 }
 
 
-ProjectDetails.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 const mapStateToProps = (state, ownProps) => {
 
   const projectID = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[projectID] : null
-  const tasks = state.firestore.ordered.tasks;
+  const cards = state.firestore.ordered.cards;
+  const columns = state.firestore.ordered.columns;
 
 
   return {
     project: project,
     auth: state.firebase.auth,
     projectID: projectID,
-    tasks:tasks,
-    profile: state.firebase.profile
+    cards:cards,
+    columns:columns
   }
 }
 
@@ -118,12 +109,16 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+ProjectDetails.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props)=>[
     { collection: 'projects', orderBy: ['createdAt', 'desc']},
-    { collection: 'tasks', where: ['projectID', '==', `${props.match.params.id}`]},
+    { collection: 'cards', where: ['projectID', '==', `${props.match.params.id}`]},
+    { collection: 'columns', where: ['projectID', '==', `${props.match.params.id}`]}
   ]),
 )(withStyles(style)(ProjectDetails))
 

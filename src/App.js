@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
-import Dashboard from './components/dashboard/Dashboard'
-import ProjectDetails from './components/projects/ProjectDetails'
-import SignIn from './components/auth/SignIn'
-import SignUp from './components/auth/SignUp'
-import CreateProject from './components/projects/CreateProject'
+import { Switch, Route, Router, withRouter } from 'react-router-dom'
+import { createBrowserHistory } from "history";
+import "./customs/assets/scss/material-dashboard-pro-react.css?v=1.4.0";
+/* import ProjectDetails from './components/projects/ProjectDetails' */
+import Dash from './components/layout/Dash'
+import Pages from './components/layout/Pages'
+
+
+const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <div className="App">
-          <Navbar />
           <Switch>
-            <Route exact path='/'component={Dashboard} />
-            <Route path='/project/:id' component={ProjectDetails} />
-            <Route path='/signin' component={SignIn} />
-            <Route path='/signup' component={SignUp} />
-            <Route path='/create' component={CreateProject} />
+            <Route path="/pages" name= "Pages" component={Pages}/>
+            <Route path='/' component={Dash} name= "Home"/>
           </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
+
+{/* <Route exact path='/dashboard'component={Dashboard} />
+            <Route path='/project/:id' component={ProjectDetails} /> */}
+
+
 
 export default App;

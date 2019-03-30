@@ -1,4 +1,4 @@
-export const createTask = (task) => {
+/* export const createTask = (task) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
       // make async call to database
       const firestore = getFirestore();
@@ -14,15 +14,35 @@ export const createTask = (task) => {
           dispatch({type: 'CREATE_PROJECT_ERROR', err});
       })
     }
+  }; */
+
+  export const createTask = (task) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+      // make async call to database
+      const firestore = getFirestore();
+      const authorId = getState().firebase.auth.uid;
+      const ref = firestore.collection('cards').doc()
+      console.log(ref)
+      ref.set({
+          ...task,
+          id: ref.id,
+          authorId: authorId,
+          createdAt: new Date()
+      }).then(() => {
+        dispatch({ type: 'CREATE_TASK', task });
+      }).catch((err) => {
+          dispatch({type: 'CREATE_TASKS_ERROR', err});
+      })
+    }
   };
 
-  export const deleteTask = (task) => {
+  export const deleteTask = (taskID) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
       // make async call to database
       const firestore = getFirestore();
 
-      firestore.collection('tasks')
-      .doc(task.id)
+      firestore.collection('cards')
+      .doc(taskID)
       .delete()
       .then(() => {
         dispatch({ type: 'DELETE_TASK' });

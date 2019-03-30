@@ -10,8 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 const style = {
   card: {
-    marginBottom: '1rem',
-    maxWidth: 450,
+    height: 200,
     borderRadius: '10px'
   },
   name: {
@@ -30,7 +29,7 @@ const ProjectSummary = ({project}) => {
                 {project.title}
           </Typography>
           <Typography component="p" style={style.postedBy}>
-              Created By <span className="pink-text">{project.authorCompany}</span>
+              Created By <span>{project.authorCompany}</span>
             </Typography>
             <Typography component="p" style={style.time} color='textSecondary'>
               {moment(project.createdAt.toDate()).calendar()}

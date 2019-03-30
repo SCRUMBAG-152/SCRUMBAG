@@ -9,7 +9,7 @@ import {
   roseColor,
   infoColor,
   warningColor
-} from "assets/jss/material-dashboard-pro-react.jsx";
+} from "../../material-dashboard-pro-react";
 
 const wizardStyle = {
   wizardContainer: {},

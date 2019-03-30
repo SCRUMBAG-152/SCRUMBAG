@@ -2,208 +2,159 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux'
-import {dndTask} from '../../store/actions/taskActions'
+import Board from 'react-trello'
+import {createColumn} from '../../store/actions/projectActions'
+import {createTask} from '../../store/actions/taskActions'
+import {deleteTask} from '../../store/actions/taskActions'
+import {deleteColumn} from '../../store/actions/projectActions'
 
-
-
-//import fire from '../../config/Fire.jsx'
-//import { DragDropContext } from 'react-beautiful-dnd'
-//import { Droppable } from 'react-beautiful-dnd'
-
-import Backlog from '../projectColumns/Backlog'
-import Todo from '../projectColumns/Todo.js'
-import Doing from '../projectColumns/Doing.js'
-import Done from '../projectColumns/Done.js'
+import uuid from "uuid";
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
-import boardsStyle from '../../customs/assets/jss/material-dashboard-pro-react/views/boardsStyle'
-import GridContainer from '../../customs/components/Grid/GridContainer.jsx'
-import GridItem from '../../customs/components/Grid/GridItem.jsx'
-import Button from '../../customs/components/CustomButtons/Button.jsx'
+
+import Button from '../../customs/components/CustomButtons/Button'
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 
 //= ========================================Imports End=========================================//
-
-const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
+const styles = {
+  Board: {
+    backgroundColor: '#fff',
+    boxShadow: '3px 3px 6px 0px rgba(0,0,0,0.75)',
+  },
+  Lane: {
+    boxShadow: '4px 4px 8px 0px rgba(0,0,0,0.75)',
+    backgroundColor: '#e8e8ef'
+  },  
+  button: {
+    margin: '0px',
+    width: '10%',
+    height: '10%',
+    fontSize: '10px',
+    boxShadow: '2px 2px 4px 0px rgba(0,0,0,0.75)',
+    backgroundColor: '#ec407a'
+  },
+    
+}
 class ProjectBoard extends React.Component {
-  constructor (props) {
+   constructor (props) {
     super(props)
     this.state = {
-      tasks: [],
-      lowerTasks: [],
-      columns: {
-        id: {
-          Backlog: 'Backlog',
-          Todo: 'Todo',
-          Doing: 'Doing',
-          Done: 'Done'
-        }
       }
     }
-    this.onDragEnd = this.onDragEnd.bind(this)
+  
+
+  static getDerivedStateFromProps(props, state) {   
+    
+    const columns = Object(props.columns)
+    const tasks = Object(props.cards)
+    let lanes = []
+
+    Object.keys(columns).map(i => {
+      let cards = []
+      Object.keys(tasks).map(j => {
+        if (tasks[j].laneId === columns[i].id){
+          cards.unshift(tasks[j])
+        }
+      })
+      let tempColumn = {
+        ...columns[i],
+        style: styles.Lane,
+        cards
+      }
+      lanes.unshift(tempColumn)
+    })
+
+
+    return{
+      data:{
+       lanes: lanes
+      }
+    } 
+}
+
+ 
+
+  onLaneAdd = (params) => {
+    const projectID = this.props.projectID
+    const newColumn= {
+        ...params,
+        projectID: projectID,
+        cards:[]
+    }
+    const newLanes = [
+      ...this.state.data.lanes,
+      newColumn
+    ]
+
+    this.setState({
+      data:{
+        lanes: [...newLanes],
+      }
+    })
+
+    this.props.createColumn(newColumn)
   }
 
-  onDragEnd = async result => {
-    const { destination, source, draggableId } = result
-    let sourceId = source.droppableId;
-    let destinationId = destination.droppableId;
-
-    let tasks = this.props.tasks;
-    let lowerTasks = this.state.lowerTasks
-
-    if (!destination) {
-      return
+  onCardAdd = (card, laneId) => {
+    const projectID = this.props.projectID
+    const task = {
+      title: card.title,
+      label: card.label,
+      description: card.description,
+      laneId,
+      projectID: projectID
     }
-
-
-    const column = this.state.columns
-    const newIds = Array.from(column.id)
-    newIds.splice(source.index, 1)
-    newIds.splice(destination.index, 0, draggableId)
-
-    this.props.dndTask(result)
-
-
+    this.props.createTask(task)
   }
 
-  /* onDragEnd = async result => {
-    const { destination, source, draggableId } = result
-    let sourceId = source.droppableId;
-    let destinationId = destination.droppableId;
+  onCardDelete = (taskID) => {
 
-    let tasks = this.state.staticTasks;
-    let lowerTasks = this.state.lowerTasks
-
-    if (!destination) {
-      return
-    }
-    const column = this.state.columns
-    const newIds = Array.from(column.id)
-    newIds.splice(source.index, 1)
-    newIds.splice(destination.index, 100, draggableId)
-
-    this.props.dndTask(result)
-
-
-  } */
-
+    this.props.deleteTask(taskID)
+  }
 
   render () {
-    const {classes, projectID, tasks } = this.props
+    const {data} = this.state
+    const {classes} = this.props
     return (
-        <DragDropContext
-        onBeforeDragStart={this.onBeforeDragStart}
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
-        onDragEnd={this.onDragEnd}>
-          <GridContainer 
-            style={{ textAlign: 'center'}}>
-            <GridItem className={classes.column} xs={12} sm={6} md={4} lg={3}>
-            <Droppable droppableId={this.state.columns.id.Backlog} type='TASK'>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    style={{
-                      backgroundColor: snapshot.isDraggingOver
-                        ? 'none'
-                        : 'none'
-                    }}
-                    {...provided.droppableProps}>
-                      
-                          <Backlog column={this.state.columns.id.Backlog} handleDelete={this.props.handleDelete} projectID={projectID} tasks={tasks}/>
-                      
-                  {provided.placeholder}
-                  </div>
-                 )}
-              </Droppable>
-              </GridItem>
-                
-            <GridItem className={classes.column} xs={12} sm={6} md={4} lg={3}>
-            <Droppable droppableId={this.state.columns.id.Todo} type='TASK'>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    style={{
-                      backgroundColor: snapshot.isDraggingOver
-                        ? 'none'
-                        : 'none'
-                    }}
-                    {...provided.droppableProps}>
-                      
-                          <Todo column={this.state.columns.id.Todo} handleDelete={this.props.handleDelete} projectID={projectID} tasks={tasks}/>
-                      
-                  {provided.placeholder}
-                  </div>
-                 )}
-              </Droppable>
-              </GridItem>
-
-
-            <GridItem className={classes.column} xs={12} sm={6} md={4} lg={3}>
-            <Droppable droppableId={this.state.columns.id.Doing} type='TASK'>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    style={{
-                      backgroundColor: snapshot.isDraggingOver
-                        ? 'none'
-                        : 'none'
-                    }}
-                    {...provided.droppableProps}>
-                      
-                          <Doing column={this.state.columns.id.Doing} handleDelete={this.props.handleDelete} projectID={projectID} tasks={tasks}/>
-                      
-                  {provided.placeholder}
-                  </div>
-                 )}
-              </Droppable>
-              </GridItem>
-
-
-            <GridItem className={classes.column} xs={12} sm={6} md={4} lg={3}>
-            <Droppable droppableId={this.state.columns.id.Done} type='TASK'>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    style={{
-                      backgroundColor: snapshot.isDraggingOver
-                        ? 'none'
-                        : 'none'
-                    }}
-                    {...provided.droppableProps}>
-                      
-                          <Done column={this.state.columns.id.Done} handleDelete={this.props.handleDelete} projectID={projectID} tasks={tasks}/>
-                      
-                  {provided.placeholder}
-                  </div>
-                 )}
-              </Droppable>
-              </GridItem>
-          </GridContainer>
-        </DragDropContext>
+        <Board 
+        className={classes.Board}
+        data={data}
+        draggable
+        editable
+        canAddLanes
+        laneDraggable={false}
+        onCardAdd={this.onCardAdd}
+        onLaneAdd={this.onLaneAdd}
+        addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
+        onCardDelete={this.onCardDelete}
+        onLaneAction={console.log("haha")}
+        >
+        </Board>
     )
   }
 }
-
-
 
 ProjectBoard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    dndTask: (result) => dispatch(dndTask(result)),
+    createColumn: (column) => dispatch(createColumn(column)),
+    createTask: (task) => dispatch(createTask(task)),
+    deleteTask: (taskID) => dispatch(deleteTask(taskID)),
+    deleteColumn: (columnID) => dispatch(createColumn(columnID)),
+
+
+
   }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(boardsStyle)(ProjectBoard))
+export default connect(null, mapDispatchToProps)(withStyles(styles)(ProjectBoard))
+
+ 

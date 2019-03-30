@@ -9,6 +9,21 @@ const projectReducer = (state = initState, action) => {
 
         case 'CREATE_PROJECT_ERROR':
             console.log('create task error', action.err);
+            break
+
+        case 'CREATE_COLUMN':
+            console.log('create column', action.column);
+            return state;
+
+        case 'CREATE_COLUMN_ERROR':
+            console.log('create column error', action.err);
+            break
+        case 'DELETE_COLUMN':
+            console.log('deleted column');
+            return state;
+        case 'DELETE_COLUMN_ERROR':
+            console.log('delete column error', action.err);
+            break;
         default:
             return state;
     }

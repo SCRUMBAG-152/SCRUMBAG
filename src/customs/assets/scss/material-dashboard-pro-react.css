@@ -848,7 +848,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-calendar {
   box-sizing: border-box;
-  height: 100%;
+  width: 100%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;

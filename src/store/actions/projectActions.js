@@ -19,3 +19,37 @@ export const createProject = (project) => {
       })
     }
   };
+
+  export const createColumn = (column) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+      // make async call to database
+      const firestore = getFirestore();
+      const ref = firestore.collection('columns').doc()
+      console.log(ref)
+      ref.set({
+          ...column,
+          id: ref.id,
+      }).then(() => {
+        dispatch({ type: 'CREATE_COLUMN', column});
+      }).catch((err) => {
+          dispatch({type: 'CREATE_COLUMN_ERROR', err});
+      })
+  }
+}
+
+export const deleteColumn = (columnID) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+
+    firestore.collection('columns')
+    .doc(columnID)
+    .delete()
+    .then(() => {
+      dispatch({ type: 'DELETE_COLUMN' });
+    }).catch((err) => {
+        dispatch({type: 'DELETE_COLUMN_ERROR', err});
+    })
+  }
+};
+  
