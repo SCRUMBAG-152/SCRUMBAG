@@ -9,14 +9,13 @@ import {createTask} from '../../store/actions/taskActions'
 import {deleteTask} from '../../store/actions/taskActions'
 import {deleteColumn} from '../../store/actions/projectActions'
 
-import uuid from "uuid";
+
 
 // @material-ui/core components
 import withStyles from '@material-ui/core/styles/withStyles'
 
 import Button from '../../customs/components/CustomButtons/Button'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import CustomLaneHeader from './CustomLaneHeader'
 
 
 //= ========================================Imports End=========================================//
@@ -116,6 +115,10 @@ class ProjectBoard extends React.Component {
     this.props.deleteTask(taskID)
   }
 
+  onLaneDelete = (laneID) => {
+    this.props.deleteColumn(laneID)
+  }
+
   render () {
     const {data} = this.state
     const {classes} = this.props
@@ -131,7 +134,8 @@ class ProjectBoard extends React.Component {
         onLaneAdd={this.onLaneAdd}
         addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
         onCardDelete={this.onCardDelete}
-        onLaneAction={console.log("haha")}
+        addLaneTitle={"Add New Column"}
+        customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete}/>}
         >
         </Board>
     )
@@ -148,7 +152,7 @@ const mapDispatchToProps = (dispatch) => {
     createColumn: (column) => dispatch(createColumn(column)),
     createTask: (task) => dispatch(createTask(task)),
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
-    deleteColumn: (columnID) => dispatch(createColumn(columnID)),
+    deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
 
 
 
