@@ -7,6 +7,7 @@ import {createColumn} from '../../store/actions/projectActions'
 import {createTask} from '../../store/actions/taskActions'
 import {deleteTask} from '../../store/actions/taskActions'
 import {deleteColumn} from '../../store/actions/projectActions'
+import {dndTask} from '../../store/actions/taskActions'
 
 
 
@@ -118,6 +119,13 @@ class ProjectBoard extends React.Component {
     this.props.deleteColumn(laneID)
   }
 
+  handleDragEnd = (cardID, sourceLaneID, destinationLaneID, position, cardDetails) => {
+    const result = { cardID, sourceLaneID, destinationLaneID, position, cardDetails }
+    this.props.dndTask(result)
+    console.log(result)
+    console.log(this.state.data)
+  }
+
   render () {
     const {data} = this.state
     const {classes} = this.props
@@ -128,13 +136,13 @@ class ProjectBoard extends React.Component {
         draggable
         editable
         canAddLanes
-        laneDraggable={false}
         onCardAdd={this.onCardAdd}
         onLaneAdd={this.onLaneAdd}
         addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
         onCardDelete={this.onCardDelete}
         addLaneTitle={"Add New Column"}
         customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete}/>}
+        handleDragEnd={this.handleDragEnd}
         >
         </Board>
     )
@@ -148,6 +156,8 @@ const mapDispatchToProps = (dispatch) => {
     createTask: (task) => dispatch(createTask(task)),
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
     deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
+    dndTask: (result) => dispatch(dndTask(result)),
+
   }
 }
 

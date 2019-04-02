@@ -62,10 +62,10 @@
     return (dispatch, getState, { getFirebase, getFirestore }) => {
       // make async call to database
       const firestore = getFirestore();
-      firestore.collection('tasks')
-      .doc(result.draggableId)
+      firestore.collection('cards')
+      .doc(result.cardID)
       .update({
-        column: result.destination.droppableId
+        laneId: result.destinationLaneID
       })
       .then(() => {
         dispatch({ type: 'UPDATE_TASK' });
