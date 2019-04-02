@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Button from '../../customs/components/CustomButtons/Button'
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';

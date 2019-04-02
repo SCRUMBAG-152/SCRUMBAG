@@ -3,11 +3,6 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
-// @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-//import Accordion from "components/Accordion/Accordion.jsx";
-
 
 import Info from "@material-ui/icons/Info";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -22,7 +17,7 @@ import Card from "../../customs/components/Card/Card.jsx";
 import CardHeader from "../../customs/components/Card/CardHeader.jsx";
 import CardBody from "../../customs/components/Card/CardBody.jsx";
 
-import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react";
 
 const styles = {
   cardTitle,
