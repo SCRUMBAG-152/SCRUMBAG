@@ -1,7 +1,6 @@
 //= ========================================Imports Start=========================================//
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Board from 'react-trello'
 import {createColumn} from '../../store/actions/projectActions'
@@ -142,10 +141,6 @@ class ProjectBoard extends React.Component {
   }
 }
 
-ProjectBoard.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -153,9 +148,6 @@ const mapDispatchToProps = (dispatch) => {
     createTask: (task) => dispatch(createTask(task)),
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
     deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
-
-
-
   }
 }
 

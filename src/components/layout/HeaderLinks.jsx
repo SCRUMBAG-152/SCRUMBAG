@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // import { Manager, Target, Popper } from "react-popper";
 import { signOut } from '../../store/actions/authActions'
 import { connect } from 'react-redux';
-import createBrowserHistory from 'history/createBrowserHistory';
+import {createBrowserHistory} from 'history';
 
 
 // @material-ui/core components
