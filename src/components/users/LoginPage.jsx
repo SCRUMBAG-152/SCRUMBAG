@@ -10,7 +10,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
 import Email from "@material-ui/icons/Email";
 // import LockOutline from "@material-ui/icons/LockOutline";
 
@@ -52,13 +51,11 @@ class LoginPage extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e)
     this.setState({
         [e.target.id]: e.target.value
     })
   }
   handleSubmit = (e) => {
-    console.log(this.state)
     e.preventDefault();
     this.props.signIn(this.state);
   }

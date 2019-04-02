@@ -7,7 +7,6 @@ import ProjectDetails from "../components/projects/ProjectDetails"
 import CreateProject from "../components/projects/CreateProject"
 import Stats from "../components/widgets/Stats"
 import ProjectsPage from "../components/projects/ProjectsPage"
-import pagesRoutes from "./pages.jsx";
 
 // @material-ui/icons
 import DateRange from "@material-ui/icons/DateRange";
@@ -17,8 +16,6 @@ import EqualizerIcon from "@material-ui/icons/Equalizer";
 import ChatIcon from "@material-ui/icons/Chat";
 import GroupIcon from "@material-ui/icons/Group";
 import WorkIcon from "@material-ui/icons/Work";
-
-console.log(this)
 
 const pages = [
   {

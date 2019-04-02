@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
