@@ -251,8 +251,8 @@ class Stats extends React.Component {
                 <br/>
               </CardBody>
             </card>
-          </GridItem>
-          </GridContainer>*/}
+          </GridItem>*/}
+          </GridContainer>
 
       </div>
     
