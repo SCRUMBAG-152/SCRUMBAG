@@ -12,20 +12,25 @@ export class ProjectsPage extends Component {
 
 
   render() {
-    const { projects } = this.props;
+    const { projects, profile } = this.props;
 
     return (
-        <ProjectList projects={projects}/>
+        <ProjectList company={profile.company} projects={projects}/>
     )
   }
 }
 
-const mapStateToProps = (state) =>{
-  return {
-    projects: state.firestore.ordered.projects,
-    auth: state.firebase.auth,
+const mapStateToProps = (state, props) =>{
 
-}
+    const projects = state.firestore.ordered.projects
+    const auth = state.firebase.auth
+    const profile= state.firebase.profile
+    return {
+        projects: projects,
+        auth: auth,
+        profile: profile
+
+    }
 }
 
 
@@ -33,7 +38,7 @@ const mapStateToProps = (state) =>{
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    { collection: 'projects', orderBy: ['createdAt', 'desc']},
-  ])
-  )(ProjectsPage)
+  firestoreConnect((state) =>[
+    { collection: 'projects', where: ['authorCompany', '==', `${state.profile.company}`]},
+  ]))
+  (ProjectsPage)

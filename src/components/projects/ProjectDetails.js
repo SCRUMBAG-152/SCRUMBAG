@@ -10,7 +10,6 @@ import {deleteTask} from '../../store/actions/taskActions'
 
 
 //materialUI
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -25,15 +24,13 @@ const style = {
   title: {
     fontSize: '20px',
     textAlign: 'center',
-    backgroundColor: '#ec407a',
+    backgroundColor: '#9c27b0',
     color: '#fff'
     
   },
   secondary: {
     textAlign: 'center',
-    backgroundColor: 'rgba(125,125,153,0.5)',
-
-    
+    backgroundColor: 'rgba(125,125,153,0.5)',    
   },
 }
 
@@ -106,9 +103,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-ProjectDetails.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
+
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

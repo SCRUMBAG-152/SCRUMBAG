@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 
-const ProjectList = ({projects, classes}) => {
+const ProjectList = ({projects, classes, company}) => {
 
   //const [items, setItems] = useState(5)//number of items displayed, initialized at 5
   //const result = projects.filter(project => (project.authorFirstName === "Phuong" ))
@@ -35,7 +35,7 @@ const ProjectList = ({projects, classes}) => {
     <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Link to={'/create'}>
+          <Link to={'/newProject'}>
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.newProject} variant="h5" component="h3" color="textSecondary" >
