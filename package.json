@@ -19,6 +19,7 @@
     "react-big-calendar": "^0.20.4",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-chartist": "^0.13.1",
+    "react-csv": "^1.1.1",
     "react-dom": "^16.8.3",
     "react-infinite-scroller": "^1.2.4",
     "react-redux": "^5.0.7",

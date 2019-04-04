@@ -1,6 +1,8 @@
 import React from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
+//react plugin for exporting to csv
+import { CSVLink, CSVDownload } from "react-csv";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -30,6 +32,15 @@ import {
 } from "../../customs/variables/charts";
 
 import chartsStyle from "../../customs/assets/jss/material-dashboard-pro-react/views/chartsStyle";
+
+
+const csvData = [
+  ["firstname", "lastname", "email"],
+  ["Smith", "Tom", "tom@smith.com"],
+  ["Doe", "Jane", "JaneTheDoe@gmail.com"],
+  ["Test3", "Mary", "test@test.com"]
+];
+
 
 class Stats extends React.Component {
   render() {
@@ -211,8 +222,25 @@ class Stats extends React.Component {
             </Card>
           </GridItem>
         </GridContainer>
+   
+
+        <GridContainer>
+          <GridItem>
+            <card>
+              <CardBody>
+                Testing for export
+              </CardBody>
+            </card>
+            <card>
+              <CardBody>
+              <CSVLink data={csvData} filename={"scrumbag_data.csv"}>Download me</CSVLink>
+              </CardBody>
+            </card>
+          </GridItem>
+        </GridContainer>
       </div>
-    );
+    
+    )
   }
 }
 
