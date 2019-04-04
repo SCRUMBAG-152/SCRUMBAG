@@ -12,10 +12,10 @@ export class ProjectsPage extends Component {
 
 
   render() {
-    const { projects, profile } = this.props;
+    const { projects } = this.props;
 
     return (
-        <ProjectList company={profile.company} projects={projects}/>
+        <ProjectList projects={projects}/>
     )
   }
 }

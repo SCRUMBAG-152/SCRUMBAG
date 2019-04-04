@@ -4,6 +4,8 @@ import { createBrowserHistory } from "history";
 import "./customs/assets/scss/material-dashboard-pro-react.css?v=1.4.0";
 import Dash from './components/layout/Dash'
 import Pages from './components/layout/Pages'
+import CreateProject from "./components/projects/CreateProject"
+
 
 
 const history = createBrowserHistory();
