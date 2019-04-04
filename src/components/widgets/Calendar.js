@@ -40,7 +40,7 @@ class Calendar extends React.Component {
           input
           showCancel
           style={{ display: "block", marginTop: "-100px" }}
-          title="Input something"
+          title="Add New Event"
           onConfirm={e => this.addNewEvent(e, slotInfo)}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
@@ -49,7 +49,16 @@ class Calendar extends React.Component {
           cancelBtnCssClass={
             this.props.classes.button + " " + this.props.classes.danger
           }
-        />
+        >
+        <div className="input-field">
+            <input type="text" id='time' onChange={this.handleChange} />
+            <label htmlFor="time">Event Time</label>
+        </div>
+        <div className="input-field">
+            <input type="text" id='title' onChange={this.handleChange} />
+            <label htmlFor="title">Event Name</label>
+        </div>
+        </SweetAlert>
       )
     });
   }
@@ -74,7 +83,7 @@ class Calendar extends React.Component {
     var backgroundColor = "event-";
     event.color
       ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "default");
+      : (backgroundColor = backgroundColor + "red");
     return {
       className: backgroundColor
     };
