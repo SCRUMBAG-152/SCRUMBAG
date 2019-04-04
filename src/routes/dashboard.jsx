@@ -1,10 +1,7 @@
 import Dashboard from "../components/dashboard/Dashboard";
-import Wizard from "../components/forms/Wizard.jsx";
 import ReactTables from "../components/widgets/ReactTables.jsx";
 import Calendar from "../components/widgets/Calendar.js";
 import UserProfile from "../components/users/UserProfile.jsx";
-import ProjectDetails from "../components/projects/ProjectDetails"
-import CreateProject from "../components/projects/CreateProject"
 import Stats from "../components/widgets/Stats"
 import ProjectsPage from "../components/projects/ProjectsPage"
 
@@ -17,21 +14,6 @@ import ChatIcon from "@material-ui/icons/Chat";
 import GroupIcon from "@material-ui/icons/Group";
 import WorkIcon from "@material-ui/icons/Work";
 
-const pages = [
-  {
-    path: '/create',
-    name: "New Project",
-    icon: DashboardIcon,
-    mini: "RT",
-    component: CreateProject
-  },
-  { path: "/newProject", 
-    name: "Create Project", 
-    mini: "W", 
-    icon: DashboardIcon,
-    component: Wizard 
-  }
-]
 
 
 const dashRoutes = [
@@ -56,15 +38,8 @@ const dashRoutes = [
     icon: GroupIcon,
     component: ReactTables
   },
-  {
-    collapse: true,
-    path: "-page",
-    name: "Pages",
-    state: "openPages",
-    icon: GroupIcon,
-    views: pages
-  },
-  { path: "/projects", 
+  { 
+    path: "/projects", 
     name: "Projects", 
     mini: "P", 
     icon: WorkIcon, 
@@ -88,19 +63,11 @@ const dashRoutes = [
     icon: ChatIcon, 
     component: Calendar 
   },
-
-  { 
-    path: "/project/:id",
-    name: "Project Details",
-    icon: ChatIcon, 
-    mini: "c",
-    component: ProjectDetails
-  },
   
-  { redirect: true, 
+  /* { redirect: true, 
     path: "/", 
     pathTo: "/dashboard", 
     name: "Dashboard" 
-  }   
+  }    */
 ];
 export default dashRoutes;

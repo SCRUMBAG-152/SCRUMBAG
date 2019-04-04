@@ -5,6 +5,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions'
 import { withStyles } from '@material-ui/core/styles';
+import CreateProject from '../createProjectWizard/Wizard'
+import ProjectDetails from '../projects/ProjectDetails'
 
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -36,6 +38,8 @@ const switchRoutes = (
         });
       return <Route path={prop.path} component={prop.component} key={key} />;
     })}
+    <Route path="/newProject" name= "New Project" component={CreateProject}/>
+    <Route path="/project/:id" name= "Project Details" component={ProjectDetails}/>
   </Switch>
 );
 
@@ -141,11 +145,14 @@ Dash.propTypes = {
 };
 
 const mapStateToProps = (state) => {
+  console.log("Whos logged in: ", state.firebase.profile)
   return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile
-  }
+    auth: state.firebase.auth,      
+    profile: state.firebase.profile //this will tell you who is currently logged in. You can console.log right after
+  } 
 }
+
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

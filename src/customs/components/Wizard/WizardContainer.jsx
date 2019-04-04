@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Button from "../../components/CustomButtons/Button.jsx";
-import Card from "../../components/Card/Card.jsx";
+import Button from "../CustomButtons/Button.jsx";
+import Card from "../Card/Card.jsx";
 
 import wizardStyle from "../../assets/jss/material-dashboard-pro-react/components/wizardStyle.jsx";
 
@@ -41,7 +41,7 @@ class Wizard extends React.Component {
       movingTabStyle: {
         transition: "transform 0s"
       },
-      allStates: {}
+      allStates: []
     };
     this.navigationStepChange = this.navigationStepChange.bind(this);
     this.refreshAnimation = this.refreshAnimation.bind(this);

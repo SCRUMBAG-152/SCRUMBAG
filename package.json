@@ -19,6 +19,7 @@
     "react-big-calendar": "^0.20.4",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-chartist": "^0.13.1",
+    "react-csv": "^1.1.1",
     "react-dom": "^16.8.3",
     "react-infinite-scroller": "^1.2.4",
     "react-redux": "^5.0.7",
@@ -38,6 +39,16 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "optionalDependencies": {
+    "@babel/core": "7.0.0",
+    "babel-eslint": "9.0.0",
+    "@types/markerclustererplus": "2.1.33",
+    "eslint": "5.12.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "eslint-plugin-react": "7.11.1",
+    "prettier": "1.14.3"
   },
   "eslintConfig": {
     "extends": "react-app"
