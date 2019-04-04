@@ -122,8 +122,6 @@ class ProjectBoard extends React.Component {
   handleDragEnd = (cardID, sourceLaneID, destinationLaneID, position, cardDetails) => {
     const result = { cardID, sourceLaneID, destinationLaneID, position, cardDetails }
     this.props.dndTask(result)
-    console.log(result)
-    console.log(this.state.data)
   }
 
   render () {

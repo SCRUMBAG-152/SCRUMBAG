@@ -1,9 +1,9 @@
 import React from "react";
 
 // @material-ui/icons
-import Face from "@material-ui/icons/Face";
-import RecordVoiceOver from "@material-ui/icons/RecordVoiceOver";
-import Email from "@material-ui/icons/Email";
+import Assignment from "@material-ui/icons/Assignment";
+import Group from "@material-ui/icons/Group";
+import Create from "@material-ui/icons/Create";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -33,12 +33,12 @@ class Step1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      firstnameState: "",
-      lastname: "",
-      lastnameState: "",
-      email: "",
-      emailState: ""
+      title: "",
+      titleState: "",
+      teamName: "",
+      teamNameState: "",
+      description: "",
+      descriptionState: "",
     };
   }
   sendState() {
@@ -82,20 +82,21 @@ class Step1 extends React.Component {
   }
   isValidated() {
     if (
-      this.state.firstnameState === "success" &&
-      this.state.lastnameState === "success" &&
-      this.state.emailState === "success"
-    ) {
+      this.state.titleState === "success" &&
+      this.state.teamNameState === "success" &&
+      this.state.descriptionState === "success"
+    )
+    {
       return true;
     } else {
-      if (this.state.firstnameState !== "success") {
-        this.setState({ firstnameState: "error" });
+      if (this.state.titleState !== "success") {
+        this.setState({ titleState: "error" });
       }
-      if (this.state.lastnameState !== "success") {
-        this.setState({ lastnameState: "error" });
+      if (this.state.teamNameState !== "success") {
+        this.setState({ teamNameState: "error" });
       }
-      if (this.state.emailState !== "success") {
-        this.setState({ emailState: "error" });
+      if (this.state.descriptionState !== "success") {
+        this.setState({ descriptionState: "error" });
       }
     }
     return false;
@@ -106,7 +107,7 @@ class Step1 extends React.Component {
       <GridContainer justify="center">
         <GridItem xs={12} sm={12}>
           <h4 className={classes.infoText}>
-            Let's start with the basic information (with validation)
+            Let's start with the basic information
           </h4>
         </GridItem>
         <GridItem xs={12} sm={4}>
@@ -114,75 +115,75 @@ class Step1 extends React.Component {
         </GridItem>
         <GridItem xs={12} sm={6}>
           <CustomInput
-            success={this.state.firstnameState === "success"}
-            error={this.state.firstnameState === "error"}
+            success={this.state.titleState === "success"}
+            error={this.state.titleState === "error"}
             labelText={
               <span>
-                First Name <small>(required)</small>
+                Project Name <small>(required)</small>
               </span>
             }
-            id="firstname"
+            id="title"
             formControlProps={{
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "firstname", "length", 3),
+              onChange: event => this.change(event, "title", "length", 3),
               endAdornment: (
                 <InputAdornment
                   position="end"
                   className={classes.inputAdornment}
                 >
-                  <Face className={classes.inputAdornmentIcon} />
+                  <Assignment className={classes.inputAdornmentIcon} />
                 </InputAdornment>
               )
             }}
           />
           <CustomInput
-            success={this.state.lastnameState === "success"}
-            error={this.state.lastnameState === "error"}
+            success={this.state.teamNameState === "success"}
+            error={this.state.teamNameState === "error"}
             labelText={
               <span>
-                Last Name <small>(required)</small>
+                Team Name <small>(required)</small>
               </span>
             }
-            id="lastname"
+            id="teamName"
             formControlProps={{
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "lastname", "length", 3),
+              onChange: event => this.change(event, "teamName", "length", 3),
               endAdornment: (
                 <InputAdornment
                   position="end"
                   className={classes.inputAdornment}
                 >
-                  <RecordVoiceOver className={classes.inputAdornmentIcon} />
+                  <Group className={classes.inputAdornmentIcon} />
                 </InputAdornment>
               )
             }}
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={12} lg={10}>
-          <CustomInput
-            success={this.state.emailState === "success"}
-            error={this.state.emailState === "error"}
+        <CustomInput
+            success={this.state.descriptionState === "success"}
+            error={this.state.descriptionState === "error"}
             labelText={
               <span>
-                Email <small>(required)</small>
+                Description <small>(required)</small>
               </span>
             }
-            id="email"
+            id="description"
             formControlProps={{
               fullWidth: true
             }}
             inputProps={{
-              onChange: event => this.change(event, "email", "email"),
+              onChange: event => this.change(event, "description", "length", 3),
               endAdornment: (
                 <InputAdornment
                   position="end"
                   className={classes.inputAdornment}
                 >
-                  <Email className={classes.inputAdornmentIcon} />
+                  <Create className={classes.inputAdornmentIcon} />
                 </InputAdornment>
               )
             }}

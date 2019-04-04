@@ -1,15 +1,19 @@
 import React from "react";
 
 // core components
-import Wizard from "../../customs/components/Wizard/Wizard.jsx";
+import Wizard from "./WizardContainer";
 import GridContainer from "../../customs/components/Grid/GridContainer.jsx";
 import GridItem from "../../customs/components/Grid/GridItem.jsx";
 
-import Step1 from "./WizardSteps/Step1.jsx";
-import Step2 from "./WizardSteps/Step2.jsx";
-import Step3 from "./WizardSteps/Step3.jsx";
+import Step1 from "./WizardSteps/Step1";
+import Step2 from "./WizardSteps/Step2";
+import Step3 from "./WizardSteps/Step3";
 
 class WizardView extends React.Component {
+
+  handleCLick = (state) => {
+    console.log(state)
+  }
   render() {
     return (
       <GridContainer justify="center">
@@ -18,11 +22,12 @@ class WizardView extends React.Component {
             validate
             steps={[
               { stepName: "About", stepComponent: Step1, stepId: "about" },
-              { stepName: "Account", stepComponent: Step2, stepId: "account" },
-              { stepName: "Address", stepComponent: Step3, stepId: "address" }
+              { stepName: "Type", stepComponent: Step2, stepId: "type" },
+              { stepName: "Finish", stepComponent: Step3, stepId: "finish" },
             ]}
-            title="Build Your Profile"
-            subtitle="This information will let us know more about you."
+            title="New Project"
+            subtitle="what is your next great project?"
+            finishButtonClick={this.handleClick}
           />
         </GridItem>
       </GridContainer>

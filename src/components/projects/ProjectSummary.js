@@ -13,7 +13,10 @@ const style = {
     borderRadius: '10px'
   },
   name: {
-    color: 'pink'
+    color: '#ec407a'
+  },
+  teamName: {
+    color: '#9c27b0'
   },
   postedBy: {
     fontSize: '15px'
@@ -28,7 +31,7 @@ const ProjectSummary = ({project}) => {
                 {project.title}
           </Typography>
           <Typography component="p" style={style.postedBy}>
-              Created By <span>{project.authorCompany}</span>
+              Created By <span style={style.teamName}>{project.teamName}</span> of <span style={style.name}>{project.authorCompany}</span>
             </Typography>
             <Typography component="p" style={style.time} color='textSecondary'>
               {moment(project.createdAt.toDate()).calendar()}

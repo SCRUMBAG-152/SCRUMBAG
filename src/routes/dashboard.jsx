@@ -1,5 +1,5 @@
 import Dashboard from "../components/dashboard/Dashboard";
-import Wizard from "../components/forms/Wizard.jsx";
+import Wizard from "../components/createProjectWizard/Wizard.jsx";
 import ReactTables from "../components/widgets/ReactTables.jsx";
 import Calendar from "../components/widgets/Calendar.js";
 import UserProfile from "../components/users/UserProfile.jsx";
