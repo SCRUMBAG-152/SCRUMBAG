@@ -107,11 +107,14 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((props)=>[
-    { collection: 'projects', orderBy: ['createdAt', 'desc']},
+  firestoreConnect((props) => {
+    console.log(props)
+    return ([
+    { collection: 'projects' },
     { collection: 'cards', where: ['projectID', '==', `${props.match.params.id}`]},
     { collection: 'columns', where: ['projectID', '==', `${props.match.params.id}`]}
-  ]),
+    ])
+  }),
 )(withStyles(style)(ProjectDetails))
 
 

@@ -5,6 +5,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions'
 import { withStyles } from '@material-ui/core/styles';
+import CreateProject from '../createProjectWizard/Wizard'
+import ProjectDetails from '../projects/ProjectDetails'
 
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -36,6 +38,8 @@ const switchRoutes = (
         });
       return <Route path={prop.path} component={prop.component} key={key} />;
     })}
+    <Route path="/newProject" name= "New Project" component={CreateProject}/>
+    <Route path="/project/:id" name= "Project Details" component={ProjectDetails}/>
   </Switch>
 );
 
