@@ -41,6 +41,8 @@ const csvData = [
   ["Test3", "Mary", "test@test.com"]
 ];
 
+//const projID = qUggSmcKgWIcdBBV2gjZ;
+
 
 class Stats extends React.Component {
   render() {
@@ -228,7 +230,7 @@ class Stats extends React.Component {
           <GridItem>
             <card>
               <CardBody>
-                Testing for export
+                <h1>Testing for export</h1>
               </CardBody>
             </card>
             <card>
@@ -237,7 +239,21 @@ class Stats extends React.Component {
               </CardBody>
             </card>
           </GridItem>
-        </GridContainer>
+
+          { /*<GridItem>
+            <card>
+              <CardBody>
+                <h3>Project Description</h3>
+                { projID.description }
+                <br/>
+                <h3>Author Name</h3>
+                { projID.authorFirstName }
+                <br/>
+              </CardBody>
+            </card>
+          </GridItem>
+          </GridContainer>*/}
+
       </div>
     
     )
