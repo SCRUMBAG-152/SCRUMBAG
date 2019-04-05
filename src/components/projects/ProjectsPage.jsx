@@ -21,7 +21,6 @@ export class ProjectsPage extends Component {
 }
 
 const mapStateToProps = (state, props) =>{
-
     const projects = state.firestore.ordered.projects
     const auth = state.firebase.auth
     const profile= state.firebase.profile

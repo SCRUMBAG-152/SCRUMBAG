@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
 import moment from 'moment'
 import ProjectBoard from './ProjectBoard'
-import {deleteTask} from '../../store/actions/taskActions'
+import { deleteTask } from '../../store/actions/taskActions'
 
 
 
@@ -47,6 +47,7 @@ class ProjectDetails extends Component {
 
   render() {  
   const { projectID, project ,auth, classes, cards, columns } = this.props; 
+  
   if(!auth.uid) return <Redirect to='/pages/login-page'/>
   if (project) {
     return (
@@ -55,7 +56,7 @@ class ProjectDetails extends Component {
             {project.title}
             </Typography>
           <TabsButtons/>
-          <ProjectBoard  columns={columns} projectID={projectID} cards={cards} />
+          <ProjectBoard columns={columns} projectID={projectID} cards={cards} />
           
           <CardActions>
             <Typography color="textSecondary" align="left" gutterBottom>
@@ -108,7 +109,6 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props) => {
-    console.log(props)
     return ([
     { collection: 'projects' },
     { collection: 'cards', where: ['projectID', '==', `${props.match.params.id}`]},
