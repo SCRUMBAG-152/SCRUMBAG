@@ -119,6 +119,7 @@ class Dash extends React.Component {
         />
         <div className={mainPanel} ref="mainPanel">
           <Header
+            companyName={profile.company}
             sidebarMinimize={this.sidebarMinimize.bind(this)}
             miniActive={this.state.miniActive}
             routes={dashboardRoutes}

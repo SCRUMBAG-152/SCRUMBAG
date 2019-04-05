@@ -20,6 +20,7 @@ import Button from "../../customs/components/CustomButtons/Button.jsx";
 import headerStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/headerStyle.jsx";
 
 function Header({ ...props }) {
+  const { classes, color, rtlActive, companyName } = props;
   function makeBrand() {
     var name;
     props.routes.map((prop, key) => {
@@ -39,10 +40,9 @@ function Header({ ...props }) {
     if(name){
       return name;
     } else {
-      return "Default Brand Name";
+      return companyName;
     }
   }
-  const { classes, color, rtlActive } = props;
   const appBarClasses = cx({
     [" " + classes[color]]: color
   });
