@@ -11,7 +11,7 @@ import {
   roseColor,
   grayColor,
   defaultFont
-} from "assets/jss/material-dashboard-pro-react.jsx";
+} from "../../material-dashboard-pro-react.jsx";
 
 const tableStyle = theme => ({
   warning: {
