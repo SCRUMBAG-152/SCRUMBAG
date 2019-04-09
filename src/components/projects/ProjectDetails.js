@@ -8,7 +8,6 @@ import ProjectBoard from './ProjectBoard'
 import { deleteTask } from '../../store/actions/taskActions'
 
 
-
 //materialUI
 import { withStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
@@ -38,11 +37,20 @@ const style = {
 class ProjectDetails extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      value: 0
+    }
     this.handleDelete = this.handeDelete.bind(this);
   }
 
   handeDelete = (task) => {
     this.props.deleteTask(task);
+  }
+
+  handleTabChange = (value) => {
+    this.setState({
+      value: value
+    })
   }
 
   render() {  
@@ -55,17 +63,19 @@ class ProjectDetails extends Component {
             <Typography className={classes.title} >
             {project.title}
             </Typography>
-          <TabsButtons/>
+          <TabsButtons handleTabChange={this.handleTabChange}/>
+          {(this.state.value === 0) &&
           <ProjectBoard columns={columns} projectID={projectID} cards={cards} />
-          
-          <CardActions>
+          }
+
+          {/* <CardActions>
             <Typography color="textSecondary" align="left" gutterBottom>
             Created By {project.authorCompany}
             </Typography>
             <Typography  color="textSecondary" align="right" gutterBottom>
             {moment(project.createdAt.toDate()).calendar()}
             </Typography>
-          </CardActions>
+          </CardActions> */}
         </div>
     )
   } else {
@@ -105,12 +115,11 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((props) => {
     return ([
-    { collection: 'projects' },
+    { collection: 'projects'},
     { collection: 'cards', where: ['projectID', '==', `${props.match.params.id}`]},
     { collection: 'columns', where: ['projectID', '==', `${props.match.params.id}`]}
     ])
