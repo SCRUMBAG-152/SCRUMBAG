@@ -22,6 +22,11 @@ import NavPills from "../../customs/components/NavPills/NavPills.jsx";
 import Card from "../../customs/components/Card/Card.jsx";
 import CardHeader from "../../customs/components/Card/CardHeader.jsx";
 import CardBody from "../../customs/components/Card/CardBody.jsx";
+import Button from "../../customs/components/CustomButtons/Button.jsx";
+import CardAvatar from "../../customs/components/Card/CardAvatar.jsx";
+
+
+import avatar from "../../customs/assets/img/professor.png";
 
 import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react";
 
@@ -107,26 +112,23 @@ class Panels extends React.Component {
                   tabButton: "Help",
                   tabIcon: HelpOutline,
                   tabContent: (
-                    <Card>
-                      <CardHeader>
-                        <h4 className={classes.cardTitle}>Help center</h4>
-                        <p className={classes.cardCategory}>
-                          More information here
-                        </p>
-                      </CardHeader>
-                      <CardBody>
-                        From the seamless transition of glass and metal to the
-                        streamlined profile, every detail was carefully
-                        considered to enhance your experience. So while its
-                        display is larger, the phone feels just right.
-                        <br />
-                        <br />
-                        Another Text. The first thing you notice when you hold
-                        the phone is how great it feels in your hand. The cover
-                        glass curves down around the sides to meet the anodized
-                        aluminum enclosure in a remarkable, simplified design.
-                      </CardBody>
-                    </Card>
+                    <Card style={{marginTop: '3.5rem'}}profile>
+                        <CardAvatar profile>
+                            <a href="#pablo" onClick={e => e.preventDefault()}>
+                            <img src={avatar} alt="..." />
+                            </a>
+                        </CardAvatar>
+                        <CardBody profile>
+                            <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
+                            <h4 className={classes.cardTitle}>Alex Liu</h4>
+                            <p className={classes.description}>
+                            Alex is handsome and everyone deserves an A in CSCI 152.
+                            </p>
+                            <Button color="rose" round>
+                            Follow
+                            </Button>
+                        </CardBody>
+                        </Card>
                   )
                 }
               ]}

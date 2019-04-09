@@ -10,17 +10,17 @@ import Dvr from "@material-ui/icons/Dvr";
 import Favorite from "@material-ui/icons/Favorite";
 import Close from "@material-ui/icons/Close";
 // core components
-import GridContainer from "../../customs/components/Grid/GridContainer.jsx";
-import GridItem from "../../customs/components/Grid/GridItem.jsx";
-import Button from "../../customs/components/CustomButtons/Button.jsx";
-import Card from "../../customs/components/Card/Card.jsx";
-import CardBody from "../../customs/components/Card/CardBody.jsx";
-import CardIcon from "../../customs/components/Card/CardIcon.jsx";
-import CardHeader from "../../customs/components/Card/CardHeader.jsx";
+import GridContainer from "../../customs/components/Grid/GridContainer";
+import GridItem from "../../customs/components/Grid/GridItem";
+import Button from "../../customs/components/CustomButtons/Button";
+import Card from "../../customs/components/Card/Card";
+import CardBody from "../../customs/components/Card/CardBody";
+import CardIcon from "../../customs/components/Card/CardIcon";
+import CardHeader from "../../customs/components/Card/CardHeader";
 
-import { dataTable } from "../../customs/variables/general.jsx";
+import { dataTable } from "../../customs/variables/general";
 
-import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react.jsx";
+import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react";
 
 const styles = {
   cardIconTitle: {
@@ -124,14 +124,14 @@ class ReactTables extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <GridContainer>
-        <GridItem xs={12}>
+      <GridContainer justify="center">
+        <GridItem xs={10}>
           <Card>
             <CardHeader color="primary" icon>
               <CardIcon color="primary">
                 <Assignment />
               </CardIcon>
-              <h4 className={classes.cardIconTitle}>React Table</h4>
+              <h4 className={classes.cardIconTitle}>Company Members</h4>
             </CardHeader>
             <CardBody>
               <ReactTable
