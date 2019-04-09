@@ -32,7 +32,7 @@ const dashRoutes = [
     component: UserProfile
   },
   {
-    path: "/tables/react-tables",
+    path: "/tables/members",
     name: "Members",
     mini: "GP",
     icon: GroupIcon,

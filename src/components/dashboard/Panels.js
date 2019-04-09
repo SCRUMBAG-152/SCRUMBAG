@@ -45,13 +45,13 @@ const styles = {
 
 class Panels extends React.Component {
   render() {
-    const { classes, notifications } = this.props;
+    const { classes, notifications, profile } = this.props;
     return (
       <div>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={9}>
             <h3 className={classes.pageSubcategoriesTitle}>
-              Scrumbag
+              {profile.company}
             </h3>
             <br />
             <NavPills

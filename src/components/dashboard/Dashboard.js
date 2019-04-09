@@ -9,14 +9,11 @@ import Panels from './Panels'
 
 
 export class Dashboard extends Component {
-
-
   render() {
-    const { auth, notifications } = this.props;
-
+    const { auth, notifications, profile } = this.props;
     if(!auth.uid) return <Redirect to='/pages/login-page'/>
     return (
-      <Panels notifications={notifications} />
+      <Panels profile={profile} notifications={notifications} />
     )
   }
 }
@@ -26,8 +23,8 @@ const mapStateToProps = (state) =>{
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth,
     notifications: state.firestore.ordered.notifications,
-
-}
+    profile: state.firebase.profile
+  }
 }
 
 

@@ -42,7 +42,7 @@ class UserProfile extends React.Component {
       email: '',
       firstName: '',
       lastName: '',
-      company: '',
+      team: '',
       aboutMe: '',
       city: '',
       country: '',
@@ -64,7 +64,7 @@ class UserProfile extends React.Component {
       email: this.state.email,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      company: this.state.company,
+      team: this.state.team,
       aboutMe: this.state.aboutMe,
       city: this.state.city,
       position: this.state.position
@@ -75,7 +75,7 @@ class UserProfile extends React.Component {
       email: '',
       firstName: '',
       lastName: '',
-      company: '',
+      team: '',
       aboutMe: '',
       city: '',
       country: '',
@@ -85,6 +85,7 @@ class UserProfile extends React.Component {
 
   render() {
     const { classes, profile } = this.props;
+    console.log(this.state)
     return (
       <div>
         <GridContainer>
@@ -127,17 +128,17 @@ class UserProfile extends React.Component {
               <CardBody>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={5}>
-                  <InputLabel >Company</InputLabel>
+                  <InputLabel >Team</InputLabel>
                     <CustomInput
                       // labelText="Company"
-                      id="company"
+                      id="team"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         disabled: false,
                         onChange: this.handleChange,
-                        placeholder: profile.company
+                        placeholder: profile.team
                       }}
                     />
                   </GridItem>
