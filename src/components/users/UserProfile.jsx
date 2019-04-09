@@ -171,7 +171,7 @@ class UserProfile extends React.Component {
                         }}
                       />
                     </GridItem>
-\                </GridContainer>
+                </GridContainer>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={6}>
                   <InputLabel >First Name</InputLabel>
