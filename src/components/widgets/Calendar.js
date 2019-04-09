@@ -50,14 +50,6 @@ class Calendar extends React.Component {
             this.props.classes.button + " " + this.props.classes.danger
           }
         >
-        <div className="input-field">
-            <input type="text" id='time' onChange={this.handleChange} />
-            <label htmlFor="time">Event Time</label>
-        </div>
-        <div className="input-field">
-            <input type="text" id='title' onChange={this.handleChange} />
-            <label htmlFor="title">Event Name</label>
-        </div>
         </SweetAlert>
       )
     });
@@ -83,7 +75,7 @@ class Calendar extends React.Component {
     var backgroundColor = "event-";
     event.color
       ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "red");
+      : (backgroundColor = backgroundColor + "azure");
     return {
       className: backgroundColor
     };
@@ -116,6 +108,7 @@ class Calendar extends React.Component {
           </GridItem>
         </GridContainer>
       </div>
+
     );
   }
 }

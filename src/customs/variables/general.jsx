@@ -276,14 +276,14 @@ const events = [
     start: new Date(y, m, d - 1, 10, 30),
     end: new Date(y, m, d - 1, 11, 30),
     allDay: false,
-    color: "green"
+    color: "azure"
   },
   {
     title: "Lunch",
     start: new Date(y, m, d + 7, 12, 0),
     end: new Date(y, m, d + 7, 14, 0),
     allDay: false,
-    color: "red"
+    color: "azure"
   },
   {
     title: "Birthday Party",
