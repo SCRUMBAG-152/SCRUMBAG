@@ -4,6 +4,8 @@ import moment from 'moment'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import GridContainer from '../../customs/components/Grid/GridContainer'
+import GridItem from '../../customs/components/Grid/GridItem'
 
 
 const style = {
@@ -15,6 +17,8 @@ const style = {
 const Notifications = (props) => {
   const { notifications } = props;
   return (
+    <GridContainer justify="center">
+    <GridItem xs={10}>
         <Card style={style.card}>
           <CardContent>
           <Typography variant="h5" component="h3">Notifications</Typography>
@@ -33,6 +37,8 @@ const Notifications = (props) => {
               </ul>
             </CardContent>
         </Card>
+        </GridItem>
+        </GridContainer>
   )
 }
 
