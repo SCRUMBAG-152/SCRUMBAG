@@ -146,7 +146,7 @@ Dash.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log("Whos logged in: ", state.firebase.profile)
+  // console.log("Whos logged in: ", state.firebase.profile)
   return {
     auth: state.firebase.auth,      
     profile: state.firebase.profile //this will tell you who is currently logged in. You can console.log right after
