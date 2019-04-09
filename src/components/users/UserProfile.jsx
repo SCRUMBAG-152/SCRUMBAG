@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -23,8 +26,10 @@ import userProfileStyles from "../../customs/assets/jss/material-dashboard-pro-r
 
 import avatar from "../../customs/assets/img/faces/marc.jpg";
 
+
+
 function UserProfile(props) {
-  const { classes } = props;
+  const { classes, profile, auth } = props;
   return (
     <div>
       <GridContainer>
@@ -41,81 +46,112 @@ function UserProfile(props) {
             <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={5}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Company</InputLabel>
                   <CustomInput
-                    labelText="Company (disabled)"
-                    id="company-disabled"
+                    // labelText="Company"
+                    id="company"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
-                      disabled: true
+                      disabled: false,
+                      value: profile.company
                     }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Username</InputLabel>
                   <CustomInput
-                    labelText="Username"
+                    // labelText="Username"
                     id="username"
+                    //labelText={ profile.firstName}
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: auth.email
                     }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Email address</InputLabel>
                   <CustomInput
-                    labelText="Email address"
+                    // labelText="Email address"
                     id="email-address"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      value: auth.email
+                    }}
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
+                <InputLabel style={{ color: "#AAAAAA" }}>First Name</InputLabel>
                   <CustomInput
-                    labelText="First Name"
+                    // labelText="First Name"
                     id="first-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{
+                      value: profile.firstName
+                    }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Last Name</InputLabel>
                   <CustomInput
-                    labelText="Last Name"
+                    // labelText="Last Name"
                     id="last-name"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: profile.lastName
                     }}
                   />
                 </GridItem>
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
+                <InputLabel style={{ color: "#AAAAAA" }}>City</InputLabel>
                   <CustomInput
-                    labelText="City"
+                    // labelText="City"
                     id="city"
                     formControlProps={{
                       fullWidth: true
                     }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Country"
-                    id="country"
-                    formControlProps={{
-                      fullWidth: true
+                    inputProps={{
+                      value: "City"
                     }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Country</InputLabel>
                   <CustomInput
-                    labelText="Postal Code"
+                    // labelText="Country"
+                    id="country"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      value: "Country"
+                    }}
+                  />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={4}>
+                <InputLabel style={{ color: "#AAAAAA" }}>Postal Code</InputLabel>
+                  <CustomInput
+                    // labelText="Postal Code"
                     id="postal-code"
                     formControlProps={{
                       fullWidth: true
+                    }}
+                    inputProps={{
+                      value: "Postal Code"
                     }}
                   />
                 </GridItem>
@@ -124,14 +160,15 @@ function UserProfile(props) {
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA" }}>About me</InputLabel>
                   <CustomInput
-                    labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
+                    // labelText="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
                     id="about-me"
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       multiline: true,
-                      rows: 5
+                      rows: 5,
+                      value: profile.aboutMe
                     }}
                   />
                 </GridItem>
@@ -169,4 +206,36 @@ function UserProfile(props) {
   );
 }
 
-export default withStyles(userProfileStyles)(UserProfile);
+
+// const mapStateToProps = (state, ownProps) => {
+//   const users = state.firestore.ordered.users;
+// // console.log("State: ", state)
+// // console.log("Users: ", users)
+//   return {
+//     auth: state.firebase.auth,
+//     users:users
+//   }
+// }
+
+const mapStateToProps = (state) => {
+  console.log("Whos logged in: ", state.firebase.profile)
+  console.log("State: ", state)
+  return {
+    auth: state.firebase.auth,      
+    profile: state.firebase.profile //this will tell you who is currently logged in. You can console.log right after
+  } 
+
+}
+
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect((props) => {
+    console.log("Props: ", props)
+    return ([
+    { collection: 'users' } 
+    ])
+  }),
+)(withStyles(userProfileStyles)(UserProfile))
+
+// export default withStyles(userProfileStyles)(UserProfile);
