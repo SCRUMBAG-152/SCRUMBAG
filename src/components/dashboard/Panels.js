@@ -5,6 +5,7 @@ import Notifications from './Notifications';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Analytics from './Analytics'
 import Daily from './Daily'
+import Locations from './Locations'
 
 import Info from "@material-ui/icons/Info";
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -70,25 +71,7 @@ class Panels extends React.Component {
                   tabButton: "Location",
                   tabIcon: LocationOn,
                   tabContent: (
-                    <Card>
-                      <CardHeader>
-                        <h4 className={classes.cardTitle}>
-                          Location of the product
-                        </h4>
-                        <p className={classes.cardCategory}>
-                          More information here
-                        </p>
-                      </CardHeader>
-                      <CardBody>
-                        Efficiently unleash cross-media information without
-                        cross-media value. Quickly maximize timely deliverables
-                        for real-time schemas.
-                        <br />
-                        <br />
-                        Dramatically maintain clicks-and-mortar solutions
-                        without functional solutions.
-                      </CardBody>
-                    </Card>
+                   <Locations/>
                   )
                 },
                 {

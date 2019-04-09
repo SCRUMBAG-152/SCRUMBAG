@@ -55,9 +55,8 @@ function Footer({ ...props }) {
         <p className={classes.right}>
           &copy; {1900 + new Date().getYear()}{" "}
           <a href="#doest work" className={anchor}>
-            Scrumbag,
+            Scrumbag
           </a>
-          better than Jira
         </p>
       </div>
     </footer>

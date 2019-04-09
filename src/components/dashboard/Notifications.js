@@ -1,8 +1,6 @@
 import React from 'react'
 import moment from 'moment'
 
-import GridContainer from '../../customs/components/Grid/GridContainer.jsx'
-import GridItem from '../../customs/components/Grid/GridItem.jsx'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
