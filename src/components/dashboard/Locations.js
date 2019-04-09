@@ -50,7 +50,7 @@ const Locations = (props) => {
                   <Language />
                 </CardIcon>
                 <h4 className={classes.cardIconTitle}>
-                  Global Sales by Top Locations
+                  Company Members by Locations
                 </h4>
               </CardHeader>
               <CardBody>
