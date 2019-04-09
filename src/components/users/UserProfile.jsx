@@ -24,7 +24,7 @@ import CardAvatar from "../../customs/components/Card/CardAvatar.jsx";
 
 import userProfileStyles from "../../customs/assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx";
 
-import avatar from "../../customs/assets/img/faces/marc.jpg";
+import avatar from "../../customs/assets/img/professor.png";
 
 
 
@@ -189,11 +189,9 @@ function UserProfile(props) {
             </CardAvatar>
             <CardBody profile>
               <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
+              <h4 className={classes.cardTitle}>Alex Liu</h4>
               <p className={classes.description}>
-                Don't be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
+                Alex is handsome and everyone deserves an A in CSCI 152.
               </p>
               <Button color="rose" round>
                 Follow
