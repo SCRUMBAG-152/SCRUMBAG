@@ -6,12 +6,16 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@types/react-redux": "^7.0.1",
+    "chai": "^4.2.0",
     "chartist": "^0.10.1",
     "connected-react-router": "^6.3.2",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "firebase": "^5.8.4",
     "history": "^4.9.0",
     "jquery": "^3.3.1",
     "material-ui-icons": "^1.0.0-beta.36",
+    "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",
     "react": "^16.8.3",
@@ -33,13 +37,14 @@
     "redux": "^4.0.1",
     "redux-firestore": "^0.7.0",
     "redux-thunk": "^2.3.0",
+    "sinon": "^7.3.2",
     "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "jest"
   },
   "optionalDependencies": {
     "@babel/core": "7.0.0",
@@ -59,5 +64,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^24.7.1"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
+  }
 }

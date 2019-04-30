@@ -12,7 +12,6 @@ import Step3 from "./WizardSteps/Step3";
 class WizardView extends React.Component {
 
   handleCLick = (state) => {
-    console.log(state)
   }
   render() {
     return (

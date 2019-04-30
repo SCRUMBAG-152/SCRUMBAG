@@ -27,7 +27,7 @@ import CardFooter from "../../customs/components/Card/CardFooter.jsx";
 import Place from "@material-ui/icons/Place";
 
 
-
+import ImageUpload from '../../customs/components/CustomUpload/PictureUpload'
 import userProfileStyles from "../../customs/assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx";
 
 import avatar from "../../customs/assets/img/default-avatar.png";
@@ -51,6 +51,8 @@ class UserProfile extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
+
+  
 
   handleChange = (e) => {
     this.setState({
@@ -85,16 +87,15 @@ class UserProfile extends React.Component {
 
   render() {
     const { classes, profile } = this.props;
-    console.log(this.state)
     return (
       <div>
         <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
             <Card profile>
               <CardAvatar profile>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
+                 <a href="#pablo" onClick={e => e.preventDefault()}>
                   <img src={avatar} alt="..." />
-                </a>
+                </a> */
               </CardAvatar>
               <CardBody profile>
                 <h5 className={classes.cardCompany}>{profile.company}</h5>
@@ -168,7 +169,8 @@ class UserProfile extends React.Component {
                         }}
                         inputProps={{
                           onChange: this.handleChange,
-                          placeholder: profile.email
+                          placeholder: profile.email,
+                          defaultValue: this.state.email
                         }}
                       />
                     </GridItem>
