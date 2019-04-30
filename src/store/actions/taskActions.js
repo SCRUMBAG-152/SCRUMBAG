@@ -22,7 +22,6 @@
       const firestore = getFirestore();
       const authorId = getState().firebase.auth.uid;
       const ref = firestore.collection('cards').doc()
-      console.log(ref)
       ref.set({
           ...task,
           id: ref.id,

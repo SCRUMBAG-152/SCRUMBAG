@@ -18,8 +18,10 @@ import CardBody from "../../customs/components/Card/CardBody.jsx";
 
 import buttonStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/buttonStyle"
 import { events } from "../../customs/variables/general.jsx";
-import { event } from "../../store/actions/calendarActions";
+import { createEvent } from "../../store/actions/calendarActions";
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -27,11 +29,22 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: events,
-      alert: null
+      events: [],
+      alert: null,
+      bob: props
     };
     this.hideAlert = this.hideAlert.bind(this);
   }
+
+  static getDerivedStateFromProps(props, state) {   
+    
+    if( (state.events != props.events) && props.events ){
+      return{
+        events: props.events
+      } 
+    }
+}
+
   selectedEvent(event) {
     alert(event.title);
   }
@@ -63,6 +76,12 @@ class Calendar extends React.Component {
       start: slotInfo.start,
       end: slotInfo.end
     });
+    var newEvent = {
+      title: e,
+      start: slotInfo.start,
+      end: slotInfo.end
+    }
+    this.props.createEvent(newEvent)
     this.setState({
       alert: null,
       events: newEvents
@@ -83,12 +102,8 @@ class Calendar extends React.Component {
     };
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.event(this.state);
-  }
-
   render() {
+    console.log(this.state.events)
     return (
       <div>
         <Heading
@@ -122,17 +137,25 @@ class Calendar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const events = state.firestore.ordered.events;
+
   return {
-    event: state.firebase.event
+    events: events
   }
 }
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    event: (creds) => dispatch(event(creds))
+    createEvent: (event) => dispatch(createEvent(event))
   }
 }
 
-export default connect(
 
-)(withStyles(buttonStyle)(Calendar));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect((props) => {
+    return ([
+    { collection: 'events' }
+    ])
+  }),
+)(withStyles(buttonStyle)(Calendar))
