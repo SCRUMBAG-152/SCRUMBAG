@@ -9,7 +9,7 @@ import Pages from './components/layout/Pages'
 
 const history = createBrowserHistory();
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <Router history={history}>
