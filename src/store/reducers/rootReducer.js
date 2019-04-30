@@ -5,6 +5,8 @@ import authReducer  from './authReducer'
 import projectReducer from './projectReducer'
 import taskReducer from './taskReducer'
 import userReducer from './userReducer'
+import calendarReducer from './calendarReducer'
+
 //has access to fbConfig from index.js
 import {firestoreReducer} from 'redux-firestore'
 
@@ -13,6 +15,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     project: projectReducer,
     userReducer: userReducer,
+    calendarReduce: calendarReducer,
     firestore: firestoreReducer,
     firebase: firebaseReducer
 });
