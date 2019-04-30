@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard Component should render correctly with props 1`] = `
+<Redirect
+  push={false}
+  to="/pages/login-page"
+/>
+`;
