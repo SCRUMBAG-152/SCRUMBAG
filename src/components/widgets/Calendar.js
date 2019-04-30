@@ -18,6 +18,8 @@ import CardBody from "../../customs/components/Card/CardBody.jsx";
 
 import buttonStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/buttonStyle"
 import { events } from "../../customs/variables/general.jsx";
+import { event } from "../../store/actions/calendarActions";
+import { connect } from 'react-redux'
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -80,6 +82,12 @@ class Calendar extends React.Component {
       className: backgroundColor
     };
   }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.event(this.state);
+  }
+
   render() {
     return (
       <div>
@@ -113,4 +121,18 @@ class Calendar extends React.Component {
   }
 }
 
-export default withStyles(buttonStyle)(Calendar);
+const mapStateToProps = (state) => {
+  return {
+    event: state.firebase.event
+  }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    event: (creds) => dispatch(event(creds))
+  }
+}
+
+export default connect(
+
+)(withStyles(buttonStyle)(Calendar));

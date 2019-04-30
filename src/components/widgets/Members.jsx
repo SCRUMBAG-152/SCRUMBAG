@@ -18,9 +18,12 @@ import CardBody from "../../customs/components/Card/CardBody";
 import CardIcon from "../../customs/components/Card/CardIcon";
 import CardHeader from "../../customs/components/Card/CardHeader";
 
-import { dataTable } from "../../customs/variables/general";
 
 import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react";
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
+
 
 const styles = {
   cardIconTitle: {
@@ -31,98 +34,112 @@ const styles = {
 };
 
 class ReactTables extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: dataTable.dataRows.map((prop, key) => {
-        return {
-          id: key,
-          name: prop[0],
-          position: prop[1],
-          office: prop[2],
-          age: prop[3],
-          actions: (
-            // we've added some custom button actions
-            <div className="actions-right">
-              {/* use this button to add a like kind of action */}
-              <Button
-                justIcon
-                round
-                simple
-                onClick={() => {
-                  let obj = this.state.data.find(o => o.id === key);
-                  alert(
-                    "You've clicked LIKE button on \n{ \nName: " +
-                      obj.name +
-                      ", \nposition: " +
-                      obj.position +
-                      ", \noffice: " +
-                      obj.office +
-                      ", \nage: " +
-                      obj.age +
-                      "\n}."
-                  );
-                }}
-                color="info"
-                className="like"
-              >
-                <Favorite />
-              </Button>{" "}
-              {/* use this button to add a edit kind of action */}
-              <Button
-                justIcon
-                round
-                simple
-                onClick={() => {
-                  let obj = this.state.data.find(o => o.id === key);
-                  alert(
-                    "You've clicked EDIT button on \n{ \nName: " +
-                      obj.name +
-                      ", \nposition: " +
-                      obj.position +
-                      ", \noffice: " +
-                      obj.office +
-                      ", \nage: " +
-                      obj.age +
-                      "\n}."
-                  );
-                }}
-                color="warning"
-                className="edit"
-              >
-                <Dvr />
-              </Button>{" "}
-              {/* use this button to remove the data row */}
-              <Button
-                justIcon
-                round
-                simple
-                onClick={() => {
-                  var data = this.state.data;
-                  data.find((o, i) => {
-                    if (o.id === key) {
-                      // here you should add some custom code so you can delete the data
-                      // from this component and from your server as well
-                      data.splice(i, 1);
-                      return true;
-                    }
-                    return false;
-                  });
-                  this.setState({ data: data });
-                }}
-                color="danger"
-                className="remove"
-              >
-                <Close />
-              </Button>{" "}
-            </div>
-          )
-        };
-      })
-    };
+
+  data(users) {
+    var i = 0
+    var data = []
+    if (users) {
+      while (i < users.length) {
+        data.push([users[i].firstName, users[i].lastName, users[i].initials, users[i].company])
+        ++i;
+      }
+    }
+    return data;
   }
+
+  derder(data) {
+    const outputs = data.map((prop, key) => {
+      return {
+        id: key,
+        first: prop[0],
+        last: prop[1],
+        initials: prop[2],
+        company: prop[3],
+        actions: (
+          // we've added some custom button actions
+          <div className="actions-right">
+            {/* use this button to add a like kind of action */}
+            <Button
+              justIcon
+              round
+              simple
+              onClick={() => {
+                let obj = outputs.find(o => o.id === key);
+                alert(
+                  "You've clicked LIKE button on \n{ \nName: " +
+                  obj.first +
+                  ", \nposition: " +
+                  obj.last +
+                  ", \noffice: " +
+                  obj.initials +
+                  ", \nage: " +
+                  obj.company +
+                  "\n}."
+                );
+              }}
+              color="info"
+              className="like"
+            >
+              <Favorite />
+            </Button>{" "}
+            {/* use this button to add a edit kind of action */}
+            <Button
+              justIcon
+              round
+              simple
+              onClick={() => {
+                let obj = outputs.find(o => o.id === key);
+                alert(
+                  "You've clicked EDIT button on \n{ \nFirst Name: " +
+                  obj.first +
+                  ", \nLast Name: " +
+                  obj.last +
+                  ", \nInitials: " +
+                  obj.initials +
+                  ", \nCompany: " +
+                  obj.company +
+                  "\n}."
+                );
+              }}
+              color="warning"
+              className="edit"
+            >
+              <Dvr />
+            </Button>{" "}
+            {/* use this button to remove the data row */}
+            <Button
+              justIcon
+              round
+              simple
+              onClick={() => {
+                // var data = this.state.data;
+                // data.find((o, i) => {
+                //   if (o.id === key) {
+                //     // here you should add some custom code so you can delete the data
+                //     // from this component and from your server as well
+                //     data.splice(i, 1);
+                //     return true;
+                //   }
+                //   return false;
+                // });
+                // this.setState({ data: data });
+              }}
+              color="danger"
+              className="remove"
+            >
+              <Close />
+            </Button>{" "}
+          </div>
+        )
+      };
+    })
+    return outputs;
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, users } = this.props;
+    const userData = this.data(users);
+    const data = this.derder(userData);
     return (
       <GridContainer justify="center">
         <GridItem xs={10}>
@@ -135,24 +152,24 @@ class ReactTables extends React.Component {
             </CardHeader>
             <CardBody>
               <ReactTable
-                data={this.state.data}
+                data={data}
                 filterable
                 columns={[
                   {
-                    Header: "Name",
-                    accessor: "name"
+                    Header: "First Name",
+                    accessor: "first"
                   },
                   {
-                    Header: "Position",
-                    accessor: "position"
+                    Header: "Last Name",
+                    accessor: "last"
                   },
                   {
-                    Header: "Office",
-                    accessor: "office"
+                    Header: "Initials",
+                    accessor: "initials"
                   },
                   {
-                    Header: "Age",
-                    accessor: "age"
+                    Header: "Company",
+                    accessor: "company"
                   },
                   {
                     Header: "Actions",
@@ -174,4 +191,21 @@ class ReactTables extends React.Component {
   }
 }
 
-export default withStyles(styles)(ReactTables);
+
+const mapStateToProps = (state, props) => {
+  const users = state.firestore.ordered.users
+  const profile = state.firebase.profile
+  return {
+    users: users,
+    profile: profile
+  }
+}
+
+
+//compose 2 higher order components
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect((state) => [
+    { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
+  ]))(withStyles(styles)(ReactTables));
