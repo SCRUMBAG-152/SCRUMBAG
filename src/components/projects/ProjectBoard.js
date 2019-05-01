@@ -38,7 +38,7 @@ const styles = {
   },
     
 }
-class ProjectBoard extends React.Component {
+export class ProjectBoard extends React.Component {
    constructor (props) {
     super(props)
     this.state = {

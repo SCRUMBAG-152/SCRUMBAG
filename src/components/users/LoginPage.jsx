@@ -61,8 +61,8 @@ class LoginPage extends React.Component {
   }
   
   render() {
-    const { classes } = this.props;
-    const { authError,auth } = this.props
+    const { classes, authError, auth } = this.props;
+    // const { authError,auth } = this.props
     if(auth.uid) return <Redirect to='/dashboard'/>
     return (
       <div className={classes.container}>
