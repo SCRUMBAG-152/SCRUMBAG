@@ -21,12 +21,16 @@
       // make async call to database
       const firestore = getFirestore();
       const authorId = getState().firebase.auth.uid;
-      const ref = firestore.collection('cards').doc()
+      const m = firestore.collection('cards').doc();
+      const d = firestore.collection('cards').doc();
+      const y = firestore.collection('cards').doc();
+      const ref = firestore.collection('cards').doc();
       ref.set({
           ...task,
           id: ref.id,
           authorId: authorId,
-          createdAt: new Date()
+          createdAt: new Date(),
+          completedate: new Date(m, d, y),
       }).then(() => {
         dispatch({ type: 'CREATE_TASK', task });
       }).catch((err) => {

@@ -105,7 +105,8 @@ class ProjectBoard extends React.Component {
       label: card.label,
       description: card.description,
       laneId,
-      projectID: projectID
+      projectID: projectID,
+      completedate: card.label,
     }
     this.props.createTask(task)
   }
