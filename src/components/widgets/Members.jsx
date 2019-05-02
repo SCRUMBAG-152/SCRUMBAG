@@ -40,7 +40,7 @@ class ReactTables extends React.Component {
     var data = []
     if (users) {
       while (i < users.length) {
-        data.push([users[i].firstName, users[i].lastName, users[i].initials, users[i].company])
+        data.push([users[i].firstName, users[i].lastName, users[i].role, users[i].company])
         ++i;
       }
     }
@@ -53,7 +53,7 @@ class ReactTables extends React.Component {
         id: key,
         first: prop[0],
         last: prop[1],
-        initials: prop[2],
+        role: prop[2],
         company: prop[3],
         actions: (
           // we've added some custom button actions
@@ -71,7 +71,7 @@ class ReactTables extends React.Component {
                   ", \nposition: " +
                   obj.last +
                   ", \noffice: " +
-                  obj.initials +
+                  obj.role +
                   ", \nage: " +
                   obj.company +
                   "\n}."
@@ -95,7 +95,7 @@ class ReactTables extends React.Component {
                   ", \nLast Name: " +
                   obj.last +
                   ", \nInitials: " +
-                  obj.initials +
+                  obj.role +
                   ", \nCompany: " +
                   obj.company +
                   "\n}."
@@ -139,6 +139,7 @@ class ReactTables extends React.Component {
   render() {
     const { classes, users } = this.props;
     const userData = this.data(users);
+    console.log(userData)
     const data = this.derder(userData);
     return (
       <GridContainer justify="center">
@@ -164,8 +165,8 @@ class ReactTables extends React.Component {
                     accessor: "last"
                   },
                   {
-                    Header: "Initials",
-                    accessor: "initials"
+                    Header: "Role",
+                    accessor: "role"
                   },
                   {
                     Header: "Company",
