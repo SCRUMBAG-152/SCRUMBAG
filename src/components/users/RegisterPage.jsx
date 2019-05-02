@@ -80,8 +80,8 @@ class RegisterPage extends React.Component {
   }
 
   render() {
-    const { classes,auth, authError} = this.props;
-    if (auth.uid) return <Redirect to='/' /> 
+    const { classes, auth, authError } = this.props;
+    if (auth.uid) return <Redirect to='/' />
     return (
       <div className={classes.container}>
         <GridContainer justify="center">
@@ -111,6 +111,7 @@ class RegisterPage extends React.Component {
                     />
                   </GridItem>
                   <GridItem xs={12} sm={8} md={5}>
+                    {/*
                     <div className={classes.center}>
                       <Button justIcon round color="twitter">
                         <i className="fab fa-twitter" />
@@ -126,8 +127,9 @@ class RegisterPage extends React.Component {
                       {` `}
                       <h4 className={classes.socialTitle}>or be classical</h4>
                     </div>
+                    */}
                     <form onSubmit={this.handleSubmit} className={classes.form}>
-                    <CustomInput
+                      <CustomInput
                         id="email"
                         formControlProps={{
                           fullWidth: true,
@@ -135,7 +137,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           onChange: this.handleChange,
-                          type:'email',
+                          type: 'email',
                           startAdornment: (
                             <InputAdornment
                               position="start"
@@ -155,7 +157,7 @@ class RegisterPage extends React.Component {
                         }}
                         inputProps={{
                           onChange: this.handleChange,
-                          type:'password',
+                          type: 'password',
                           startAdornment: (
                             <InputAdornment
                               position="start"
@@ -280,7 +282,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
   return {
     signUp: (creds) => dispatch(signUp(creds))
   }

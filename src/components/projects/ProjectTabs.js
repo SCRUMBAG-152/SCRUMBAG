@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-class ProjectTabs extends React.Component {
+export class ProjectTabs extends React.Component {
 
   handleChange= (e, value) =>{
       this.props.handleTabChange(e, value)

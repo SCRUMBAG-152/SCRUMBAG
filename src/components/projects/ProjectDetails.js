@@ -35,7 +35,7 @@ const style = {
 }
 
 
-class ProjectDetails extends Component {
+export class ProjectDetails extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handeDelete.bind(this);
