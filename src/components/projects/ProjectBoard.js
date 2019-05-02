@@ -8,6 +8,7 @@ import {createTask} from '../../store/actions/taskActions'
 import {deleteTask} from '../../store/actions/taskActions'
 import {deleteColumn} from '../../store/actions/projectActions'
 import {dndTask} from '../../store/actions/taskActions'
+import CustomCard from './CustomCard'
 
 
 
@@ -135,6 +136,7 @@ export class ProjectBoard extends React.Component {
         draggable
         editable
         canAddLanes
+        customCardLayout
         onCardAdd={this.onCardAdd}
         onLaneAdd={this.onLaneAdd}
         addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
@@ -142,7 +144,9 @@ export class ProjectBoard extends React.Component {
         addLaneTitle={"Add New Column"}
         customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete}/>}
         handleDragEnd={this.handleDragEnd}
+
         >
+          <CustomCard/>
         </Board>
     )
   }

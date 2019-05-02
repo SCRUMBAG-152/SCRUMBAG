@@ -43,6 +43,9 @@ class Calendar extends React.Component {
         events: props.events
       } 
     }
+    else{
+      return null
+    }
 }
 
   selectedEvent(event) {
@@ -103,7 +106,6 @@ class Calendar extends React.Component {
   }
 
   render() {
-    console.log(this.state.events)
     return (
       <div>
         <Heading
@@ -138,6 +140,17 @@ class Calendar extends React.Component {
 
 const mapStateToProps = (state) => {
   const events = state.firestore.ordered.events;
+  
+  try {
+  {events && events.map(event => {
+    event.start = event.start.toDate()
+    event.end = event.end.toDate()
+  })}
+}catch(err){
+  console.log(err)
+}finally{
+  
+}
 
   return {
     events: events

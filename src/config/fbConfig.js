@@ -14,9 +14,9 @@ var config = {
 
 const initFire = firebase.initializeApp(config);
 
-  export const auth = initFire.auth(); //allow other files to reference the database
+export const auth = initFire.auth(); //allow other files to reference the database
 
 
   
 
-  export default firebase;
+export default firebase;
