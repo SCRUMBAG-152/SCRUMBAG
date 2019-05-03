@@ -36,17 +36,17 @@ class Calendar extends React.Component {
     this.hideAlert = this.hideAlert.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {   
-    
-    if( (state.events != props.events) && props.events ){
-      return{
+  static getDerivedStateFromProps(props, state) {
+
+    if ((state.events != props.events) && props.events) {
+      return {
         events: props.events
-      } 
+      }
     }
-    else{
+    else {
       return null
     }
-}
+  }
 
   selectedEvent(event) {
     alert(event.title);
@@ -106,6 +106,7 @@ class Calendar extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <Heading
@@ -113,7 +114,7 @@ class Calendar extends React.Component {
           title="Calendar"
         />
         {this.state.alert}
-        <GridContainer  justify="center">
+        <GridContainer justify="center">
           <GridItem xs={11} sm={10} md={9}>
             <Card>
               <CardBody calendar>
@@ -140,24 +141,27 @@ class Calendar extends React.Component {
 
 const mapStateToProps = (state) => {
   const events = state.firestore.ordered.events;
-  
+  const profile = state.firebase.profile
   try {
-  {events && events.map(event => {
-    event.start = event.start.toDate()
-    event.end = event.end.toDate()
-  })}
-}catch(err){
-  console.log(err)
-}finally{
-  
-}
+    {
+      events && events.map(event => {
+        event.start = event.start.toDate()
+        event.end = event.end.toDate()
+      })
+    }
+  } catch (err) {
+    console.log(err)
+  } finally {
+
+  }
 
   return {
-    events: events
+    events: events,
+    profile: profile
   }
 }
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
   return {
     createEvent: (event) => dispatch(createEvent(event))
   }
@@ -166,9 +170,9 @@ const mapDispatchToProps = (dispatch)=> {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((props) => {
+  firestoreConnect((state,props) => {
     return ([
-    { collection: 'events' }
+      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] } ,
     ])
   }),
-)(withStyles(buttonStyle)(Calendar))
+) (withStyles(buttonStyle)(Calendar))

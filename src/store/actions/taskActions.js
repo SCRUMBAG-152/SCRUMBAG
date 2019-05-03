@@ -16,56 +16,69 @@
     }
   }; */
 
-  export const createTask = (task) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-      // make async call to database
-      const firestore = getFirestore();
-      const authorId = getState().firebase.auth.uid;
-      const m = firestore.collection('cards').doc();
-      const d = firestore.collection('cards').doc();
-      const y = firestore.collection('cards').doc();
-      const ref = firestore.collection('cards').doc();
-      ref.set({
-          ...task,
-          id: ref.id,
-          authorId: authorId,
-          createdAt: new Date(),
-          completedate: new Date(m, d, y),
-      }).then(() => {
-        dispatch({ type: 'CREATE_TASK', task });
-      }).catch((err) => {
-          dispatch({type: 'CREATE_TASKS_ERROR', err});
-      })
-    }
-  };
+export const createTask = (task) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    const authorId = getState().firebase.auth.uid;
+    const m = firestore.collection('cards').doc();
+    const d = firestore.collection('cards').doc();
+    const y = firestore.collection('cards').doc();
+    const ref = firestore.collection('cards').doc();
 
-  export const deleteTask = (taskID) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-      // make async call to database
-      const firestore = getFirestore();
+    const authorCompany = getState().firebase.profile.company;
+    const calRef = firestore.collection('events').doc()
+    calRef.set({
+      title: task.title,
+      id: calRef.id,
+      authorId: authorId,
+      createdAt: new Date(),
+      end: task.dueDate,
+      start: task.dueDate,
+      authorCompany: authorCompany
+    })
 
-      firestore.collection('cards')
+    ref.set({
+      ...task,
+      id: ref.id,
+      authorId: authorId,
+      createdAt: new Date(),
+      completedate: new Date(m, d, y),
+    }).then(() => {
+      dispatch({ type: 'CREATE_TASK', task });
+    }).catch((err) => {
+      dispatch({ type: 'CREATE_TASKS_ERROR', err });
+    })
+  }
+};
+
+export const deleteTask = (taskID) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+
+    firestore.collection('cards')
       .doc(taskID)
       .delete()
       .then(() => {
         dispatch({ type: 'DELETE_TASK' });
       }).catch((err) => {
-          dispatch({type: 'DELETE_TASK_ERROR', err});
+        dispatch({ type: 'DELETE_TASK_ERROR', err });
       })
-    }
-  };
+  }
+};
 
-  export const clearTasks = () => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-      dispatch({ type: 'CLEAR_TASKS'})
-    }
-  };
+export const clearTasks = () => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch({ type: 'CLEAR_TASKS' })
+  }
+};
 
-  export const dndTask = (result) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-      // make async call to database
-      const firestore = getFirestore();
-      firestore.collection('cards')
+export const dndTask = (result) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    // make async call to database
+    const firestore = getFirestore();
+    firestore.collection('cards')
       .doc(result.cardID)
       .update({
         laneId: result.destinationLaneID
@@ -73,7 +86,7 @@
       .then(() => {
         dispatch({ type: 'UPDATE_TASK' });
       }).catch((err) => {
-          dispatch({type: 'UPDATE_TASK_ERROR', err});
+        dispatch({ type: 'UPDATE_TASK_ERROR', err });
       })
-    }
-  };
+  }
+};

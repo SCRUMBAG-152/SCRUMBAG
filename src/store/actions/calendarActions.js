@@ -4,12 +4,14 @@ export const createEvent = (event) => {
       // make async call to database
       const firestore = getFirestore();
       const authorId = getState().firebase.auth.uid;
+      const authorCompany = getState().firebase.profile.company;
       const ref = firestore.collection('events').doc()
       ref.set({
           ...event,
           id: ref.id,
           authorId: authorId,
-          createdAt: new Date()
+          createdAt: new Date(),
+          authorCompany: authorCompany
       }).then(() => {
         dispatch({ type: 'CREATE_EVENT', event });
       }).catch((err) => {
