@@ -8,7 +8,9 @@ import {createTask} from '../../store/actions/taskActions'
 import {deleteTask} from '../../store/actions/taskActions'
 import {deleteColumn} from '../../store/actions/projectActions'
 import {dndTask} from '../../store/actions/taskActions'
+
 import CustomCard from './CustomCard'
+import NewCard from './NewCard'
 
 
 
@@ -103,11 +105,11 @@ export class ProjectBoard extends React.Component {
     const projectID = this.props.projectID
     const task = {
       title: card.title,
-      label: card.label,
+      //label: card.label,
       description: card.description,
+      dueDate: card.dueDate,
       laneId,
       projectID: projectID,
-      completedate: card.label,
     }
     this.props.createTask(task)
   }
@@ -144,7 +146,7 @@ export class ProjectBoard extends React.Component {
         addLaneTitle={"Add New Column"}
         customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete}/>}
         handleDragEnd={this.handleDragEnd}
-
+        newCardTemplate={<NewCard onCardAdd={this.onCardAdd} />}
         >
           <CustomCard/>
         </Board>

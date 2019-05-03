@@ -1,23 +1,32 @@
 import React from 'react'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import moment from "moment";
+import Countdown from 'react-countdown-now';
+import Avatar from '@material-ui/core/Avatar';
+
 
 const CustomCard = props => {
     return (
-      <div>
+      <Card>
         <header
           style={{
             borderBottom: '1px solid #eee',
+            margin: 10,
             paddingBottom: 6,
-            marginBottom: 10,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            color: props.cardColor
+            color: 'black'
           }}>
-          <div style={{fontSize: 14, fontWeight: 'bold'}}>{props.title}</div>
-          <div style={{fontSize: 11}}>{props.dueOn}</div>
+          <Typography style={{fontSize: 14, fontWeight: 'bold'}}>{props.title}</Typography>
+          <div style={{fontSize: 11}}><Countdown date={props.dueDate.toDate()} /></div>
         </header>
         <div style={{fontSize: 12, color: '#BD3B36'}}>
-          <div style={{color: '#4C4C4C', fontWeight: 'bold'}}>{props.subTitle}</div>
+          <div style={{color: '#4C4C4C', fontWeight: 'bold', margin: 10}}>{props.description}</div>
           <div style={{padding: '5px 0px'}}>
             <i>{props.body}</i>
           </div>
@@ -25,8 +34,10 @@ const CustomCard = props => {
             {props.escalationText}
           </div>
         </div>
-      </div>
+      </Card>
     )
   }
+
+  //props.title, props.subtitle, props.escalationText
 
   export default CustomCard
