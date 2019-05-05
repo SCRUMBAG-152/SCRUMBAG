@@ -46,7 +46,7 @@ class NewCard extends React.Component {
       };
 
     render() {
-      const {onCancel} = this.props
+      const {onCancel, users} = this.props
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
         <Card style={{background: 'white', borderRadius: 3, border: '1px solid #eee', borderBottom: '1px solid #ccc'}}>
@@ -62,18 +62,12 @@ class NewCard extends React.Component {
                 <input type="text" onChange={evt => this.updateField('points', evt)} placeholder="Points" />
               </div>
               <div class="dropdown" style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('assignedTo', evt)} placeholder="Assigned To" />
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                {/* <input type="text" onChange={evt => this.updateField('assignedTo', evt)} placeholder="Assigned To" /> */}
+                Assigned To:
+                <select>
+                    <option>{users[0].firstName}</option>
+                    <option>{users[1].firstName}</option>
+                </select>
               </div>
               
             <DatePicker
