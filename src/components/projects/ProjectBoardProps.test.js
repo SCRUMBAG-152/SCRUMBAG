@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json'
 import { ProjectBoard } from './ProjectBoard';
 
-
-describe('Project Board', () => {
-    it('renders without crashing given the required props', () => {
+  describe('Project Board Props', () => {
+    it('Takes in the Correct Prop Types', () => {
       const props = {
-        projectID: [], 
-        project: [],
-        auth: [], 
-        classes: [], 
-        cards: [], 
+        projectID: [typeof(string)], 
+        project: [typeof(string)],
+        auth: [typeof(string)], 
+        classes: [typeof(string)], 
+        cards: [typeof(string)],
+        lanes: [typeof(string)], 
         columns: []
       }
       const wrapper = shallow(<ProjectBoard {...props} />)
