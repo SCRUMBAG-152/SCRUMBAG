@@ -110,6 +110,7 @@ export class ProjectBoard extends React.Component {
       dueDate: card.dueDate,
       laneId,
       projectID: projectID,
+      points: card.points,
     }
     this.props.createTask(task)
   }

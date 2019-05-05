@@ -21,9 +21,7 @@ export const createTask = (task) => {
     // make async call to database
     const firestore = getFirestore();
     const authorId = getState().firebase.auth.uid;
-    const m = firestore.collection('cards').doc();
-    const d = firestore.collection('cards').doc();
-    const y = firestore.collection('cards').doc();
+    const points = firestore.collection('cards').doc();
     const ref = firestore.collection('cards').doc();
 
     const authorCompany = getState().firebase.profile.company;
@@ -43,7 +41,7 @@ export const createTask = (task) => {
       id: ref.id,
       authorId: authorId,
       createdAt: new Date(),
-      completedate: new Date(m, d, y),
+      points: points,
     }).then(() => {
       dispatch({ type: 'CREATE_TASK', task });
     }).catch((err) => {
