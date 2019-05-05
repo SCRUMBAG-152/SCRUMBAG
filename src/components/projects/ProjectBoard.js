@@ -105,12 +105,12 @@ export class ProjectBoard extends React.Component {
     const projectID = this.props.projectID
     const task = {
       title: card.title,
-      //label: card.label,
       description: card.description,
       dueDate: card.dueDate,
       laneId,
       projectID: projectID,
       points: card.points,
+      assignedTo: card.assignedTo,
     }
     this.props.createTask(task)
   }

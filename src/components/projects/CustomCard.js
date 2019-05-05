@@ -27,9 +27,9 @@ const CustomCard = props => {
         </header>
         <div style={{fontSize: 12, color: '#BD3B36'}}>
           <div style={{color: '#4C4C4C', fontWeight: 'bold', margin: 10}}>{props.description}</div>
-          <div style={{padding: '5px 0px'}}>
-            <i>{props.body}</i>
-          </div>
+          <div style={{color: '#4C4C4C', fontWeight: 'bold', margin: 10}}>{props.points}</div>
+          <div style={{color: '#4C4C4C', fontWeight: 'bold', margin: 10}}>{props.assignedTo}</div>
+          
           <div style={{marginTop: 10, textAlign: 'center', color: props.cardColor, fontSize: 15, fontWeight: 'bold'}}>
             {props.escalationText}
           </div>

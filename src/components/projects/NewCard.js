@@ -34,7 +34,8 @@ class NewCard extends React.Component {
             title: this.state.title,
             description: this.state.description,
             dueDate: this.state.dueDate._d,
-            points: this.state.points
+            points: this.state.points,
+            assignedTo: this.state.assignedTo
         }
         this.props.onCardAdd(newCard , this.props.laneId)
     }
@@ -59,6 +60,9 @@ class NewCard extends React.Component {
               </div>
               <div style={{marginBottom: 5}}>
                 <input type="text" onChange={evt => this.updateField('points', evt)} placeholder="Points" />
+              </div>
+              <div style={{marginBottom: 5}}>
+                <input type="text" onChange={evt => this.updateField('assignedTo', evt)} placeholder="Assigned To" />
               </div>
               
             <DatePicker
