@@ -22,6 +22,9 @@ import Button from '../../customs/components/CustomButtons/Button'
 import CustomLaneHeader from './CustomLaneHeader'
 
 
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
+
 //= ========================================Imports End=========================================//
 const styles = {
   Board: {
@@ -133,7 +136,8 @@ export class ProjectBoard extends React.Component {
 
   render() {
     const { data } = this.state
-    const { classes } = this.props
+    const { classes, users } = this.props
+    console.log(users)
     return (
       <Board
         className={classes.Board}
@@ -149,7 +153,7 @@ export class ProjectBoard extends React.Component {
         addLaneTitle={"Add New Column"}
         customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
         handleDragEnd={this.handleDragEnd}
-        newCardTemplate={<NewCard onCardAdd={this.onCardAdd} />}
+        newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
       >
         <CustomCard />
       </Board>
@@ -168,6 +172,19 @@ const mapDispatchToProps = (dispatch) => {
     createEvent: (event) => dispatch(createEvent(event))
   }
 }
+const mapStateToProps = (state, props) => {
+  const users = state.firestore.ordered.users
+  const profile = state.firebase.profile
+  return {
+    users: users,
+    profile: profile
+  }
+}
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(ProjectBoard))
+//export default connect(null, mapDispatchToProps)(withStyles(styles)(ProjectBoard))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect((state) => [
+    { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
+  ]))(withStyles(styles)(ProjectBoard));
 
