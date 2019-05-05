@@ -7,11 +7,13 @@ export const createEvent = (event) => {
       const authorCompany = getState().firebase.profile.company;
       const ref = firestore.collection('events').doc()
       ref.set({
-          ...event,
-          id: ref.id,
-          authorId: authorId,
-          createdAt: new Date(),
-          authorCompany: authorCompany
+        title: event.title,
+        id: ref.id,
+        authorId: authorId,
+        createdAt: new Date(),
+        end: event.dueDate,
+        start: event.dueDate,
+        authorCompany: authorCompany
       }).then(() => {
         dispatch({ type: 'CREATE_EVENT', event });
       }).catch((err) => {
