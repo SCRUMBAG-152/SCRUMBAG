@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Project Board Props Takes in the Correct Props 1`] = `
+exports[`Project Board renders without crashing given the required props 1`] = `
 <Board
   addCardLink={
     <WithStyles(RegularButton)
@@ -36,34 +36,4 @@ exports[`Project Board Props Takes in the Correct Props 1`] = `
 >
   <CustomCard />
 </Board>
-`;
-
-exports[`Project Board renders without crashing given the required props 1`] = `
-<Board
-  addCardLink={
-    <WithStyles(RegularButton)
-      variant="contained"
-    >
-      Add Task
-    </WithStyles(RegularButton)>
-  }
-  addLaneTitle="Add New Column"
-  canAddLanes={true}
-  customLaneHeader={
-    <CustomLaneHeader
-      onLaneDelete={[Function]}
-    />
-  }
-  data={
-    Object {
-      "lanes": Array [],
-    }
-  }
-  draggable={true}
-  editable={true}
-  handleDragEnd={[Function]}
-  onCardAdd={[Function]}
-  onCardDelete={[Function]}
-  onLaneAdd={[Function]}
-/>
 `;
