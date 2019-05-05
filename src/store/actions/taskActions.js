@@ -23,18 +23,6 @@ export const createTask = (task) => {
     const authorId = getState().firebase.auth.uid;
     const ref = firestore.collection('cards').doc();
 
-    const authorCompany = getState().firebase.profile.company;
-    const calRef = firestore.collection('events').doc()
-    calRef.set({
-      title: task.title,
-      id: calRef.id,
-      authorId: authorId,
-      createdAt: new Date(),
-      end: task.dueDate,
-      start: task.dueDate,
-      authorCompany: authorCompany
-    })
-
     ref.set({
       ...task,
       id: ref.id,

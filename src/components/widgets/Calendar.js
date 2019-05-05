@@ -77,12 +77,14 @@ class Calendar extends React.Component {
     newEvents.push({
       title: e,
       start: slotInfo.start,
-      end: slotInfo.end
+      end: slotInfo.end,
+      dueDate: slotInfo.start,
     });
     var newEvent = {
       title: e,
       start: slotInfo.start,
-      end: slotInfo.end
+      end: slotInfo.end,
+      dueDate: slotInfo.start,
     }
     this.props.createEvent(newEvent)
     this.setState({
