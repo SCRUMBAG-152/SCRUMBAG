@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
-
+import Dropdown from 'react-bootstrap/Dropdown'
 import moment from "moment";
 
 
@@ -61,8 +61,19 @@ class NewCard extends React.Component {
               <div style={{marginBottom: 5}}>
                 <input type="text" onChange={evt => this.updateField('points', evt)} placeholder="Points" />
               </div>
-              <div style={{marginBottom: 5}}>
+              <div class="dropdown" style={{marginBottom: 5}}>
                 <input type="text" onChange={evt => this.updateField('assignedTo', evt)} placeholder="Assigned To" />
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Dropdown Button
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
               
             <DatePicker
