@@ -6,6 +6,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
+
+
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 
@@ -36,6 +38,7 @@ class NewCard extends React.Component {
             dueDate: this.state.dueDate._d
         }
         this.props.onCardAdd(newCard , this.props.laneId)
+        this.props.onCancel()
     }
     
     handleDateChange = date => {
@@ -51,18 +54,33 @@ class NewCard extends React.Component {
           <div style={{padding: 5, margin: 5}}>
             <div>
               <div style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('title', evt)} placeholder="Title" />
               </div>
-              <div style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('description', evt)} placeholder="Description" />
-              </div>
-              
-            <DatePicker
-            margin="normal"
-            label="Date picker"
-            value={this.state.dueDate}
-            onChange={this.handleDateChange}
-          />
+              <TextField
+                id="title"
+                label="Title"
+                placeholder="Title..."
+                value={this.state.name}
+                onChange={evt => this.updateField('title', evt)} 
+                margin="normal"
+                variant="outlined"
+                />
+                <div/>
+              <TextField
+                id="description"
+                label="Description"
+                placeholder="Description..."
+                multiline
+                margin="normal"
+                variant="outlined"
+                onChange={evt => this.updateField('description', evt)} 
+                />
+                <div/>
+                <DatePicker
+                margin="normal"
+                label="Date picker"
+                value={this.state.dueDate}
+                onChange={this.handleDateChange}
+                />
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
