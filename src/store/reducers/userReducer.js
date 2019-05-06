@@ -14,6 +14,17 @@ const initState = {
           ...state,
           authError: action.err.message //get an error message from the action
         }
+        case 'CREATE_COMMENT':
+        console.log('created comment')
+        return {
+          ...state,
+        }
+      case 'CREATE_COMMENT_ERROR':
+        console.log('create error')
+        return{
+          ...state,
+          authError: action.err.message //get an error message from the action
+        }
       default:
         return state
     }
