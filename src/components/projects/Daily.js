@@ -18,16 +18,16 @@ import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import AccessTime from '@material-ui/icons/AccessTime'
 
 // core components
-import GridContainer from '../../customs/components/Grid/GridContainer.jsx'
-import GridItem from '../../customs/components/Grid/GridItem.jsx'
-import Card from '../../customs/components/Card/Card.jsx'
-import CardHeader from '../../customs/components/Card/CardHeader.jsx'
-import CardBody from '../../customs/components/Card/CardBody.jsx'
-import CardFooter from '../../customs/components/Card/CardFooter.jsx'
-import Button from '../../customs/components/CustomButtons/Button.jsx'
+import GridContainer from '../../customs/components/Grid/GridContainer'
+import GridItem from '../../customs/components/Grid/GridItem'
+import Card from '../../customs/components/Card/Card'
+import CardHeader from '../../customs/components/Card/CardHeader'
+import CardBody from '../../customs/components/Card/CardBody'
+import CardFooter from '../../customs/components/Card/CardFooter'
+import Button from '../../customs/components/CustomButtons/Button'
 
 
-import dashboardStyle from './dashboardStyle/dashboardStyle'
+import dashboardStyle from '../dashboard/dashboardStyle/dashboardStyle'
 
 import {
     dailySalesChart,

@@ -4,7 +4,6 @@ import Notifications from './Notifications';
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Analytics from './Analytics'
-import Daily from './Daily'
 import Locations from './Locations'
 
 import Info from "@material-ui/icons/Info";
@@ -65,13 +64,6 @@ class Panels extends React.Component {
                       <Analytics/>
                   )
                 },
-                {
-                    tabButton: "Daily",
-                    tabIcon: chartIcon,
-                    tabContent: (
-                        <Daily/>
-                    )
-                  },
                 {
                   tabButton: "Location",
                   tabIcon: LocationOn,

@@ -28,7 +28,7 @@ import { compose } from 'redux'
 //= ========================================Imports End=========================================//
 const styles = {
   Board: {
-    backgroundColor: '#fff',
+    backgroundColor: '#555',
     boxShadow: '3px 3px 6px 0px rgba(0,0,0,0.75)',
   },
   Lane: {

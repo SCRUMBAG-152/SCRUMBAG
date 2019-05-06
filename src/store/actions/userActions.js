@@ -14,3 +14,22 @@ export const updateUser = (user) => {
       })
     }
   };
+
+  export const createComment= (comment) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+      // make async call to database
+      const firestore = getFirestore();
+      const authorId = getState().firebase.auth.uid;
+      const ref = firestore.collection('comments').doc();
+      ref.set({
+        authorId: authorId,
+        ...comment,
+        id: ref.id,
+        createdAt: new Date(),
+      }).then(() => {
+        dispatch({ type: 'CREATE_COMMENT', comment });
+      }).catch((err) => {
+        dispatch({ type: 'CREATE_COMMENT_ERROR', err });
+      })
+    }
+  };
