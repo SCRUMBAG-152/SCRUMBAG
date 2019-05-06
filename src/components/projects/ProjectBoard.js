@@ -137,7 +137,6 @@ export class ProjectBoard extends React.Component {
   render() {
     const { data } = this.state
     const { classes, users } = this.props
-    console.log(users)
     return (
       <Board
         className={classes.Board}
@@ -155,7 +154,7 @@ export class ProjectBoard extends React.Component {
         handleDragEnd={this.handleDragEnd}
         newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
       >
-        <CustomCard />
+        <CustomCard user={users} />
       </Board>
     )
   }
@@ -187,4 +186,3 @@ export default compose(
   firestoreConnect((state) => [
     { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(styles)(ProjectBoard));
-

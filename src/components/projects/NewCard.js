@@ -6,6 +6,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
+
+
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -18,6 +23,7 @@ class NewCard extends React.Component {
         super(props)
         this.state = {
             //dueDate: moment(new Date()).format('YYYY-MM-DD')
+            assignedTo: 'none',
           }
         }
 
@@ -38,51 +44,81 @@ class NewCard extends React.Component {
             assignedTo: this.state.assignedTo
         }
         this.props.onCardAdd(newCard , this.props.laneId)
+        this.props.onCancel()
     }
     
     handleDateChange = date => {
         this.setState({ dueDate: date });
-        console.log(this.state.dueDate)
       };
 
+      handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+      };
     render() {
       const {onCancel, users} = this.props
+
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
         <Card style={{background: 'white', borderRadius: 3, border: '1px solid #eee', borderBottom: '1px solid #ccc'}}>
           <div style={{padding: 5, margin: 5}}>
             <div>
               <div style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('title', evt)} placeholder="Title" />
               </div>
-              <div style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('description', evt)} placeholder="Description" />
-              </div>
-              <div style={{marginBottom: 5}}>
-                <input type="text" onChange={evt => this.updateField('points', evt)} placeholder="Points" />
-              </div>
-
-              <div style={{marginBottom: 5}}>
-                Assigned To:
-              {/*  <select input type = "submit" value = "confirm">
-                     <option>{users[0].firstName}</option> 
-                   </select> */}
-                <body>
-                    <input type = "text" list = "users" name="users"/>
-                    <datalist id = "users">
-                      <option>{users[0].firstName}</option>
-                    </datalist>
-                    <input type="submit" value="Submit" onChange={evt => this.updateField('assignedTo', evt)} />
-                </body>
-
-              </div>
-              
-            <DatePicker
-            margin="normal"
-            label="Date picker"
-            value={this.state.dueDate}
-            onChange={this.handleDateChange}
-          />
+               <TextField
+                id="title"
+                label="Title"
+                placeholder="Title..."
+                value={this.state.name}
+                onChange={evt => this.updateField('title', evt)} 
+                margin="normal"
+                variant="outlined"
+                />
+                <div/>
+              <TextField
+                id="description"
+                label="Description"
+                placeholder="Description..."
+                multiline
+                margin="normal"
+                variant="outlined"
+                onChange={evt => this.updateField('description', evt)} 
+                />
+                <div/>
+                <TextField
+                    id="assignedTo"
+                    select
+                    label="Assign"
+                    value={this.state.assignedTo}
+                    onChange={this.handleChange('assignedTo')}
+                    margin="normal"
+                    >
+                    {users && users.map(user => (
+                        <MenuItem key={user.id} value={user.firstName+' '+user.lastName}>
+                        {user.firstName} {user.lastName}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                style={{marginLeft: 20, width: 100}}
+                id="points"
+                label="Points"
+                value={this.state.points || ''}
+                onChange={this.handleChange('points')}
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                margin="normal"
+                
+                />
+                <div/>
+                <DatePicker
+                margin="normal"
+                label="Date picker"
+                value={this.state.dueDate}
+                onChange={this.handleDateChange}
+                /> 
+                
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
