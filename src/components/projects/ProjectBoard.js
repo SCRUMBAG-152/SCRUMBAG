@@ -3,11 +3,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Board from 'react-trello'
-import {createColumn} from '../../store/actions/projectActions'
-import {createTask} from '../../store/actions/taskActions'
-import {deleteTask} from '../../store/actions/taskActions'
-import {deleteColumn} from '../../store/actions/projectActions'
-import {dndTask} from '../../store/actions/taskActions'
+import { createColumn } from '../../store/actions/projectActions'
+import { createTask } from '../../store/actions/taskActions'
+import { deleteTask } from '../../store/actions/taskActions'
+import { deleteColumn } from '../../store/actions/projectActions'
+import { dndTask } from '../../store/actions/taskActions'
+import { createEvent } from '../../store/actions/calendarActions'
 
 import CustomCard from './CustomCard'
 import NewCard from './NewCard'
@@ -21,6 +22,9 @@ import Button from '../../customs/components/CustomButtons/Button'
 import CustomLaneHeader from './CustomLaneHeader'
 
 
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
+
 //= ========================================Imports End=========================================//
 const styles = {
   Board: {
@@ -30,7 +34,7 @@ const styles = {
   Lane: {
     boxShadow: '4px 4px 8px 0px rgba(0,0,0,0.75)',
     backgroundColor: '#e8e8ef'
-  },  
+  },
   button: {
     margin: '0px',
     width: '10%',
@@ -39,18 +43,18 @@ const styles = {
     boxShadow: '2px 2px 4px 0px rgba(0,0,0,0.75)',
     backgroundColor: '#ec407a'
   },
-    
+
 }
 export class ProjectBoard extends React.Component {
-   constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      }
     }
-  
+  }
 
-  static getDerivedStateFromProps(props, state) {   
-    
+
+  static getDerivedStateFromProps(props, state) {
+
     const columns = Object(props.columns)
     const tasks = Object(props.cards)
     let lanes = []
@@ -58,7 +62,7 @@ export class ProjectBoard extends React.Component {
     Object.keys(columns).map(i => {
       let cards = []
       Object.keys(tasks).map(j => {
-        if (tasks[j].laneId === columns[i].id){
+        if (tasks[j].laneId === columns[i].id) {
           cards.unshift(tasks[j])
         }
       })
@@ -71,21 +75,21 @@ export class ProjectBoard extends React.Component {
     })
 
 
-    return{
-      data:{
-       lanes: lanes
+    return {
+      data: {
+        lanes: lanes
       }
-    } 
-}
+    }
+  }
 
- 
+
 
   onLaneAdd = (params) => {
     const projectID = this.props.projectID
-    const newColumn= {
-        ...params,
-        projectID: projectID,
-        cards:[]
+    const newColumn = {
+      ...params,
+      projectID: projectID,
+      cards: []
     }
     const newLanes = [
       ...this.state.data.lanes,
@@ -93,7 +97,7 @@ export class ProjectBoard extends React.Component {
     ]
 
     this.setState({
-      data:{
+      data: {
         lanes: [...newLanes],
       }
     })
@@ -105,13 +109,15 @@ export class ProjectBoard extends React.Component {
     const projectID = this.props.projectID
     const task = {
       title: card.title,
-      //label: card.label,
       description: card.description,
       dueDate: card.dueDate,
       laneId,
       projectID: projectID,
+      points: card.points,
+      assignedTo: card.assignedTo,
     }
     this.props.createTask(task)
+    this.props.createEvent(task)
   }
 
   onCardDelete = (taskID) => {
@@ -128,11 +134,11 @@ export class ProjectBoard extends React.Component {
     this.props.dndTask(result)
   }
 
-  render () {
-    const {data} = this.state
-    const {classes} = this.props
+  render() {
+    const { data } = this.state
+    const { classes, users } = this.props
     return (
-        <Board 
+      <Board
         className={classes.Board}
         data={data}
         draggable
@@ -144,12 +150,12 @@ export class ProjectBoard extends React.Component {
         addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
         onCardDelete={this.onCardDelete}
         addLaneTitle={"Add New Column"}
-        customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete}/>}
+        customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
         handleDragEnd={this.handleDragEnd}
-        newCardTemplate={<NewCard onCardAdd={this.onCardAdd} />}
-        >
-          <CustomCard/>
-        </Board>
+        newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
+      >
+        <CustomCard user={users} />
+      </Board>
     )
   }
 }
@@ -162,10 +168,22 @@ const mapDispatchToProps = (dispatch) => {
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
     deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
     dndTask: (result) => dispatch(dndTask(result)),
-
+    createEvent: (event) => dispatch(createEvent(event))
+  }
+}
+const mapStateToProps = (state, props) => {
+  const users = state.firestore.ordered.users
+  const profile = state.firebase.profile
+  return {
+    users: users,
+    profile: profile
   }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(ProjectBoard))
+//export default connect(null, mapDispatchToProps)(withStyles(styles)(ProjectBoard))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect((state) => [
+    { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
+  ]))(withStyles(styles)(ProjectBoard));
 
- 

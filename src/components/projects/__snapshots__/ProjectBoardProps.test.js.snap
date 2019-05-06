@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Project Board renders without crashing given the required props 1`] = `
+exports[`Project Board Props Takes in the Correct Prop Types 1`] = `
 <Board
   addCardLink={
     <WithStyles(RegularButton)

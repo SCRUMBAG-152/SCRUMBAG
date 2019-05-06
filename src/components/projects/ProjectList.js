@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 
-const ProjectList = ({projects, classes, company}) => {
+const ProjectList = ({ projects, classes, company, role }) => {
 
   //const [items, setItems] = useState(5)//number of items displayed, initialized at 5
   //const result = projects.filter(project => (project.authorFirstName === "Phuong" ))
@@ -34,21 +34,28 @@ const ProjectList = ({projects, classes, company}) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Link to={'/newProject'}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography className={classes.newProject} variant="h5" component="h3" color="textSecondary" >
-                New Project
-              </Typography>
-              <Typography variant="h2" component="h2" color="textSecondary" >
-                +
-              </Typography>
-            </CardContent>
-          </Card>
-          </Link>
-        </Grid>
-        { projects && projects.map(project => {
+        {role == "boss" ?
+          (
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Link to={'/newProject'}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Typography className={classes.newProject} variant="h5" component="h3" color="textSecondary" >
+                      New Project
+                </Typography>
+                    <Typography variant="h2" component="h2" color="textSecondary" >
+                      +
+                </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+            </Grid>
+          )
+          :
+          (<p></p>)
+        }
+
+        {projects && projects.map(project => {
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} key={project.id}>
               <Link to={'/project/' + project.id} key={project.id}>
@@ -56,8 +63,8 @@ const ProjectList = ({projects, classes, company}) => {
               </Link>
             </Grid>
           )
-        })} 
-      </Grid> 
+        })}
+      </Grid>
     </div>
   )
 }
@@ -66,5 +73,5 @@ ProjectList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ProjectList)
 
+export default withStyles(styles)(ProjectList)

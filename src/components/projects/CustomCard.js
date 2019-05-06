@@ -36,10 +36,15 @@ const style= {
     },
     points: {
         fontSize: 15,
-        marginRight: -90,
-        marginBottom: 5
+        marginRight: '-90px',
+        marginBottom: 5,
     }
     
+}
+
+const initials = name =>{
+    let matches = name.match(/\b(\w)/g)
+    return matches.join('');
 }
 
 const CustomCard = props => {
@@ -55,12 +60,12 @@ const CustomCard = props => {
           <Grid alignItems="flex-end" justify="space-between" container direction="row" spacing={24}>
              <Grid item xs={6}>
                 <Avatar style={style.avatar}>
-                    TN
+                    {initials(props.assignedTo)}
                 </Avatar>
             </Grid>
-            <Grid style={style.points} item xs={6}>
+             <Grid style={style.points} item xs={6}>
                 {props.points}
-            </Grid>
+            </Grid> 
           </Grid>
         </div>
       </Card>

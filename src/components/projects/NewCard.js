@@ -6,11 +6,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
 
 
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
-
+import Dropdown from 'react-bootstrap/Dropdown'
 import moment from "moment";
 
 
@@ -20,6 +23,7 @@ class NewCard extends React.Component {
         super(props)
         this.state = {
             //dueDate: moment(new Date()).format('YYYY-MM-DD')
+            assignedTo: 'none',
           }
         }
 
@@ -35,7 +39,9 @@ class NewCard extends React.Component {
         const newCard = {
             title: this.state.title,
             description: this.state.description,
-            dueDate: this.state.dueDate._d
+            dueDate: this.state.dueDate._d,
+            points: this.state.points,
+            assignedTo: this.state.assignedTo
         }
         this.props.onCardAdd(newCard , this.props.laneId)
         this.props.onCancel()
@@ -43,11 +49,14 @@ class NewCard extends React.Component {
     
     handleDateChange = date => {
         this.setState({ dueDate: date });
-        console.log(this.state.dueDate)
       };
 
+      handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+      };
     render() {
-      const {onCancel} = this.props
+      const {onCancel, users} = this.props
+
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
         <Card style={{background: 'white', borderRadius: 3, border: '1px solid #eee', borderBottom: '1px solid #ccc'}}>
@@ -55,7 +64,7 @@ class NewCard extends React.Component {
             <div>
               <div style={{marginBottom: 5}}>
               </div>
-              <TextField
+               <TextField
                 id="title"
                 label="Title"
                 placeholder="Title..."
@@ -75,12 +84,41 @@ class NewCard extends React.Component {
                 onChange={evt => this.updateField('description', evt)} 
                 />
                 <div/>
+                <TextField
+                    id="assignedTo"
+                    select
+                    label="Assign"
+                    value={this.state.assignedTo}
+                    onChange={this.handleChange('assignedTo')}
+                    margin="normal"
+                    >
+                    {users && users.map(user => (
+                        <MenuItem key={user.id} value={user.firstName+' '+user.lastName}>
+                        {user.firstName} {user.lastName}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                style={{marginLeft: 20, width: 100}}
+                id="points"
+                label="Points"
+                value={this.state.points || ''}
+                onChange={this.handleChange('points')}
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                margin="normal"
+                
+                />
+                <div/>
                 <DatePicker
                 margin="normal"
                 label="Date picker"
                 value={this.state.dueDate}
                 onChange={this.handleDateChange}
-                />
+                /> 
+                
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
