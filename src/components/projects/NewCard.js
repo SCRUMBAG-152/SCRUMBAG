@@ -61,13 +61,20 @@ class NewCard extends React.Component {
               <div style={{marginBottom: 5}}>
                 <input type="text" onChange={evt => this.updateField('points', evt)} placeholder="Points" />
               </div>
-              <div class="dropdown" style={{marginBottom: 5}}>
-                {/* <input type="text" onChange={evt => this.updateField('assignedTo', evt)} placeholder="Assigned To" /> */}
+
+              <div style={{marginBottom: 5}}>
                 Assigned To:
-                <select>
-                    <option>{users[0].firstName}</option>
-                    <option>{users[1].firstName}</option>
-                </select>
+              {/*  <select input type = "submit" value = "confirm">
+                     <option>{users[0].firstName}</option> 
+                   </select> */}
+                <body>
+                    <input type = "text" list = "users" name="users"/>
+                    <datalist id = "users">
+                      <option>{users[0].firstName}</option>
+                    </datalist>
+                    <input type="submit" value="Submit" onChange={evt => this.updateField('assignedTo', evt)} />
+                </body>
+
               </div>
               
             <DatePicker
