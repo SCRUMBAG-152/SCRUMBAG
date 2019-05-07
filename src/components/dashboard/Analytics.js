@@ -32,118 +32,106 @@ import CardFooter from '../../customs/components/Card/CardFooter.jsx'
 import dashboardStyle from './dashboardStyle/dashboardStyle'
 
 const Analytics = (props) => {
-    const { classes, users, cards } = props
-    if (users){
-    console.log(users.length)
-    }
-    /* function data(users) {
-        var i = 0
-        var data = []
-        if (users) {
-          while (i < users.length) {
-            data.push([users[i].firstName, users[i].lastName, users[i].role, users[i].company])
-            ++i;
-          }
-        }
-        return data;
-      } */
-      
-    
-    //console.log("Users: ", users.length)
-    // const count = users.map(x => x.firstName.length)
+  const { classes, users } = props
+
   return (
     <GridContainer>
-        <GridItem xs={12} sm={6}>
+      <GridItem xs={12} sm={6}>
         <Card>
-            <CardHeader color='warning' stats icon>
+          <CardHeader color='warning' stats icon>
             <CardIcon color='warning'>
-                <Icon>content_copy</Icon>
+              <Icon>content_copy</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>Points Assigned</p>
-            <h3 className={classes.cardTitle}></h3>
-            </CardHeader>
-            <CardFooter stats>
+            <p className={classes.cardCategory}>Tasks Completed </p>
+            <h3 className={classes.cardTitle}>35/50</h3>
+          </CardHeader>
+          <CardFooter stats>
             <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
+              <DateRange />
+              Last 24 Hours
             </div>
-            </CardFooter>
+          </CardFooter>
         </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6}>
+      </GridItem>
+      <GridItem xs={12} sm={6}>
         <Card>
-            <CardHeader color='success' stats icon>
+          <CardHeader color='success' stats icon>
             <CardIcon color='success'>
-                <Icon>group</Icon>
+              <Icon>group</Icon>
             </CardIcon>
             <p className={classes.cardCategory}>Active Members</p>
-            <h3 className={classes.cardTitle}></h3>
-            </CardHeader>
-            <CardFooter stats>
+            {users ?
+              (
+                <h3 className={classes.cardTitle}>{users.length}</h3>
+              ) :
+              (
+                <h5 className={classes.cardTitle}>Counting</h5>
+              )
+            }
+          </CardHeader>
+          <CardFooter stats>
             <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
+              <DateRange />
+              Last 24 Hours
             </div>
-            </CardFooter>
+          </CardFooter>
         </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6}>
+      </GridItem>
+      <GridItem xs={12} sm={6}>
         <Card>
-            <CardHeader color='danger' stats icon>
+          <CardHeader color='danger' stats icon>
             <CardIcon color='danger'>
-                <Icon>info_outline</Icon>
+              <Icon>info_outline</Icon>
             </CardIcon>
             <p className={classes.cardCategory}>Fixed Issues</p>
             <h3 className={classes.cardTitle}>75</h3>
-            </CardHeader>
-            <CardFooter stats>
+          </CardHeader>
+          <CardFooter stats>
             <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
+              <LocalOffer />
+              Tracked from Github
             </div>
-            </CardFooter>
+          </CardFooter>
         </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6}>
+      </GridItem>
+      <GridItem xs={12} sm={6}>
         <Card>
-            <CardHeader color='info' stats icon>
+          <CardHeader color='info' stats icon>
             <CardIcon color='info'>
-                <i className='fab fa-twitter' />
+              <i className='fab fa-twitter' />
             </CardIcon>
             <p className={classes.cardCategory}>Followers</p>
             <h3 className={classes.cardTitle}>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
+          </CardHeader>
+          <CardFooter stats>
             <div className={classes.stats}>
-                <Update />
-                Just Updated
+              <Update />
+              Just Updated
             </div>
-            </CardFooter>
+          </CardFooter>
         </Card>
-        </GridItem>
-  </GridContainer>
+      </GridItem>
+    </GridContainer>
   )
 }
 
 Analytics.propTypes = {
-    classes: PropTypes.object.isRequired
-  }
+  classes: PropTypes.object.isRequired
+}
 
 // export default withStyles(dashboardStyle)(Analytics)
 
 const mapStateToProps = (state, props) => {
-    const users = state.firestore.ordered.users
-    return {
-      users: users,
-    }
+  const users = state.firestore.ordered.users
+  return {
+    users: users,
   }
+}
 
 
 export default compose(
-    connect(mapStateToProps),
-    firestoreConnect((state) => [
-      { collection: 'users',
-        //collection: 'cards', where: ['assignedTo', '==', `${state.profile.uid}`] 
-    },
-    ]))(withStyles(dashboardStyle)(Analytics));
+  connect(mapStateToProps),
+  firestoreConnect((state) => [
+    { collection: 'users' },
+  ]))(withStyles(dashboardStyle)(Analytics));
 

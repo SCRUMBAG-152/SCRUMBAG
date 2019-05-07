@@ -46,7 +46,15 @@ const CommentList = ({ comments, classes }) => {
       </Grid>
     </div>
   )
-}
+    }
+    else {
+        return (
+          <div className="container center">
+            <p>Loading Comments...</p>
+          </div>
+        )
+      }
+
 }
 
 

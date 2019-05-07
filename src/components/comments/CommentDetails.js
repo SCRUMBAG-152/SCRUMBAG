@@ -55,7 +55,7 @@ const CommentDetails = props =>  {
             <Typography className={classes.time} color="textSecondary">
             {moment(comment.createdAt.toDate()).calendar()}
             </Typography>
-            <Typography classname={classes.description} component="p">
+            <Typography component="p">
             {comment.description}
             </Typography>
         </Typography>
