@@ -140,7 +140,7 @@ class Sidebar extends React.Component {
         <List className={classes.list}>
           <ListItem className={classes.item + " " + classes.userItem}>
             <NavLink
-              to={"/"}
+              to={"#"}
               className={classes.itemLink + " " + classes.userCollapseButton}
               onClick={() => this.openCollapse("openAvatar")}
             >
