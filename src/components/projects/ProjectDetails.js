@@ -4,13 +4,9 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
 import { deleteTask } from '../../store/actions/taskActions'
-<<<<<<< HEAD
 
-
-//materialUI
-=======
 import ProjectPanels from './ProjectPanels'
->>>>>>> origin/3-29-19
+
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -39,25 +35,7 @@ export class ProjectDetails extends Component {
   if(!auth.uid) return <Redirect to='/pages/login-page'/>
   if (project) {
     return (
-<<<<<<< HEAD
-        <div className={classes.root}>
-            <Typography className={classes.title} >
-            {project.title}
-            </Typography>
-          <TabsButtons handleTabChange={this.handleTabChange}/>
-          {(this.state.value === 0) &&
-          <ProjectBoard columns={columns} projectID={projectID} cards={cards} />
-          }
 
-          {/* <CardActions>
-            <Typography color="textSecondary" align="left" gutterBottom>
-            Created By {project.authorCompany}
-            </Typography>
-            <Typography  color="textSecondary" align="right" gutterBottom>
-            {moment(project.createdAt.toDate()).calendar()}
-            </Typography>
-          </CardActions> */}
-=======
         <div>
           <ProjectPanels 
             profile={profile} 
@@ -67,7 +45,7 @@ export class ProjectDetails extends Component {
             cards={cards}
             comments={comments}
             />
->>>>>>> origin/3-29-19
+
         </div>
     )
   } else {
