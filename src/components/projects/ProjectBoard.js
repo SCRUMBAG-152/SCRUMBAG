@@ -212,4 +212,3 @@ export default compose(
   firestoreConnect((state) => [
     { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(styles)(ProjectBoard));
-

@@ -15,11 +15,6 @@ import chartIcon from "@material-ui/icons/Timeline"
 import GridContainer from "../../customs/components/Grid/GridContainer.jsx";
 import GridItem from "../../customs/components/Grid/GridItem.jsx";
 import NavPills from "../../customs/components/NavPills/NavPills.jsx";
-import Card from "../../customs/components/Card/Card.jsx";
-import CardHeader from "../../customs/components/Card/CardHeader.jsx";
-import CardBody from "../../customs/components/Card/CardBody.jsx";
-import Button from "../../customs/components/CustomButtons/Button.jsx";
-import CardAvatar from "../../customs/components/Card/CardAvatar.jsx";
 
 
 

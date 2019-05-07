@@ -1,20 +1,20 @@
 import React from 'react'
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
+// import CardContent from '@material-ui/core/CardContent';
+// import Typography from '@material-ui/core/Typography';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+// import Select from '@material-ui/core/Select';
 
 
 
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
-import Dropdown from 'react-bootstrap/Dropdown'
-import moment from "moment";
+// import Dropdown from 'react-bootstrap/Dropdown'
+// import moment from "moment";
 
 
 class NewCard extends React.Component {
@@ -122,6 +122,7 @@ class NewCard extends React.Component {
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
+            <button label="submit"></button>
           </div>
         </Card>
         </MuiPickersUtilsProvider>
