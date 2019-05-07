@@ -58,8 +58,8 @@ const Analytics = (props) => {
             <CardIcon color='warning'>
               <Icon>content_copy</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>Tasks Completed </p>
-            <h3 className={classes.cardTitle}>35/50</h3>
+            <p className={classes.cardCategory}>Points Assigned </p>
+            <h3 className={classes.cardTitle}>50</h3>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
