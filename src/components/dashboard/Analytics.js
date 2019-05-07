@@ -139,8 +139,10 @@ Analytics.propTypes = {
 
 const mapStateToProps = (state, props) => {
   const users = state.firestore.ordered.users
+  const profile = state.firebase.profile
   return {
     users: users,
+    profile: profile
   }
 }
 
@@ -148,6 +150,6 @@ const mapStateToProps = (state, props) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect((state) => [
-    { collection: 'users' },
+    { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(dashboardStyle)(Analytics));
 
