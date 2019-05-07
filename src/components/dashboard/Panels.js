@@ -11,7 +11,6 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import HelpOutline from "@material-ui/icons/HelpOutline";
 import Forum from "@material-ui/icons/Forum";
-import chartIcon from "@material-ui/icons/Timeline"
 
 
 // core components

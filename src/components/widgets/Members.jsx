@@ -9,6 +9,7 @@ import Assignment from "@material-ui/icons/Assignment";
 import Dvr from "@material-ui/icons/Dvr";
 import Favorite from "@material-ui/icons/Favorite";
 import Close from "@material-ui/icons/Close";
+import DeleteIcon from '@material-ui/icons/Delete';
 // core components
 import GridContainer from "../../customs/components/Grid/GridContainer";
 import GridItem from "../../customs/components/Grid/GridItem";
@@ -18,7 +19,7 @@ import CardBody from "../../customs/components/Card/CardBody";
 import CardIcon from "../../customs/components/Card/CardIcon";
 import CardHeader from "../../customs/components/Card/CardHeader";
 
-
+import { updateRole } from '../../store/actions/memberActions'
 import { cardTitle } from "../../customs/assets/jss/material-dashboard-pro-react";
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -40,15 +41,16 @@ class ReactTables extends React.Component {
     var data = []
     if (users) {
       while (i < users.length) {
-        data.push([users[i].firstName, users[i].lastName, users[i].role, users[i].company])
+        data.push([users[i].firstName, users[i].lastName, users[i].role, users[i].company, users[i].id])
         ++i;
       }
     }
     return data;
   }
 
-  derder(data) {
+  derder(data, profile) {
     const outputs = data.map((prop, key) => {
+      //console.log(profile.role);
       return {
         id: key,
         first: prop[0],
@@ -57,78 +59,46 @@ class ReactTables extends React.Component {
         company: prop[3],
         actions: (
           // we've added some custom button actions
-          <div className="actions-right">
-            {/* use this button to add a like kind of action */}
-            <Button
-              justIcon
-              round
-              simple
-              onClick={() => {
-                let obj = outputs.find(o => o.id === key);
-                alert(
-                  "You've clicked LIKE button on \n{ \nName: " +
-                  obj.first +
-                  ", \nposition: " +
-                  obj.last +
-                  ", \noffice: " +
-                  obj.role +
-                  ", \nage: " +
-                  obj.company +
-                  "\n}."
-                );
-              }}
-              color="info"
-              className="like"
-            >
-              <Favorite />
-            </Button>{" "}
-            {/* use this button to add a edit kind of action */}
-            <Button
-              justIcon
-              round
-              simple
-              onClick={() => {
-                let obj = outputs.find(o => o.id === key);
-                alert(
-                  "You've clicked EDIT button on \n{ \nFirst Name: " +
-                  obj.first +
-                  ", \nLast Name: " +
-                  obj.last +
-                  ", \nInitials: " +
-                  obj.role +
-                  ", \nCompany: " +
-                  obj.company +
-                  "\n}."
-                );
-              }}
-              color="warning"
-              className="edit"
-            >
-              <Dvr />
-            </Button>{" "}
-            {/* use this button to remove the data row */}
-            <Button
-              justIcon
-              round
-              simple
-              onClick={() => {
-                // var data = this.state.data;
-                // data.find((o, i) => {
-                //   if (o.id === key) {
-                //     // here you should add some custom code so you can delete the data
-                //     // from this component and from your server as well
-                //     data.splice(i, 1);
-                //     return true;
-                //   }
-                //   return false;
-                // });
-                // this.setState({ data: data });
-              }}
-              color="danger"
-              className="remove"
-            >
-              <Close />
-            </Button>{" "}
+          <div>
+            {profile.role === "boss" && prop[2] !== "boss" ? (
+              <div className="actions-right">
+                <Button
+                  justIcon
+                  round
+                  simple
+                  onClick={() => {
+                    let obj = {
+                      id: prop[4],
+                      role: "admin"
+                    }
+                    this.props.updateRole(obj);
+                  }}
+                  color="info"
+                  className="like"
+                >
+                  <Favorite />
+                </Button>
+                <Button
+                  justIcon
+                  round
+                  simple
+                  onClick={() => {
+                    let obj = {
+                      id: prop[4],
+                      role: "user"
+                    }
+                    this.props.updateRole(obj);
+                  }}
+                  color="warning"
+                  className="edit"
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
+            )
+              :
+              (<p></p>)
+            }
           </div>
         )
       };
@@ -137,10 +107,9 @@ class ReactTables extends React.Component {
   }
 
   render() {
-    const { classes, users } = this.props;
+    const { classes, users, profile } = this.props;
     const userData = this.data(users);
-    console.log(userData)
-    const data = this.derder(userData);
+    const data = this.derder(userData, profile);
     return (
       <GridContainer justify="center">
         <GridItem xs={10}>
@@ -202,11 +171,17 @@ const mapStateToProps = (state, props) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateRole: (newRole) => dispatch(updateRole(newRole)),
+  }
+}
+
 
 //compose 2 higher order components
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect((state) => [
     { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(styles)(ReactTables));

@@ -17,7 +17,6 @@ import Card from "../../customs/components/Card/Card.jsx";
 import CardBody from "../../customs/components/Card/CardBody.jsx";
 
 import buttonStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/buttonStyle"
-import { events } from "../../customs/variables/general.jsx";
 import { createEvent } from "../../store/actions/calendarActions";
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -78,13 +77,11 @@ class Calendar extends React.Component {
       title: e,
       start: slotInfo.start,
       end: slotInfo.end,
-      dueDate: slotInfo.start,
     });
     var newEvent = {
       title: e,
       start: slotInfo.start,
       end: slotInfo.end,
-      dueDate: slotInfo.start,
     }
     this.props.createEvent(newEvent)
     this.setState({
@@ -172,9 +169,9 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((state,props) => {
+  firestoreConnect((state, props) => {
     return ([
-      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] } ,
+      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] },
     ])
   }),
-) (withStyles(buttonStyle)(Calendar))
+)(withStyles(buttonStyle)(Calendar))
