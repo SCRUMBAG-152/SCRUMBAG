@@ -41,7 +41,8 @@ class NewCard extends React.Component {
             description: this.state.description,
             dueDate: this.state.dueDate._d,
             points: this.state.points,
-            assignedTo: this.state.assignedTo
+            assignedTo: this.state.assignedTo,
+            completed: false
         }
         this.props.onCardAdd(newCard , this.props.laneId)
         this.props.onCancel()
@@ -122,7 +123,6 @@ class NewCard extends React.Component {
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
-            <button label="submit"></button>
           </div>
         </Card>
         </MuiPickersUtilsProvider>

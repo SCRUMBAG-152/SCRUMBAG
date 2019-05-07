@@ -8,7 +8,7 @@ export class CommentContainer extends Component {
     const {projectID, comments, profile} = this.props
     return (
       <div>
-        <Grid container spacing={24}>
+        <Grid container  justify="center" spacing={24}>
           <Grid item xs={8} >
             <CommentList comments={comments}/>
           </Grid>

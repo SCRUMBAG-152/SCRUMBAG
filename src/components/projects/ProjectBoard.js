@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Board from 'react-trello'
 import { createColumn } from '../../store/actions/projectActions'
 import { createTask } from '../../store/actions/taskActions'
-import { deleteTask } from '../../store/actions/taskActions'
+import { deleteTask, completeTask } from '../../store/actions/taskActions'
 import { deleteColumn } from '../../store/actions/projectActions'
 import { dndTask } from '../../store/actions/taskActions'
 import { createTaskEvent } from '../../store/actions/calendarActions'
@@ -73,14 +73,19 @@ export class ProjectBoard extends React.Component {
       }
       lanes.unshift(tempColumn)
     })
-
-
+    if (lanes) {
+      const sortedLanes = lanes.sort(function (a, b) {
+        a = (a.createdAt);
+        b = (b.createdAt);
+        return b > a ? -1 : b < a ? 1 : 0;
+      })
     return {
       data: {
-        lanes: lanes
+        lanes: sortedLanes
       }
     }
-  }
+    }
+  } 
 
 
 
@@ -115,6 +120,7 @@ export class ProjectBoard extends React.Component {
       projectID: projectID,
       points: card.points,
       assignedTo: card.assignedTo,
+      completed: card.completed
     }
     this.props.createTask(task)
     this.props.createTaskEvent(task)
@@ -132,6 +138,10 @@ export class ProjectBoard extends React.Component {
   handleDragEnd = (cardID, sourceLaneID, destinationLaneID, position, cardDetails) => {
     const result = { cardID, sourceLaneID, destinationLaneID, position, cardDetails }
     this.props.dndTask(result)
+  }
+
+  onCardClick = (cardId) => {
+    this.props.completeTask(cardId)
   }
 
   render() {
@@ -171,6 +181,7 @@ export class ProjectBoard extends React.Component {
               onCardAdd={this.onCardAdd}
               onLaneAdd={this.onLaneAdd}
               addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
+              onCardClick={this.onCardClick}
               onCardDelete={this.onCardDelete}
               addLaneTitle={"Add New Column"}
               customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
@@ -194,7 +205,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
     deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
     dndTask: (result) => dispatch(dndTask(result)),
-    createTaskEvent: (event) => dispatch(createTaskEvent(event))
+    createTaskEvent: (event) => dispatch(createTaskEvent(event)),
+    completeTask: (taskId) => dispatch(completeTask(taskId))
   }
 }
 const mapStateToProps = (state, props) => {

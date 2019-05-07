@@ -1,13 +1,11 @@
 import React from 'react'
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import moment from "moment";
 import Countdown from 'react-countdown-now';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+
 
 
 const style= {
@@ -38,6 +36,9 @@ const style= {
         fontSize: 15,
         marginRight: '-90px',
         marginBottom: 5,
+    },
+    complete: {
+        color: 'green'
     }
     
 }
@@ -53,7 +54,12 @@ const CustomCard = props => {
         <header
           style={style.header}>
           <Typography style={{fontSize: 14, fontWeight: 'bold'}}>{props.title}</Typography>
-          <div style={style.dueDate}><Countdown date={props.dueDate.toDate()} /></div>
+            {props.completed ? (
+                <CheckCircle style = {style.complete} />
+            ):(
+                <div style={style.dueDate}><Countdown date={props.dueDate.toDate()} /></div>
+            )
+            } 
         </header>
         <div style={{fontSize: 12, color: '#BD3B36'}}>
           <div style={style.description}>{props.description}</div>

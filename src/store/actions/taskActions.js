@@ -74,3 +74,33 @@ export const dndTask = (result) => {
       })
   }
 };
+
+export const completeTask = (cardId) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+
+    const firestore = getFirestore();
+
+    firestore.collection('cards').doc(cardId).get().then(doc => {
+      firestore.collection('cards')
+        .doc(cardId)
+        .update({
+          completed: !doc.data().completed
+        })
+        .then(() => {
+          dispatch({ type: 'UPDATE_TASK' });
+        }).catch((err) => {
+          dispatch({ type: 'UPDATE_TASK_ERROR', err });
+      })
+    })
+  }
+}
+    /* firestore.collection('cards')
+      .doc(cardId)
+      .update({
+        completed: 
+      })
+      .then(() => {
+        dispatch({ type: 'UPDATE_TASK' });
+      }).catch((err) => {
+        dispatch({ type: 'UPDATE_TASK_ERROR', err });
+      }) */

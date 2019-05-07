@@ -40,8 +40,10 @@ const Daily = (props) => {
     
 const { classes } = props
   return (
-    <GridContainer>
-          <GridItem xs={12}>
+    <GridContainer justify="center"
+    alignItems="center"
+    > 
+          <GridItem xs={8}>
             <Card chart className={classes.cardHover}>
               <CardHeader color='info' className={classes.cardHeaderHover}>
                 <ChartistGraph
@@ -88,7 +90,7 @@ const { classes } = props
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12}>
+          <GridItem xs={8}>
             <Card chart className={classes.cardHover}>
               <CardHeader color='warning' className={classes.cardHeaderHover}>
                 <ChartistGraph
@@ -133,7 +135,7 @@ const { classes } = props
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} >
+          <GridItem xs={8} >
             <Card chart className={classes.cardHover}>
               <CardHeader color='danger' className={classes.cardHeaderHover}>
                 <ChartistGraph

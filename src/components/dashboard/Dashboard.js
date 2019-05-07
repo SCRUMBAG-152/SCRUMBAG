@@ -11,7 +11,6 @@ import Panels from './Panels'
 export class Dashboard extends Component {
   render() {
     const { auth, notifications, profile } = this.props;
-    if(!auth.uid) return <Redirect to='/pages/login-page'/>
     return (
       <Panels profile={profile} notifications={notifications} />
     )

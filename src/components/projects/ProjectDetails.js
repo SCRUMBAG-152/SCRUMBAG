@@ -3,28 +3,9 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
-import moment from 'moment'
-import ProjectBoard from './ProjectBoard'
 import { deleteTask } from '../../store/actions/taskActions'
 import ProjectPanels from './ProjectPanels'
-
-
-
-
-//materialUI
 import { withStyles } from '@material-ui/core/styles';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import TabsButtons from './TabsButtons';
-
-
-
-const style = {
-  root: {
-    flexGrow: 1
-  },
-
-}
 
 
 export class ProjectDetails extends Component {
@@ -43,7 +24,7 @@ export class ProjectDetails extends Component {
   if(!auth.uid) return <Redirect to='/pages/login-page'/>
   if (project) {
     return (
-        <div className={classes.root}>
+        <div>
           <ProjectPanels 
             profile={profile} 
             project={project} 
@@ -52,14 +33,6 @@ export class ProjectDetails extends Component {
             cards={cards}
             comments={comments}
             />
-          {/* <CardActions>
-            <Typography color="textSecondary" align="left" gutterBottom>
-            Created By {project.authorCompany}
-            </Typography>
-            <Typography  color="textSecondary" align="right" gutterBottom>
-            {moment(project.createdAt.toDate()).calendar()}
-            </Typography>
-          </CardActions> */}
         </div>
     )
   } else {
@@ -116,6 +89,6 @@ export default compose(
     { collection: 'comments', where: ['projectID', '==', `${props.match.params.id}`]}
     ])
   }),
-)(withStyles(style)(ProjectDetails))
+)(ProjectDetails)
 
 
