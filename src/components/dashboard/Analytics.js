@@ -33,9 +33,11 @@ import dashboardStyle from './dashboardStyle/dashboardStyle'
 
 const Analytics = (props) => {
     const { classes, users } = props
-    console.log("Users: ", users)
 
-    function data(users) {
+    if (users){
+    console.log(users.length)
+    }
+    /* function data(users) {
         var i = 0
         var data = []
         if (users) {
@@ -45,8 +47,8 @@ const Analytics = (props) => {
           }
         }
         return data;
-      }
-      console.log("Count: ", data.length)
+      } */
+      
     
     //console.log("Users: ", users.length)
     // const count = users.map(x => x.firstName.length)

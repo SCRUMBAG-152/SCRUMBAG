@@ -29,7 +29,6 @@ const CommentList = ({ comments, classes }) => {
       b = (b.createdAt);
       return b > a ? -1 : b < a ? 1 : 0;
     });
-<<<<<<< HEAD
   return (
     <div>  
     <Typography variant="h5" component="h3" >
@@ -47,30 +46,8 @@ const CommentList = ({ comments, classes }) => {
       </Grid>
     </div>
   )
-=======
-    console.log(comments)
-    console.log(sortedComments)
-    return (
-      <div>
-        <Typography variant="h5" component="h3" >
-          Comments
-      </Typography >
-        <Divider className={classes.divider} />
-        <Grid container>
-          {sortedComments && sortedComments.map(comment => {
-            return (
-              <Grid className={classes.item} item xs={8} key={comment.id}>
-                <CommentDetails comment={comment} />
-              </Grid>
-            )
-          })}
-        </Grid>
-      </div>
-    )
-  }
->>>>>>> 9672e0f3d68b4cec84dccb1accfdd60f787ab3ab
 }
-
+}
 
 
 export default withStyles(styles)(CommentList)
