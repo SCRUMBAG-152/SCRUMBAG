@@ -30,7 +30,7 @@ const dailySalesChart = {
       tension: 0
     }),
     low: 0,
-    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+    high: 50, //we recommend you to set the high sa the biggest value + something for a better look
     chartPadding: {
       top: 0,
       right: 0,
@@ -149,7 +149,7 @@ const completedTasksChart = {
       tension: 0
     }),
     low: 0,
-    high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+    high: 1000, //  we recommend you to set the high sa the biggest value + something for a better look
     chartPadding: {
       top: 0,
       right: 0,
@@ -205,7 +205,7 @@ const roundedLineChart = {
       showGrid: false
     },
     low: 0,
-    high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+    high: 50, // we recommend you to set the high sa the biggest value + something for a better look
     chartPadding: {
       top: 0,
       right: 0,
@@ -496,21 +496,21 @@ const multipleBarsChart = {
 const colouredLinesChart = {
   data: {
     labels: [
-      "'06",
-      "'07",
-      "'08",
-      "'09",
-      "'10",
-      "'11",
-      "'12",
-      "'13",
-      "'14",
-      "'15"
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
     ],
     series: [
-      [287, 385, 490, 554, 586, 698, 695, 752, 788, 846, 944],
-      [67, 152, 143, 287, 335, 435, 437, 539, 542, 544, 647],
-      [23, 113, 67, 190, 239, 307, 308, 439, 410, 410, 509]
+      [200,187,163,153,138,120,111,98,82,70],
+      [200,180,160,140,120,100,80,60,40],
+      
     ]
   },
   options: {
@@ -525,7 +525,7 @@ const colouredLinesChart = {
       showGrid: false
     },
     low: 0,
-    high: 1000,
+    high: 250,
     showPoint: true,
     height: "300px"
   },

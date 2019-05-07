@@ -29,6 +29,7 @@ export const createProject = (project) => {
       ref.set({
           ...column,
           id: ref.id,
+          createdAt: new Date()
       }).then(() => {
         dispatch({ type: 'CREATE_COLUMN', column});
       }).catch((err) => {

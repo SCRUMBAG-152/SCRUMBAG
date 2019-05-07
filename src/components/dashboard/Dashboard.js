@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Notifications from './Notifications';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
@@ -9,19 +8,11 @@ import Panels from './Panels'
 
 
 
-
 export class Dashboard extends Component {
-
-
   render() {
-    const { auth, notifications } = this.props;
-
-    if(!auth.uid) return <Redirect to='/pages/login-page'/>
+    const { auth, notifications, profile } = this.props;
     return (
-      <div className="dashboard container">
-      <Panels/>
-      <Notifications notifications={notifications}/>
-      </div>
+      <Panels profile={profile} notifications={notifications} />
     )
   }
 }
@@ -31,8 +22,8 @@ const mapStateToProps = (state) =>{
     projects: state.firestore.ordered.projects,
     auth: state.firebase.auth,
     notifications: state.firestore.ordered.notifications,
-
-}
+    profile: state.firebase.profile
+  }
 }
 
 
@@ -42,6 +33,6 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([
     { collection: 'projects', orderBy: ['createdAt', 'desc']},
-    { collection: 'notifications', orderBy: ['time', 'desc'], limit:5}
+    { collection: 'notifications', orderBy: ['time', 'desc'], limit:10}
   ])
   )(Dashboard)

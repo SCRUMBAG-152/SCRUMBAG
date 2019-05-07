@@ -1,5 +1,5 @@
 import Dashboard from "../components/dashboard/Dashboard";
-import ReactTables from "../components/widgets/ReactTables.jsx";
+import ReactTables from "../components/widgets/Members";
 import Calendar from "../components/widgets/Calendar.js";
 import UserProfile from "../components/users/UserProfile.jsx";
 import Stats from "../components/widgets/Stats"
@@ -32,7 +32,7 @@ const dashRoutes = [
     component: UserProfile
   },
   {
-    path: "/tables/react-tables",
+    path: "/tables/members",
     name: "Members",
     mini: "GP",
     icon: GroupIcon,

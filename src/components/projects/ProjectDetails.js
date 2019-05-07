@@ -3,38 +3,18 @@ import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
-import moment from 'moment'
-import ProjectBoard from './ProjectBoard'
 import { deleteTask } from '../../store/actions/taskActions'
+<<<<<<< HEAD
 
 
 //materialUI
+=======
+import ProjectPanels from './ProjectPanels'
+>>>>>>> origin/3-29-19
 import { withStyles } from '@material-ui/core/styles';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import TabsButtons from './TabsButtons';
 
 
-
-const style = {
-  root: {
-    margin: '1rem'
-  },
-  title: {
-    fontSize: '20px',
-    textAlign: 'center',
-    backgroundColor: '#9c27b0',
-    color: '#fff'
-    
-  },
-  secondary: {
-    textAlign: 'center',
-    backgroundColor: 'rgba(125,125,153,0.5)',    
-  },
-}
-
-
-class ProjectDetails extends Component {
+export class ProjectDetails extends Component {
   constructor(props) {
     super(props);
     this.state={
@@ -54,11 +34,12 @@ class ProjectDetails extends Component {
   }
 
   render() {  
-  const { projectID, project ,auth, classes, cards, columns } = this.props; 
+  const { profile, projectID, project ,auth, classes, cards, columns,comments } = this.props; 
   
   if(!auth.uid) return <Redirect to='/pages/login-page'/>
   if (project) {
     return (
+<<<<<<< HEAD
         <div className={classes.root}>
             <Typography className={classes.title} >
             {project.title}
@@ -76,6 +57,17 @@ class ProjectDetails extends Component {
             {moment(project.createdAt.toDate()).calendar()}
             </Typography>
           </CardActions> */}
+=======
+        <div>
+          <ProjectPanels 
+            profile={profile} 
+            project={project} 
+            columns={columns} 
+            projectID={projectID} 
+            cards={cards}
+            comments={comments}
+            />
+>>>>>>> origin/3-29-19
         </div>
     )
   } else {
@@ -97,6 +89,10 @@ const mapStateToProps = (state, ownProps) => {
   const project = projects ? projects[projectID] : null
   const cards = state.firestore.ordered.cards;
   const columns = state.firestore.ordered.columns;
+  const comments = state.firestore.ordered.comments;
+
+  const profile = state.firebase.profile
+
 
 
   return {
@@ -104,7 +100,9 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.firebase.auth,
     projectID: projectID,
     cards:cards,
-    columns:columns
+    columns:columns,
+    profile:profile,
+    comments:comments
   }
 }
 
@@ -121,9 +119,10 @@ export default compose(
     return ([
     { collection: 'projects'},
     { collection: 'cards', where: ['projectID', '==', `${props.match.params.id}`]},
-    { collection: 'columns', where: ['projectID', '==', `${props.match.params.id}`]}
+    { collection: 'columns', where: ['projectID', '==', `${props.match.params.id}`]},
+    { collection: 'comments', where: ['projectID', '==', `${props.match.params.id}`]}
     ])
   }),
-)(withStyles(style)(ProjectDetails))
+)(ProjectDetails)
 
 

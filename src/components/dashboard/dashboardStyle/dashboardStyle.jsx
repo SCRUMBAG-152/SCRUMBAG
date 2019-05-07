@@ -6,9 +6,9 @@ import {
   successColor,
   tooltip,
   cardTitle
-} from "../../material-dashboard-pro-react.jsx";
+} from "../../../customs/assets/jss/material-dashboard-pro-react.jsx";
 
-import hoverCardStyle from "../hoverCardStyle.jsx";
+import hoverCardStyle from "../../../customs/assets/jss/material-dashboard-pro-react/hoverCardStyle";
 
 const dashboardStyle = {
   ...hoverCardStyle,
@@ -16,7 +16,7 @@ const dashboardStyle = {
   cardTitle: {
     ...cardTitle,
     marginTop: "0px",
-    marginBottom: "3px"
+    marginBottom: "3px",
   },
   cardIconTitle: {
     ...cardTitle,

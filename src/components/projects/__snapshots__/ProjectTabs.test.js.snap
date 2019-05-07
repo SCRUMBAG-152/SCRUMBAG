@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Tabs renders without crashing given the required props 1`] = `
+<WithStyles(Paper)
+  square={true}
+>
+  <WithStyles(Tabs)
+    indicatorColor="secondary"
+    onChange={[Function]}
+    textColor="secondary"
+    variant="fullWidth"
+  >
+    <WithStyles(Tab)
+      icon={<pure(DashboardIcon) />}
+      label="BOARD"
+    />
+    <WithStyles(Tab)
+      icon={<pure(CommentIcon) />}
+      label="COMMENTS"
+    />
+    <WithStyles(Tab)
+      icon={<pure(SettingsIcon) />}
+      label="SETTINGS"
+    />
+  </WithStyles(Tabs)>
+</WithStyles(Paper)>
+`;

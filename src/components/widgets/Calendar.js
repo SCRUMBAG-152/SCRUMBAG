@@ -17,7 +17,10 @@ import Card from "../../customs/components/Card/Card.jsx";
 import CardBody from "../../customs/components/Card/CardBody.jsx";
 
 import buttonStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/buttonStyle"
-import { events } from "../../customs/variables/general.jsx";
+import { createEvent } from "../../store/actions/calendarActions";
+import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -25,11 +28,25 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: events,
-      alert: null
+      events: [],
+      alert: null,
+      bob: props
     };
     this.hideAlert = this.hideAlert.bind(this);
   }
+
+  static getDerivedStateFromProps(props, state) {
+
+    if ((state.events != props.events) && props.events) {
+      return {
+        events: props.events
+      }
+    }
+    else {
+      return null
+    }
+  }
+
   selectedEvent(event) {
     alert(event.title);
   }
@@ -40,7 +57,7 @@ class Calendar extends React.Component {
           input
           showCancel
           style={{ display: "block", marginTop: "-100px" }}
-          title="Input something"
+          title="Add New Event"
           onConfirm={e => this.addNewEvent(e, slotInfo)}
           onCancel={() => this.hideAlert()}
           confirmBtnCssClass={
@@ -49,7 +66,8 @@ class Calendar extends React.Component {
           cancelBtnCssClass={
             this.props.classes.button + " " + this.props.classes.danger
           }
-        />
+        >
+        </SweetAlert>
       )
     });
   }
@@ -58,8 +76,14 @@ class Calendar extends React.Component {
     newEvents.push({
       title: e,
       start: slotInfo.start,
-      end: slotInfo.end
+      end: slotInfo.end,
     });
+    var newEvent = {
+      title: e,
+      start: slotInfo.start,
+      end: slotInfo.end,
+    }
+    this.props.createEvent(newEvent)
     this.setState({
       alert: null,
       events: newEvents
@@ -74,12 +98,14 @@ class Calendar extends React.Component {
     var backgroundColor = "event-";
     event.color
       ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "default");
+      : (backgroundColor = backgroundColor + "azure");
     return {
       className: backgroundColor
     };
   }
+
   render() {
+
     return (
       <div>
         <Heading
@@ -87,7 +113,7 @@ class Calendar extends React.Component {
           title="Calendar"
         />
         {this.state.alert}
-        <GridContainer  justify="center">
+        <GridContainer justify="center">
           <GridItem xs={11} sm={10} md={9}>
             <Card>
               <CardBody calendar>
@@ -107,8 +133,45 @@ class Calendar extends React.Component {
           </GridItem>
         </GridContainer>
       </div>
+
     );
   }
 }
 
-export default withStyles(buttonStyle)(Calendar);
+const mapStateToProps = (state) => {
+  const events = state.firestore.ordered.events;
+  const profile = state.firebase.profile
+  try {
+    {
+      events && events.map(event => {
+        event.start = event.start.toDate()
+        event.end = event.end.toDate()
+      })
+    }
+  } catch (err) {
+    console.log(err)
+  } finally {
+
+  }
+
+  return {
+    events: events,
+    profile: profile
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createEvent: (event) => dispatch(createEvent(event))
+  }
+}
+
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect((state, props) => {
+    return ([
+      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] },
+    ])
+  }),
+)(withStyles(buttonStyle)(Calendar))

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import cx from "classnames";
 
 // @material-ui/core components
@@ -165,16 +165,16 @@ class Sidebar extends React.Component {
               <List className={classes.list + " " + classes.collapseList}>
                 <ListItem className={classes.collapseItem}>
                   <NavLink
-                    to="#"
+                    to="/userProfile"
                     className={
                       classes.itemLink + " " + classes.userCollapseLinks
                     }
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "مع" : "MP"}
+                      {"MP"}
                     </span>
                     <ListItemText
-                      primary={rtlActive ? "ملفي" : "My Profile"}
+                      primary={"My Profile"}
                       disableTypography={true}
                       className={collapseItemText}
                     />
@@ -188,29 +188,10 @@ class Sidebar extends React.Component {
                     }
                   >
                     <span className={collapseItemMini}>
-                      {rtlActive ? "هوع" : "EP"}
+                      {"S"}
                     </span>
                     <ListItemText
-                      primary={
-                        rtlActive ? "تعديل الملف الشخصي" : "Edit Profile"
-                      }
-                      disableTypography={true}
-                      className={collapseItemText}
-                    />
-                  </NavLink>
-                </ListItem>
-                <ListItem className={classes.collapseItem}>
-                  <NavLink
-                    to="#"
-                    className={
-                      classes.itemLink + " " + classes.userCollapseLinks
-                    }
-                  >
-                    <span className={collapseItemMini}>
-                      {rtlActive ? "و" : "S"}
-                    </span>
-                    <ListItemText
-                      primary={rtlActive ? "إعدادات" : "Settings"}
+                      primary={"Settings"}
                       disableTypography={true}
                       className={collapseItemText}
                     />
@@ -402,12 +383,12 @@ class Sidebar extends React.Component {
       });
     var brand = (
       <div className={logoClasses}>
-        <a href="https://www.creative-tim.com" className={logoMini}>
+        <Link to="/dashboard" className={logoMini}>
           <img src={logo} alt="logo" className={classes.img} />
-        </a>
-        <a href="https://www.creative-tim.com" className={logoNormal}>
+        </Link>
+        <Link to="/dashboard" className={logoNormal}>
           {logoText}
-        </a>
+        </Link>
       </div>
     );
     const drawerPaper =

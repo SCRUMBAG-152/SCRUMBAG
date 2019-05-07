@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Board renders without crashing given the required props 1`] = `
+<Board
+  addCardLink={
+    <WithStyles(RegularButton)
+      variant="contained"
+    >
+      Add Task
+    </WithStyles(RegularButton)>
+  }
+  addLaneTitle="Add New Column"
+  canAddLanes={true}
+  customCardLayout={true}
+  customLaneHeader={
+    <CustomLaneHeader
+      onLaneDelete={[Function]}
+    />
+  }
+  data={
+    Object {
+      "lanes": Array [],
+    }
+  }
+  draggable={true}
+  editable={true}
+  handleDragEnd={[Function]}
+  newCardTemplate={
+    <NewCard
+      onCardAdd={[Function]}
+    />
+  }
+  onCardAdd={[Function]}
+  onCardDelete={[Function]}
+  onLaneAdd={[Function]}
+>
+  <CustomCard />
+</Board>
+`;

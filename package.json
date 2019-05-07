@@ -3,24 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/moment": "^1.3.5",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@types/react-redux": "^7.0.1",
+    "bootstrap": "^4.3.1",
+    "chai": "^4.2.0",
     "chartist": "^0.10.1",
     "connected-react-router": "^6.3.2",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "firebase": "^5.8.4",
     "history": "^4.9.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.0",
     "material-ui-icons": "^1.0.0-beta.36",
+    "material-ui-pickers": "^2.2.4",
+    "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",
     "react": "^16.8.3",
     "react-beautiful-dnd": "^10.1.0",
     "react-big-calendar": "^0.20.4",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-chartist": "^0.13.1",
+    "react-countdown-now": "^2.1.0",
+    "react-csv": "^1.1.1",
     "react-dom": "^16.8.3",
     "react-infinite-scroller": "^1.2.4",
+    "react-jvectormap": "0.0.9",
+    "react-moment-countdown": "^0.3.0",
     "react-redux": "^5.0.7",
     "react-redux-firebase": "^2.2.6",
     "react-router-dom": "^4.3.1",
@@ -31,12 +43,14 @@
     "redux": "^4.0.1",
     "redux-firestore": "^0.7.0",
     "redux-thunk": "^2.3.0",
+    "sinon": "^7.3.2",
     "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:watch": "npm test -- --watch",
     "eject": "react-scripts eject"
   },
   "optionalDependencies": {
@@ -57,5 +71,19 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "enzyme-to-json": "^3.3.5",
+    "mocha": "^6.1.4",
+    "redux-mock-store": "^1.5.3"
+  }
 }

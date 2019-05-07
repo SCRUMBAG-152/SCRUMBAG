@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 // import { Manager, Target, Popper } from "react-popper";
 import { signOut } from '../../store/actions/authActions'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
 import {createBrowserHistory} from 'history';
 
 
@@ -29,6 +32,8 @@ import Button from "../../customs/components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/headerLinksStyle";
 
+let numOfNotifications = 7
+
 class HeaderLinks extends React.Component {
 
   state = {
@@ -48,7 +53,7 @@ class HeaderLinks extends React.Component {
   }
 
   render() {
-    const { classes} = this.props;
+    const { classes, notifications} = this.props;
     const { open } = this.state;
     const searchButton =
       classes.top +
@@ -91,6 +96,8 @@ class HeaderLinks extends React.Component {
             className={classes.headerLinksSvg + " " + classes.searchIcon}
           />
         </Button>
+
+        <Link style={{color:'#555'}} to={'/dashboard'}>
         <Button
           color="transparent"
           simple
@@ -113,7 +120,9 @@ class HeaderLinks extends React.Component {
               {"haha"}
             </span>
           </Hidden>
+
         </Button>
+        </Link>
         <div className={managerClasses}>
           <Button
             color="transparent"
@@ -139,7 +148,7 @@ class HeaderLinks extends React.Component {
                 classes.links
               }
             />
-            <span className={classes.notifications}>5</span>
+            <span className={classes.notifications}>{numOfNotifications}</span>
             <Hidden mdUp implementation="css">
               <span onClick={this.handleClick} className={classes.linkText}>
                 {"Notification"}
@@ -167,36 +176,19 @@ class HeaderLinks extends React.Component {
                 <Paper className={classes.dropdown}>
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <MenuList role="menu">
-                      <MenuItem
+                    { notifications && notifications.map(notification => {
+                      return (
+                        <MenuItem
                         onClick={this.handleClose}
                         className={dropdownItem}
+                        key={notification.id}
                       >
-                        {"Mike John responded to your email"}
+                        <span style={{color: '#ec407a'}}>{notification.user} </span> 
+                        <span>{notification.content}</span>
                       </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={dropdownItem}
-                      >
-                        {"You have 5 new tasks"}
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={dropdownItem}
-                      >
-                        {"You're now friend with Andrew"}
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={dropdownItem}
-                      >
-                        {"Another Notification"}
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={dropdownItem}
-                      >
-                        {"Another One"}
-                      </MenuItem>
+                      )
+                    })
+                    }
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -204,6 +196,7 @@ class HeaderLinks extends React.Component {
             )}
           </Popper>
         </div>
+        <Link style={{color:'#555'}} to={'/userprofile'}>
         <Button
           color="transparent"
           aria-label="Person"
@@ -226,6 +219,7 @@ class HeaderLinks extends React.Component {
             </span>
           </Hidden>
           </Button>
+        </Link>
        {/*When clicked, signs user out and redirects to login page*/}
           <Button
             color="primary"
@@ -249,7 +243,8 @@ HeaderLinks.propTypes = {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    notifications: state.firestore.ordered.notifications,
   }
 }
 
@@ -260,4 +255,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(headerLinksStyle)(HeaderLinks))
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    { collection: 'notifications', orderBy: ['time', 'desc'], limit: numOfNotifications}
+  ])
+  )(withStyles(headerLinksStyle)(HeaderLinks))
