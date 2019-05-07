@@ -42,8 +42,8 @@ const Analytics = (props) => {
             <CardIcon color='warning'>
               <Icon>content_copy</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>Tasks Completed </p>
-            <h3 className={classes.cardTitle}>35/50</h3>
+            <p className={classes.cardCategory}>Points Assigned </p>
+            <h3 className={classes.cardTitle}>50</h3>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
@@ -123,8 +123,10 @@ Analytics.propTypes = {
 
 const mapStateToProps = (state, props) => {
   const users = state.firestore.ordered.users
+  const profile = state.firebase.profile
   return {
     users: users,
+    profile: profile
   }
 }
 
@@ -132,6 +134,6 @@ const mapStateToProps = (state, props) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect((state) => [
-    { collection: 'users' },
+    { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(dashboardStyle)(Analytics));
 
