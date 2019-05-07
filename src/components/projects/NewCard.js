@@ -122,6 +122,7 @@ class NewCard extends React.Component {
             </div>
             <button onClick={this.handleAdd}>Add</button>
             <button onClick={onCancel}>Cancel</button>
+            <button label="submit"></button>
           </div>
         </Card>
         </MuiPickersUtilsProvider>

@@ -83,7 +83,9 @@ class ReactTables extends React.Component {
               <Favorite />
             </Button>{" "}
             {/* use this button to add a edit kind of action */}
+            
             <Button
+            label="test-button"
               justIcon
               round
               simple
@@ -105,7 +107,9 @@ class ReactTables extends React.Component {
               className="edit"
             >
               <Dvr />
+              
             </Button>{" "}
+            
             {/* use this button to remove the data row */}
             <Button
               justIcon
