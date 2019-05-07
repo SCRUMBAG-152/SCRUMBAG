@@ -29,8 +29,6 @@ const CommentList = ({ comments, classes }) => {
     b = (b.createdAt);
     return b>a ? -1 : b<a ? 1 : 0;
     });
-  console.log(comments)
-  console.log(sortedComments)
   return (
     <div>  
     <Typography variant="h5" component="h3" >

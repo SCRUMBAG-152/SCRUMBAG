@@ -54,7 +54,7 @@ const CommentDetails = props =>  {
           <img src={avatar} className={classes.avatarImg} alt="..." />
         </Grid>
         <Grid item xs={10} container>
-        <Typography component="subtitle2" className={classes.author} gutterBottom>
+        <Typography  className={classes.author} gutterBottom>
           {comment.authorFirstName} {comment.authorLastName}  
             <Typography className={classes.time} color="textSecondary">
             {moment(comment.createdAt.toDate()).calendar()}
