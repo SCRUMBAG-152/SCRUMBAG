@@ -17,7 +17,6 @@ import Card from "../../customs/components/Card/Card.jsx";
 import CardBody from "../../customs/components/Card/CardBody.jsx";
 
 import buttonStyle from "../../customs/assets/jss/material-dashboard-pro-react/components/buttonStyle"
-import { events } from "../../customs/variables/general.jsx";
 import { createEvent } from "../../store/actions/calendarActions";
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'

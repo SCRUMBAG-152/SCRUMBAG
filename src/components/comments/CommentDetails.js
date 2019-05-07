@@ -1,9 +1,5 @@
-import React, {Fragment} from 'react'
-import Paper from '@material-ui/core/Paper';
-import CardContent from '@material-ui/core/CardContent';
+import React from 'react'
 import Typography from '@material-ui/core/Typography';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 import moment from "moment";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';

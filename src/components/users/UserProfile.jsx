@@ -27,7 +27,6 @@ import CardFooter from "../../customs/components/Card/CardFooter.jsx";
 import Place from "@material-ui/icons/Place";
 
 
-import ImageUpload from '../../customs/components/CustomUpload/PictureUpload'
 import userProfileStyles from "../../customs/assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx";
 
 import avatar from "../../customs/assets/img/default-avatar.png";

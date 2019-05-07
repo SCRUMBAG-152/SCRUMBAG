@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
 
 import PropTypes from 'prop-types'
 // react plugin for creating charts
@@ -29,7 +32,11 @@ import CardFooter from '../../customs/components/Card/CardFooter.jsx'
 import dashboardStyle from './dashboardStyle/dashboardStyle'
 
 const Analytics = (props) => {
-    const { classes } = props
+    const { classes, users } = props
+    console.log("Users: ", users)
+    console.log(users)
+    //console.log("Users: ", users.length)
+    // const count = users.map(x => x.firstName.length)
   return (
     <GridContainer>
         <GridItem xs={12} sm={6}>
@@ -56,7 +63,7 @@ const Analytics = (props) => {
                 <Icon>group</Icon>
             </CardIcon>
             <p className={classes.cardCategory}>Active Members</p>
-            <h3 className={classes.cardTitle}>7/10</h3>
+            <h3 className={classes.cardTitle}> </h3>
             </CardHeader>
             <CardFooter stats>
             <div className={classes.stats}>
@@ -108,4 +115,19 @@ Analytics.propTypes = {
     classes: PropTypes.object.isRequired
   }
 
-export default withStyles(dashboardStyle)(Analytics)
+// export default withStyles(dashboardStyle)(Analytics)
+
+const mapStateToProps = (state, props) => {
+    const users = state.firestore.ordered.users
+    return {
+      users: users,
+    }
+  }
+
+
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect((state) => [
+      { collection: 'users' },
+    ]))(withStyles(dashboardStyle)(Analytics));
+
