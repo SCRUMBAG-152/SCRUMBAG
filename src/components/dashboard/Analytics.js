@@ -32,7 +32,12 @@ import CardFooter from '../../customs/components/Card/CardFooter.jsx'
 import dashboardStyle from './dashboardStyle/dashboardStyle'
 
 const Analytics = (props) => {
+<<<<<<< HEAD
     const { classes, users } = props
+=======
+    const { classes, users, cards } = props
+    console.log("Users: ", users)
+>>>>>>> de6c26cbf73c6eb007fb40581d441a1050ee9a92
 
     if (users){
     console.log(users.length)
@@ -60,8 +65,8 @@ const Analytics = (props) => {
             <CardIcon color='warning'>
                 <Icon>content_copy</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>Tasks Completed </p>
-            <h3 className={classes.cardTitle}>35/50</h3>
+            <p className={classes.cardCategory}>Points Assigned</p>
+            <h3 className={classes.cardTitle}></h3>
             </CardHeader>
             <CardFooter stats>
             <div className={classes.stats}>
@@ -143,6 +148,8 @@ const mapStateToProps = (state, props) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect((state) => [
-      { collection: 'users' },
+      { collection: 'users',
+        //collection: 'cards', where: ['assignedTo', '==', `${state.profile.uid}`] 
+    },
     ]))(withStyles(dashboardStyle)(Analytics));
 
