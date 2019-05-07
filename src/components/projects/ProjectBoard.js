@@ -8,7 +8,7 @@ import { createTask } from '../../store/actions/taskActions'
 import { deleteTask } from '../../store/actions/taskActions'
 import { deleteColumn } from '../../store/actions/projectActions'
 import { dndTask } from '../../store/actions/taskActions'
-import { createEvent } from '../../store/actions/calendarActions'
+import { createTaskEvent } from '../../store/actions/calendarActions'
 
 import CustomCard from './CustomCard'
 import NewCard from './NewCard'
@@ -117,7 +117,7 @@ export class ProjectBoard extends React.Component {
       assignedTo: card.assignedTo,
     }
     this.props.createTask(task)
-    this.props.createEvent(task)
+    this.props.createTaskEvent(task)
   }
 
   onCardDelete = (taskID) => {
@@ -136,26 +136,52 @@ export class ProjectBoard extends React.Component {
 
   render() {
     const { data } = this.state
-    const { classes, users } = this.props
+    const { classes, users, profile } = this.props
     return (
-      <Board
-        className={classes.Board}
-        data={data}
-        draggable
-        editable
-        canAddLanes
-        customCardLayout
-        onCardAdd={this.onCardAdd}
-        onLaneAdd={this.onLaneAdd}
-        addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
-        onCardDelete={this.onCardDelete}
-        addLaneTitle={"Add New Column"}
-        customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
-        handleDragEnd={this.handleDragEnd}
-        newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
-      >
-        <CustomCard user={users} />
-      </Board>
+      <div>
+        {profile.role == "user" ?
+          (
+            <Board
+              className={classes.Board}
+              data={data}
+              draggable
+              //editable
+              //canAddLanes
+              customCardLayout
+              //onCardAdd={this.onCardAdd}
+              //onLaneAdd={this.onLaneAdd}
+              addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
+              //onCardDelete={this.onCardDelete}
+              //addLaneTitle={"Add New Column"}
+              //customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
+              handleDragEnd={this.handleDragEnd}
+              newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
+            >
+              <CustomCard user={users} />
+            </Board>
+          ):
+          (
+            <Board
+              className={classes.Board}
+              data={data}
+              draggable
+              editable
+              canAddLanes
+              customCardLayout
+              onCardAdd={this.onCardAdd}
+              onLaneAdd={this.onLaneAdd}
+              addCardLink={<Button variant="contained" className={classes.button}>Add Task</Button>}
+              onCardDelete={this.onCardDelete}
+              addLaneTitle={"Add New Column"}
+              customLaneHeader={<CustomLaneHeader onLaneDelete={this.onLaneDelete} />}
+              handleDragEnd={this.handleDragEnd}
+              newCardTemplate={<NewCard users={users} onCardAdd={this.onCardAdd} />}
+            >
+              <CustomCard user={users} />
+            </Board>
+          )
+        } 
+      </div>
     )
   }
 }
@@ -168,7 +194,7 @@ const mapDispatchToProps = (dispatch) => {
     deleteTask: (taskID) => dispatch(deleteTask(taskID)),
     deleteColumn: (columnID) => dispatch(deleteColumn(columnID)),
     dndTask: (result) => dispatch(dndTask(result)),
-    createEvent: (event) => dispatch(createEvent(event))
+    createTaskEvent: (event) => dispatch(createTaskEvent(event))
   }
 }
 const mapStateToProps = (state, props) => {
@@ -186,4 +212,3 @@ export default compose(
   firestoreConnect((state) => [
     { collection: 'users', where: ['company', '==', `${state.profile.company}`] },
   ]))(withStyles(styles)(ProjectBoard));
-
