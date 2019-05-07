@@ -34,17 +34,9 @@ const ProjectList = ({ projects, classes, company, role }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={24}>
-<<<<<<< HEAD
         {role != "user" ?
           (
             <Grid item xs={12} sm={6} md={4} lg={3}>
-=======
-
-        {role != "user" ?
-          (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-
->>>>>>> 9672e0f3d68b4cec84dccb1accfdd60f787ab3ab
               <Link to={'/newProject'}>
                 <Card className={classes.card}>
                   <CardContent>
