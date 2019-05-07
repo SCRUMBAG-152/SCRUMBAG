@@ -32,13 +32,7 @@ import CardFooter from '../../customs/components/Card/CardFooter.jsx'
 import dashboardStyle from './dashboardStyle/dashboardStyle'
 
 const Analytics = (props) => {
-<<<<<<< HEAD
-    const { classes, users } = props
-=======
     const { classes, users, cards } = props
-    console.log("Users: ", users)
->>>>>>> de6c26cbf73c6eb007fb40581d441a1050ee9a92
-
     if (users){
     console.log(users.length)
     }
@@ -83,7 +77,7 @@ const Analytics = (props) => {
                 <Icon>group</Icon>
             </CardIcon>
             <p className={classes.cardCategory}>Active Members</p>
-            <h3 className={classes.cardTitle}> </h3>
+            <h3 className={classes.cardTitle}></h3>
             </CardHeader>
             <CardFooter stats>
             <div className={classes.stats}>
