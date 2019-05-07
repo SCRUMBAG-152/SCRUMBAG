@@ -34,7 +34,20 @@ import dashboardStyle from './dashboardStyle/dashboardStyle'
 const Analytics = (props) => {
     const { classes, users } = props
     console.log("Users: ", users)
-    console.log(users)
+
+    function data(users) {
+        var i = 0
+        var data = []
+        if (users) {
+          while (i < users.length) {
+            data.push([users[i].firstName, users[i].lastName, users[i].role, users[i].company])
+            ++i;
+          }
+        }
+        return data;
+      }
+      console.log("Count: ", data.length)
+    
     //console.log("Users: ", users.length)
     // const count = users.map(x => x.firstName.length)
   return (
