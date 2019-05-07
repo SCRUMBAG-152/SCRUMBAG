@@ -78,13 +78,11 @@ class Calendar extends React.Component {
       title: e,
       start: slotInfo.start,
       end: slotInfo.end,
-      dueDate: slotInfo.start,
     });
     var newEvent = {
       title: e,
       start: slotInfo.start,
       end: slotInfo.end,
-      dueDate: slotInfo.start,
     }
     this.props.createEvent(newEvent)
     this.setState({
@@ -172,9 +170,9 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((state,props) => {
+  firestoreConnect((state, props) => {
     return ([
-      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] } ,
+      { collection: 'events', where: ['authorCompany', '==', `${state.profile.company}`] },
     ])
   }),
-) (withStyles(buttonStyle)(Calendar))
+)(withStyles(buttonStyle)(Calendar))
